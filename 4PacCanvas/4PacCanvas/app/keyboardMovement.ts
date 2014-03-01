@@ -5,6 +5,7 @@ interface Ball {
 //    velocityY: number;
     radius: number;
     color: string;
+    rotation: number;
 }
 
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -31,7 +32,8 @@ var ball = {
 //    velocityX: 3 * Math.random(),
 //    velocityY: 3 * Math.random(),
     radius: 15,
-    color: 'FFFF77'
+    color: 'FFFF77',
+    rotation: 0
 };
 
 drawTheGrid('lightgray', 10, 10);
@@ -97,14 +99,42 @@ function moveBall() {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     drawTheGrid('lightgray', 10, 10);
 
-    var stepX = leftPressed ? -10 : rightPressed ? 10 : 0;
-    var stepY = upPressed ? -10 : downPressed ? 10 : 0;
+    var stepX = 0;
+    var stepY = 0;
+    var rotations = [];
+    if (leftPressed) {
+        stepX = -10;
+        rotations.push(1);
+    }
+    if (upPressed) {
+        stepY = -10;
+        rotations.push(1.5);
+    }
+    if (downPressed) {
+        stepY = 10;
+        rotations.push(0.5);
+    }
+    if (rightPressed) {
+        stepX = 10;
+        if (upPressed) {
+            rotations.push(2);
+        } else {
+            rotations.push(0);
+        }
+    }
+
+    // 0, 1.5 => 1.75
+    // 0, .5 => .25
+    if (rotations.length > 0) {
+        var rotationSum = rotations.reduce((x, y) => x + y, 0);
+        ball.rotation = rotationSum / rotations.length;
+    }
 
     ball.x = ball.x + stepX;
     ball.y = ball.y + stepY;
 
     context.beginPath();
-    context.arc(ball.x, ball.y, ball.radius, .15 * Math.PI, 1.85 * Math.PI, false);
+    context.arc(ball.x, ball.y, ball.radius, (.15 + ball.rotation) * Math.PI, (1.85 + ball.rotation) * Math.PI, false);
     context.lineTo(ball.x, ball.y);
     context.lineTo(ball.x + (ball.radius * .15), ball.y + ball.radius * .15);
     context.fillStyle = ball.color;
