@@ -112,8 +112,6 @@ function moveBall() {
         }
     }
 
-    // 0, 1.5 => 1.75
-    // 0, .5 => .25
     if (rotations.length > 0) {
         var rotationSum = rotations.reduce(function (x, y) {
             return x + y;
@@ -121,8 +119,15 @@ function moveBall() {
         ball.rotation = rotationSum / rotations.length;
     }
 
-    ball.x = ball.x + stepX;
-    ball.y = ball.y + stepY;
+    var newX = ball.x + stepX;
+    var newY = ball.y + stepY;
+
+    if (newX + ball.radius < context.canvas.width && newX - ball.radius > 0) {
+        ball.x = ball.x + stepX;
+    }
+    if (newY + ball.radius < context.canvas.height && newY - ball.radius > 0) {
+        ball.y = ball.y + stepY;
+    }
 
     context.beginPath();
     context.arc(ball.x, ball.y, ball.radius, (.15 + ball.rotation) * Math.PI, (1.85 + ball.rotation) * Math.PI, false);
