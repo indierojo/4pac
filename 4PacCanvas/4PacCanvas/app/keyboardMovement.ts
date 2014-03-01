@@ -30,10 +30,8 @@ var ball = {
     y: 100,
 //    velocityX: 3 * Math.random(),
 //    velocityY: 3 * Math.random(),
-    radius: 50 * Math.random(),
-    color: 'rgba(' + (Math.random() * 255).toFixed(0) + ', ' +
-    (Math.random() * 255).toFixed(0) + ', ' +
-    (Math.random() * 255).toFixed(0) + ', 1.0)'
+    radius: 15,
+    color: 'FFFF77'
 };
 
 drawTheGrid('lightgray', 10, 10);
