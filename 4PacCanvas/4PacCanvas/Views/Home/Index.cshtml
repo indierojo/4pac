@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+    Response.Headers["X-UA-Compatible"] = "IE=10";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Canvas!</title>
+    <style>
+        body {
+            background: #ddd;
+        }
+
+        #canvas {
+            margin-left: 10px;
+            margin-top: 10px;
+            background: #fff;
+            border: thin inset #aaa;
+        }
+
+        #glasspane {
+            position: absolute;
+            left: 50px;
+            top: 50px;
+            color: blue;
+        }
+    </style>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+    <body>
+        <div id="readout"></div>
+        <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/angular")
+        @Scripts.Render("~/bundles/app")
+        @Scripts.Render("~/bundles/bootstrap")
+    </body>
+</html>
