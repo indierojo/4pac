@@ -1,4 +1,6 @@
-﻿@{
+﻿@model string
+
+@{
     Layout = null;
     Response.Headers["X-UA-Compatible"] = "IE=10";
 }
@@ -37,13 +39,13 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-    <body>
-        <div id="readout"></div>
-        <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
+<body>
+    <div id="readout"></div>
+    <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/angular")
-        @Scripts.Render("~/bundles/app")
-        @Scripts.Render("~/bundles/bootstrap")
-    </body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/utilities")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
 </html>
