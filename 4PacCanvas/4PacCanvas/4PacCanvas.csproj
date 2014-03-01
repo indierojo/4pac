@@ -550,6 +550,7 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Utilities\TestSpritesheet.cshtml" />
     <Content Include="Views\Utilities\BouncingBalls.cshtml" />
+    <Content Include="Views\Utilities\KeyboardMovement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -562,6 +563,7 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />
     <TypeScriptCompile Include="app\spritesheet.ts" />
     <TypeScriptCompile Include="app\canvas.ts" />

@@ -16,5 +16,11 @@ namespace _4PacCanvas.Controllers
         {
             return View();
         }
+        //
+        // GET: /Utilities/KeyboardMovement
+        public ActionResult KeyboardMovement()
+        {
+            return View();
+        }
 	}
 }
