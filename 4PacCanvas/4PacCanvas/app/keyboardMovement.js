@@ -1,11 +1,20 @@
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var readout = document.getElementById('readout');
+
+var upLabel = document.getElementById('upLabel');
+var downLabel = document.getElementById('downLabel');
+var leftLabel = document.getElementById('leftLabel');
+var rightLabel = document.getElementById('rightLabel');
 
 var upArrowKeycode = 38;
 var downArrowKeycode = 40;
 var leftArrowKeycode = 37;
 var rightArrowKeycode = 39;
+
+var upPressed = false;
+var downPressed = false;
+var leftPressed = false;
+var rightPressed = false;
 
 var ball = {
     x: 100,
@@ -18,36 +27,68 @@ var ball = {
 
 drawTheGrid('lightgray', 10, 10);
 
-moveBall(0, 0);
+moveBall();
 
 context.lineWidth = 0.5;
 context.font = '32pt Arial';
 
 window.onkeydown = function (e) {
     var keyCode = e.keyCode;
-    readout.innerText = keyCode.toString();
 
     if (keyCode === upArrowKeycode) {
-        moveBall(0, -10);
+        upPressed = true;
+        downPressed = false;
     }
     if (keyCode === downArrowKeycode) {
-        moveBall(0, 10);
+        downPressed = true;
+        upPressed = false;
     }
     if (keyCode === leftArrowKeycode) {
-        moveBall(-10, 0);
+        leftPressed = true;
+        rightPressed = false;
     }
     if (keyCode === rightArrowKeycode) {
-        moveBall(10, 0);
+        rightPressed = true;
+        leftPressed = false;
     }
+
+    moveBall();
+    updateLabels();
 };
 
-window.onkeyup = function () {
-    readout.innerText = "";
+window.onkeyup = function (e) {
+    var keyCode = e.keyCode;
+    if (keyCode === upArrowKeycode) {
+        upPressed = false;
+    }
+    if (keyCode === downArrowKeycode) {
+        downPressed = false;
+    }
+    if (keyCode === leftArrowKeycode) {
+        leftPressed = false;
+    }
+    if (keyCode === rightArrowKeycode) {
+        rightPressed = false;
+    }
+
+    updateLabels();
+    moveBall();
 };
 
-function moveBall(stepX, stepY) {
+function updateLabels() {
+    var upclassName = upPressed ? 'green' : 'red';
+    upLabel.setAttribute("class", upclassName);
+    downLabel.className = downPressed ? 'green' : 'red';
+    leftLabel.className = leftPressed ? 'green' : 'red';
+    rightLabel.className = rightPressed ? 'green' : 'red';
+}
+
+function moveBall() {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     drawTheGrid('lightgray', 10, 10);
+
+    var stepX = leftPressed ? -10 : rightPressed ? 10 : 0;
+    var stepY = upPressed ? -10 : downPressed ? 10 : 0;
 
     ball.x = ball.x + stepX;
     ball.y = ball.y + stepY;

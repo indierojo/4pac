@@ -34,11 +34,24 @@
             top: 20px;
             color: blue;
         }
+
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
     </style>
 
 </head>
 <body>
-    <div id="readout"></div>
+    <div id="readout">
+        <span id="upLabel" class="red">Up</span>
+        <span id="downLabel" class="red">Down</span>
+        <span id="leftLabel" class="red">Left</span>
+        <span id="rightLabel" class="red">Right</span>
+    </div>
     <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
 
     @Scripts.Render("~/app/keyboardMovement.js")
