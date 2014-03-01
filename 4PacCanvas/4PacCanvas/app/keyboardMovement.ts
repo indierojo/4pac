@@ -104,7 +104,9 @@ function moveBall() {
     ball.y = ball.y + stepY;
 
     context.beginPath();
-    context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2, false);
+    context.arc(ball.x, ball.y, ball.radius, .15 * Math.PI, 1.85 * Math.PI, false);
+    context.lineTo(ball.x, ball.y);
+    context.lineTo(ball.x + (ball.radius * .15), ball.y + ball.radius * .15);
     context.fillStyle = ball.color;
     context.fill();
 }
