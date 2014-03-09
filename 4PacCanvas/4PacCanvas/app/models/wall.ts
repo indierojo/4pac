@@ -12,7 +12,7 @@ class Wall extends Glyph implements Drawable {
         context.stroke();
     };
 
-    constructor(x: number, y: number, width: number = null, height: number = null) {
-        super(x, y, width || wallWidth, height || wallWidth);
+    constructor(x: number, y: number, width: number = 10, height: number = 10) {
+        super(x, y, width, height);
     }
 } 

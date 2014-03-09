@@ -18,8 +18,6 @@ var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
 
-var wallWidth = 10;
-
 var ball = new Ball(100, 100, 15, 'FFFF77');
 
 walls.push(new Wall(10, 10));
@@ -82,8 +80,7 @@ window.onkeyup = function (e) {
     moveBall();
 };
 
-function wallAt(coord) {
-    var glyph = new Glyph(coord.x, coord.y, 2 * ball.radius, 2 * ball.radius);
+function wallAt(glyph) {
     return walls.some(function (w) {
         return w.collidesWith(glyph);
     });
@@ -141,7 +138,8 @@ function moveBall() {
     var newY = ball.y + stepY;
 
     console.log("ballX: " + newX + ", ballY: " + newY);
-    if (wallAt({ x: newX, y: newY })) {
+    var potentialLocation = new Glyph(newX, newY, ball.width, ball.height);
+    if (wallAt(potentialLocation)) {
         console.log("Wall!");
     } else {
         if (newX + ball.radius < context.canvas.width && newX - ball.radius > 0) {

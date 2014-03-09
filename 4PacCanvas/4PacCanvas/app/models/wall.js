@@ -7,9 +7,9 @@ var __extends = this.__extends || function (d, b) {
 var Wall = (function (_super) {
     __extends(Wall, _super);
     function Wall(x, y, width, height) {
-        if (typeof width === "undefined") { width = null; }
-        if (typeof height === "undefined") { height = null; }
-        _super.call(this, x, y, width || wallWidth, height || wallWidth);
+        if (typeof width === "undefined") { width = 10; }
+        if (typeof height === "undefined") { height = 10; }
+        _super.call(this, x, y, width, height);
         this.draw = function () {
             context.beginPath();
             context.lineWidth = 1;
