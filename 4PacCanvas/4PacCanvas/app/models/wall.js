@@ -1,7 +1,15 @@
-var Wall = (function () {
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Wall = (function (_super) {
+    __extends(Wall, _super);
     function Wall(x, y, width, height) {
         if (typeof width === "undefined") { width = null; }
         if (typeof height === "undefined") { height = null; }
+        _super.call(this, x, y, width || wallWidth, height || wallWidth);
         this.draw = function () {
             context.beginPath();
             context.lineWidth = 1;
@@ -13,11 +21,7 @@ var Wall = (function () {
             context.lineTo(this.x, this.y);
             context.stroke();
         };
-        this.x = x;
-        this.y = y;
-        this.width = width || wallWidth;
-        this.height = height || wallWidth;
     }
     return Wall;
-})();
+})(Glyph);
 //# sourceMappingURL=wall.js.map

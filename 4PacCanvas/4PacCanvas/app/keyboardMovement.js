@@ -83,56 +83,9 @@ window.onkeyup = function (e) {
 };
 
 function wallAt(coord) {
-    var ballTop = coord.y;
-    var ballBottom = coord.y + (2 * ball.radius);
-    var ballLeft = coord.x;
-    var ballRight = coord.x + (2 * ball.radius);
-
+    var glyph = new Glyph(coord.x, coord.y, 2 * ball.radius, 2 * ball.radius);
     return walls.some(function (w) {
-        var wallLeft = w.x;
-        var wallRight = w.x + wallWidth;
-        var wallTop = w.y;
-        var wallBottom = w.y + wallWidth;
-
-        var xBad;
-        var yBad;
-
-        if (wallLeft == ballLeft) {
-            xBad = true;
-        } else if (wallLeft < ballLeft) {
-            if (wallRight < ballLeft) {
-                xBad = false;
-            } else {
-                xBad = true;
-            }
-        } else {
-            if (ballRight <= wallLeft) {
-                xBad = false;
-            } else {
-                xBad = true;
-            }
-        }
-
-        if (wallTop == ballTop) {
-            yBad = true;
-        } else if (wallTop < ballTop) {
-            if (wallBottom < ballTop) {
-                yBad = false;
-            } else {
-                yBad = true;
-            }
-        } else {
-            if (ballBottom <= wallTop) {
-                yBad = false;
-            } else {
-                yBad = true;
-            }
-        }
-
-        //        if (xBad && yBad) {
-        //            console.log("Collided with " + w.x, w.y);
-        //        }
-        return xBad && yBad;
+        return w.collidesWith(glyph);
     });
 }
 

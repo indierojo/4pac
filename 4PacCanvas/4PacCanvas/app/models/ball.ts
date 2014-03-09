@@ -1,14 +1,10 @@
-class Ball implements  Glyph {
+class Ball extends Glyph implements Drawable {
 //    velocityX: number;
 //    velocityY: number;
-    x: number;
-    y: number;
     radius: number;
     color: string;
     rotation: number;
 
-    width = this.radius * 2;
-    height = this.radius * 2;
     draw = function() {
         context.beginPath();
         context.arc(this.x, this.y, this.radius, (.15 + this.rotation) * Math.PI, (1.85 + this.rotation) * Math.PI, false);
@@ -19,8 +15,7 @@ class Ball implements  Glyph {
     }
 
     constructor(x: number, y: number, radius: number, color: string) {
-        this.x = x;
-        this.y = y;
+        super(x, y, radius * 2, radius * 2);
         this.radius = radius;
         this.color = color;
         this.rotation = 0;

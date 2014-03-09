@@ -565,6 +565,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="app\interfaces\Coord.ts" />
     <TypeScriptCompile Include="app\interfaces\Dimension.ts" />
+    <TypeScriptCompile Include="app\interfaces\Drawable.ts" />
     <TypeScriptCompile Include="app\interfaces\Glyph.ts" />
     <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />

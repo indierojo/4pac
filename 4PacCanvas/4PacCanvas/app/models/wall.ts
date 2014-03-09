@@ -1,8 +1,4 @@
-class Wall implements Glyph {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+class Wall extends Glyph implements Drawable {
 
     draw = function () {
         context.beginPath();
@@ -17,9 +13,6 @@ class Wall implements Glyph {
     };
 
     constructor(x: number, y: number, width: number = null, height: number = null) {
-        this.x = x;
-        this.y = y;
-        this.width = width || wallWidth;
-        this.height = height || wallWidth;
+        super(x, y, width || wallWidth, height || wallWidth);
     }
 } 
