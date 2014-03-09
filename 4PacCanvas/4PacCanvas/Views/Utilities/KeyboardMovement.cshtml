@@ -53,6 +53,11 @@
     </div>
     <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
 
+    @Scripts.Render("~/app/interfaces/Coord.js")
+    @Scripts.Render("~/app/interfaces/Dimension.js")
+    @Scripts.Render("~/app/interfaces/Glyph.js")
+    @Scripts.Render("~/app/models/ball.js")
+    @Scripts.Render("~/app/models/wall.js")
     @Scripts.Render("~/app/keyboardMovement.js")
 </body>
 </html>

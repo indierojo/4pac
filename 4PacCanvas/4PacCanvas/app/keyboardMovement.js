@@ -20,24 +20,16 @@ var rightPressed = false;
 
 var wallWidth = 10;
 
-var ball = {
-    x: 100,
-    y: 100,
-    //    velocityX: 3 * Math.random(),
-    //    velocityY: 3 * Math.random(),
-    radius: 15,
-    color: 'FFFF77',
-    rotation: 0
-};
+var ball = new Ball(100, 100, 15, 'FFFF77');
 
-walls.push({ x: 10, y: 10 });
-walls.push({ x: 200, y: 200 });
-walls.push({ x: 300, y: 300 });
-walls.push({ x: 300, y: 310 });
-walls.push({ x: 300, y: 320 });
-walls.push({ x: 300, y: 330 });
-walls.push({ x: 300, y: 340 });
-walls.push({ x: context.canvas.width, y: context.canvas.height });
+walls.push(new Wall(10, 10));
+walls.push(new Wall(200, 200));
+walls.push(new Wall(300, 300));
+walls.push(new Wall(300, 310));
+walls.push(new Wall(300, 320));
+walls.push(new Wall(300, 330));
+walls.push(new Wall(300, 340));
+walls.push(new Wall(context.canvas.width, context.canvas.height));
 
 drawTheGrid('lightgray', 10, 10);
 drawTheWalls();
@@ -96,14 +88,14 @@ function wallAt(coord) {
     var ballLeft = coord.x;
     var ballRight = coord.x + (2 * ball.radius);
 
-    return walls.some(function (w, x, y) {
+    return walls.some(function (w) {
         var wallLeft = w.x;
         var wallRight = w.x + wallWidth;
         var wallTop = w.y;
         var wallBottom = w.y + wallWidth;
 
-        var xBad = false;
-        var yBad = false;
+        var xBad;
+        var yBad;
 
         if (wallLeft == ballLeft) {
             xBad = true;
@@ -142,18 +134,6 @@ function wallAt(coord) {
         //        }
         return xBad && yBad;
     });
-}
-
-function drawWall(coord) {
-    context.beginPath();
-    context.lineWidth = 1;
-    context.strokeStyle = ball.color;
-    context.moveTo(coord.x, coord.y);
-    context.lineTo(coord.x - wallWidth, coord.y);
-    context.lineTo(coord.x - wallWidth, coord.y - wallWidth);
-    context.lineTo(coord.x, coord.y - wallWidth);
-    context.lineTo(coord.x, coord.y);
-    context.stroke();
 }
 
 function updateLabels() {
@@ -219,12 +199,7 @@ function moveBall() {
         }
     }
 
-    context.beginPath();
-    context.arc(ball.x, ball.y, ball.radius, (.15 + ball.rotation) * Math.PI, (1.85 + ball.rotation) * Math.PI, false);
-    context.lineTo(ball.x, ball.y);
-    context.lineTo(ball.x + (ball.radius * .15), ball.y + ball.radius * .15);
-    context.fillStyle = ball.color;
-    context.fill();
+    ball.draw();
 }
 
 function drawTheGrid(color, stepx, stepy) {
@@ -247,7 +222,7 @@ function drawTheGrid(color, stepx, stepy) {
 
 function drawTheWalls() {
     walls.forEach(function (wall) {
-        drawWall(wall);
+        wall.draw();
     });
 }
 //# sourceMappingURL=keyboardMovement.js.map

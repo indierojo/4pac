@@ -563,8 +563,13 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\interfaces\Coord.ts" />
+    <TypeScriptCompile Include="app\interfaces\Dimension.ts" />
+    <TypeScriptCompile Include="app\interfaces\Glyph.ts" />
     <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />
+    <TypeScriptCompile Include="app\models\ball.ts" />
+    <TypeScriptCompile Include="app\models\wall.ts" />
     <TypeScriptCompile Include="app\spritesheet.ts" />
     <TypeScriptCompile Include="app\canvas.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
