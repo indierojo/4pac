@@ -29,7 +29,6 @@ walls.push(new Wall(300, 330));
 walls.push(new Wall(300, 340));
 walls.push(new Wall(context.canvas.width, context.canvas.height));
 
-drawTheGrid('lightgray', 10, 10);
 drawTheWalls();
 
 moveBall();
@@ -128,7 +127,6 @@ function moveBall() {
     }
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    drawTheGrid('lightgray', 10, 10);
     drawTheWalls();
 
     var newX = ball.x + stepX;
@@ -149,24 +147,6 @@ function moveBall() {
     }
 
     ball.draw();
-}
-
-function drawTheGrid(color: string, stepx: number, stepy: number) {
-    context.strokeStyle = color;
-    context.lineWidth = 0.5;
-
-    for (var i = stepx + 0.5; i < context.canvas.width; i += stepx) {
-        context.beginPath();
-        context.moveTo(i, 0);
-        context.lineTo(i, context.canvas.height);
-        context.stroke();
-    }
-    for (var j = stepy + 0.5; i < context.canvas.width; j += stepy) {
-        context.beginPath();
-        context.moveTo(0, j);
-        context.lineTo(context.canvas.width, j);
-        context.stroke();
-    }
 }
 
 function drawTheWalls() {
