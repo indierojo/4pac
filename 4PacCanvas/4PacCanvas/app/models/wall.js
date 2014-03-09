@@ -6,14 +6,15 @@ var __extends = this.__extends || function (d, b) {
 };
 var Wall = (function (_super) {
     __extends(Wall, _super);
-    function Wall(x, y, width, height) {
+    function Wall(x, y, width, height, color) {
         if (typeof width === "undefined") { width = 10; }
         if (typeof height === "undefined") { height = 10; }
+        if (typeof color === "undefined") { color = 'FFFF77'; }
         _super.call(this, x, y, width, height);
         this.draw = function () {
             context.beginPath();
             context.lineWidth = 1;
-            context.strokeStyle = ball.color;
+            context.strokeStyle = this.color;
             context.moveTo(this.x, this.y);
             context.lineTo(this.x - this.width, this.y);
             context.lineTo(this.x - this.width, this.y - this.height);
@@ -21,6 +22,7 @@ var Wall = (function (_super) {
             context.lineTo(this.x, this.y);
             context.stroke();
         };
+        this.color = color;
     }
     return Wall;
 })(Glyph);
