@@ -18,8 +18,6 @@ var downPressed: boolean = false;
 var leftPressed: boolean = false;
 var rightPressed: boolean = false;
 
-var ball = new Ball(100, 100, 15, 'FFFF77');
-
 walls.push(new Wall(10, 10 ));
 walls.push(new Wall(200, 200));
 walls.push(new Wall(300, 300));
@@ -31,6 +29,8 @@ walls.push(new Wall(context.canvas.width, context.canvas.height));
 
 drawTheWalls();
 
+var ball = new Ball(100, 100, 15, 'FFFF77');
+ball.draw();
 moveBall();
 
 context.lineWidth = 0.5;
