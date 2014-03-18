@@ -42,18 +42,26 @@ window.onkeydown = function (e) {
     if (keyCode === upArrowKeycode) {
         upPressed = true;
         downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
     }
     if (keyCode === downArrowKeycode) {
-        downPressed = true;
         upPressed = false;
+        downPressed = true;
+        leftPressed = false;
+        rightPressed = false;
     }
     if (keyCode === leftArrowKeycode) {
+        upPressed = false;
+        downPressed = false;
         leftPressed = true;
         rightPressed = false;
     }
     if (keyCode === rightArrowKeycode) {
-        rightPressed = true;
+        upPressed = false;
+        downPressed = false;
         leftPressed = false;
+        rightPressed = true;
     }
 
     moveBall();
@@ -134,18 +142,24 @@ function moveBall() {
 
     var newX = ball.center.x + stepX;
     var newY = ball.center.y + stepY;
+    if (newX > context.canvas.width) {
+        newX = 0 + ball.radius;
+    } else if (newX < 0) {
+        newX = context.canvas.width - ball.radius;
+    }
+    if (newY > context.canvas.height) {
+        newY = 0 + ball.radius;
+    } else if (newY < 0) {
+        newY = context.canvas.height - ball.radius;
+    }
 
     console.log("ballX: " + newX + ", ballY: " + newY);
     var potentialLocation = new Glyph({ x: newX, y: newY }, ball.dimension, newX - ball.radius, newX + ball.radius, newY - ball.radius, newY + ball.radius);
     if (wallAt(potentialLocation)) {
         console.log("Wall!");
     } else {
-        if (newX + ball.radius < context.canvas.width && newX - ball.radius > 0) {
-            ball.x = newX;
-        }
-        if (newY + ball.radius < context.canvas.height && newY - ball.radius > 0) {
-            ball.y = newY;
-        }
+        ball.center.x = newX;
+        ball.center.y = newY;
     }
 
     ball.draw();
