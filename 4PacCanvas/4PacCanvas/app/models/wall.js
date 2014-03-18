@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+﻿var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -6,22 +6,23 @@ var __extends = this.__extends || function (d, b) {
 };
 var Wall = (function (_super) {
     __extends(Wall, _super);
-    function Wall(x, y, width, height, color) {
-        if (typeof width === "undefined") { width = 10; }
-        if (typeof height === "undefined") { height = 10; }
+    function Wall(topLeft, width, height, color) {
+        if (typeof width === "undefined") { width = 30; }
+        if (typeof height === "undefined") { height = 30; }
         if (typeof color === "undefined") { color = 'FFFF77'; }
-        _super.call(this, x, y, width, height);
+        _super.call(this, { x: topLeft.x + (width / 2), y: topLeft.y + (height / 2) }, { width: width, height: height }, topLeft.x, topLeft.x + width, topLeft.y, topLeft.y + height);
         this.draw = function () {
             context.beginPath();
             context.lineWidth = 1;
             context.strokeStyle = this.color;
-            context.moveTo(this.x, this.y);
-            context.lineTo(this.x - this.width, this.y);
-            context.lineTo(this.x - this.width, this.y - this.height);
-            context.lineTo(this.x, this.y - this.width);
-            context.lineTo(this.x, this.y);
+            context.moveTo(this.topLeft.x, this.topLeft.y);
+            context.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y);
+            context.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y + this.dimension.height);
+            context.lineTo(this.topLeft.x, this.topLeft.y + this.dimension.height);
+            context.lineTo(this.topLeft.x, this.topLeft.y);
             context.stroke();
         };
+        this.topLeft = topLeft;
         this.color = color;
     }
     return Wall;

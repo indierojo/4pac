@@ -1,21 +1,19 @@
 class Ball extends Glyph implements Drawable {
-//    velocityX: number;
-//    velocityY: number;
     radius: number;
     color: string;
     rotation: number;
 
     draw = function() {
         context.beginPath();
-        context.arc(this.x, this.y, this.radius, (.15 + this.rotation) * Math.PI, (1.85 + this.rotation) * Math.PI, false);
-        context.lineTo(this.x, this.y);
-        context.lineTo(this.x + (this.radius * .15), this.y + this.radius * .15);
+        context.arc(this.center.x, this.center.y, this.radius, (.15 + this.rotation) * Math.PI, (1.85 + this.rotation) * Math.PI, false);
+        context.lineTo(this.center.x, this.center.y);
+        context.lineTo(this.center.x + (this.radius * .15), this.center.y + this.radius * .15);
         context.fillStyle = this.color;
         context.fill();
     }
 
-    constructor(x: number, y: number, radius: number, color: string) {
-        super(x, y, radius * 2, radius * 2);
+    constructor(center: Coord, radius: number, color: string) {
+        super(center, { width: radius * 2, height: radius * 2 }, center.x - radius, center.x + radius, center.y - radius, center.y + radius);
         this.radius = radius;
         this.color = color;
         this.rotation = 0;

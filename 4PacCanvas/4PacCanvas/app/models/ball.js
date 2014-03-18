@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+﻿var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -6,13 +6,13 @@ var __extends = this.__extends || function (d, b) {
 };
 var Ball = (function (_super) {
     __extends(Ball, _super);
-    function Ball(x, y, radius, color) {
-        _super.call(this, x, y, radius * 2, radius * 2);
+    function Ball(center, radius, color) {
+        _super.call(this, center, { width: radius * 2, height: radius * 2 }, center.x - radius, center.x + radius, center.y - radius, center.y + radius);
         this.draw = function () {
             context.beginPath();
-            context.arc(this.x, this.y, this.radius, (.15 + this.rotation) * Math.PI, (1.85 + this.rotation) * Math.PI, false);
-            context.lineTo(this.x, this.y);
-            context.lineTo(this.x + (this.radius * .15), this.y + this.radius * .15);
+            context.arc(this.center.x, this.center.y, this.radius, (.15 + this.rotation) * Math.PI, (1.85 + this.rotation) * Math.PI, false);
+            context.lineTo(this.center.x, this.center.y);
+            context.lineTo(this.center.x + (this.radius * .15), this.center.y + this.radius * .15);
             context.fillStyle = this.color;
             context.fill();
         };

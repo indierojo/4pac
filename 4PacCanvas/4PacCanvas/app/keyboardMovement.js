@@ -18,18 +18,18 @@ var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
 
-walls.push(new Wall(10, 10));
-walls.push(new Wall(200, 200));
-walls.push(new Wall(300, 300));
-walls.push(new Wall(300, 310));
-walls.push(new Wall(300, 320));
-walls.push(new Wall(300, 330));
-walls.push(new Wall(300, 340));
-walls.push(new Wall(context.canvas.width, context.canvas.height));
+walls.push(new Wall({ x: 0, y: 0 }));
+walls.push(new Wall({ x: 200, y: 200 }));
+walls.push(new Wall({ x: 300, y: 300 }));
+walls.push(new Wall({ x: 300, y: 330 }));
+walls.push(new Wall({ x: 300, y: 360 }));
+walls.push(new Wall({ x: 300, y: 390 }));
+walls.push(new Wall({ x: 300, y: 420 }));
+walls.push(new Wall({ x: context.canvas.width - 30, y: context.canvas.height - 30 }));
 
 drawTheWalls();
 
-var ball = new Ball(100, 100, 15, 'FFFF77');
+var ball = new Ball({ x: 100, y: 100 }, 15, 'FFFF77');
 ball.draw();
 moveBall();
 
@@ -132,11 +132,11 @@ function moveBall() {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     drawTheWalls();
 
-    var newX = ball.x + stepX;
-    var newY = ball.y + stepY;
+    var newX = ball.center.x + stepX;
+    var newY = ball.center.y + stepY;
 
     console.log("ballX: " + newX + ", ballY: " + newY);
-    var potentialLocation = new Glyph(newX, newY, ball.width, ball.height);
+    var potentialLocation = new Glyph({ x: newX, y: newY }, ball.dimension, newX - ball.radius, newX + ball.radius, newY - ball.radius, newY + ball.radius);
     if (wallAt(potentialLocation)) {
         console.log("Wall!");
     } else {

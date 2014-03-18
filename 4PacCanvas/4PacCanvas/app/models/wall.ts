@@ -1,20 +1,22 @@
 class Wall extends Glyph implements Drawable {
     color: string;
+    topLeft: Coord;
 
     draw = function () {
         context.beginPath();
         context.lineWidth = 1;
         context.strokeStyle = this.color;
-        context.moveTo(this.x, this.y);
-        context.lineTo(this.x - this.width, this.y);
-        context.lineTo(this.x - this.width, this.y - this.height);
-        context.lineTo(this.x, this.y - this.width);
-        context.lineTo(this.x, this.y);
+        context.moveTo(this.topLeft.x, this.topLeft.y);
+        context.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y);
+        context.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y + this.dimension.height);
+        context.lineTo(this.topLeft.x, this.topLeft.y + this.dimension.height);
+        context.lineTo(this.topLeft.x, this.topLeft.y);
         context.stroke();
     };
 
-    constructor(x: number, y: number, width: number = 10, height: number = 10, color: string = 'FFFF77') {
-        super(x, y, width, height);
+    constructor(topLeft: Coord, width: number = 30, height: number = 30, color: string = 'FFFF77') {
+        super({ x: topLeft.x + (width / 2), y: topLeft.y + (height / 2) }, { width: width, height: height }, topLeft.x, topLeft.x + width, topLeft.y, topLeft.y + height);
+        this.topLeft = topLeft;
         this.color = color;
     }
 } 
