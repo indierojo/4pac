@@ -569,8 +569,8 @@
     <TypeScriptCompile Include="app\interfaces\Glyph.ts" />
     <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />
-    <TypeScriptCompile Include="app\models\ball.ts" />
-    <TypeScriptCompile Include="app\models\wall.ts" />
+    <TypeScriptCompile Include="app\models\Ball.ts" />
+    <TypeScriptCompile Include="app\models\Wall.ts" />
     <TypeScriptCompile Include="app\spritesheet.ts" />
     <TypeScriptCompile Include="app\canvas.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
