@@ -551,6 +551,7 @@
     <Content Include="Views\Utilities\TestSpritesheet.cshtml" />
     <Content Include="Views\Utilities\BouncingBalls.cshtml" />
     <Content Include="Views\Utilities\KeyboardMovement.cshtml" />
+    <Content Include="Views\Utilities\AnimationFrame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -571,6 +572,7 @@
     <TypeScriptCompile Include="app\balls.ts" />
     <TypeScriptCompile Include="app\models\Ball.ts" />
     <TypeScriptCompile Include="app\models\Wall.ts" />
+    <TypeScriptCompile Include="app\animationFrame.ts" />
     <TypeScriptCompile Include="app\requestNextAnimationFrame.ts" />
     <TypeScriptCompile Include="app\spritesheet.ts" />
     <TypeScriptCompile Include="app\canvas.ts" />

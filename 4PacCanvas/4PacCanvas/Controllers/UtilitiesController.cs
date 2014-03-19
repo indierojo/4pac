@@ -22,5 +22,10 @@ namespace _4PacCanvas.Controllers
         {
             return View();
         }
+
+        public ActionResult AnimationFrame()
+        {
+            return View();
+        }
 	}
 }
