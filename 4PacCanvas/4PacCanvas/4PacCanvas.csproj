@@ -571,6 +571,7 @@
     <TypeScriptCompile Include="app\balls.ts" />
     <TypeScriptCompile Include="app\models\Ball.ts" />
     <TypeScriptCompile Include="app\models\Wall.ts" />
+    <TypeScriptCompile Include="app\requestNextAnimationFrame.ts" />
     <TypeScriptCompile Include="app\spritesheet.ts" />
     <TypeScriptCompile Include="app\canvas.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
