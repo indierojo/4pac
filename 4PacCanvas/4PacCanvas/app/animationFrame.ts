@@ -2,6 +2,7 @@
 
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
 var context = canvas.getContext('2d');
+
 var paused = true;
 var discs = [
     {
@@ -46,6 +47,15 @@ var discs = [
 ];
 var numDiscs = discs.length;
 var animateButton = <HTMLInputElement> document.getElementById('animateButton');
+
+var lastTime = 0;
+function calculateFps() {
+    var now = (+new Date);
+    var fps = 1000 / (now - lastTime);
+
+    lastTime = now;
+    return fps;
+}
 
 function drawBackground() {
     var verticalLineSpacing = 12;
@@ -101,7 +111,7 @@ function draw() {
     }
 }
 
-function ani(time) {
+function animate(time) {
     console.log("entered animate");
     debugger;
     if (!paused) {
@@ -111,7 +121,10 @@ function ani(time) {
         update();
         draw();
 
-        window['requestNextAnimationFrame'](ani);
+        context.fillStyle = 'cornflowerblue';
+        context.fillText(calculateFps().toFixed() + ' fps', 20, 60);
+
+        window['requestNextAnimationFrame'](animate);
     }
 }
 
@@ -121,7 +134,7 @@ animateButton.onclick = e=> {
     if (paused) {
         animateButton.value = 'Animate';
     } else {
-        window['requestNextAnimationFrame'](ani);
+        window['requestNextAnimationFrame'](animate);
         animateButton.value = 'Pause';
     }
 };
