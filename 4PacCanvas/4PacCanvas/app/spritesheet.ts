@@ -16,7 +16,7 @@ function windowToCanvas(canvas: HTMLCanvasElement, mouseX: number, mouseY: numbe
     };
 }
 
-function drawBackground() {
+function thisdrawBackground() {
     var verticalLineSpacing = 12;
     var i = context.canvas.height;
 
