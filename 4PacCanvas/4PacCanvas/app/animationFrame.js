@@ -47,7 +47,10 @@ var discs = [
 var numDiscs = discs.length;
 var animateButton = document.getElementById('animateButton');
 
+var lastFpsUpdateTime = 0;
+var lastFpsUpdate = 0;
 var lastTime = 0;
+
 function calculateFps() {
     var now = (+new Date);
     var fps = 1000 / (now - lastTime);
@@ -74,7 +77,7 @@ function drawBackground() {
 }
 ;
 
-function update() {
+function update(time) {
     for (var i = 0; i < numDiscs; ++i) {
         var disc = discs[i];
 
@@ -93,7 +96,6 @@ function update() {
 
 function draw() {
     for (var i = 0; i < numDiscs; ++i) {
-        debugger;
         var disc = discs[i];
 
         var gradient = context.createRadialGradient(disc.x, disc.y, 0, disc.x, disc.y, disc.radius);
@@ -112,24 +114,27 @@ function draw() {
 }
 
 function animate(time) {
-    console.log("entered animate");
-    debugger;
     if (!paused) {
-        console.log("animate: not paused.");
         context.clearRect(0, 0, canvas.width, canvas.height);
         drawBackground();
-        update();
+        update(time);
         draw();
 
+        var now = +new Date();
+        var fps = calculateFps();
+
+        if (now - lastFpsUpdateTime > 250) {
+            lastFpsUpdateTime = now;
+            lastFpsUpdate = fps;
+        }
         context.fillStyle = 'cornflowerblue';
-        context.fillText(calculateFps().toFixed() + ' fps', 20, 60);
+        context.fillText(lastFpsUpdate.toFixed() + ' fps', 20, 60);
 
         window.requestNextAnimationFrame(animate);
     }
 }
 
 animateButton.onclick = function (e) {
-    debugger;
     paused = paused ? false : true;
     if (paused) {
         animateButton.value = 'Animate';
