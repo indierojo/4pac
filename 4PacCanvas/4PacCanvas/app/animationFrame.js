@@ -56,7 +56,12 @@ function calculateFps() {
     var fps = 1000 / (now - lastTime);
 
     lastTime = now;
-    return fps;
+
+    if (now - lastFpsUpdateTime > 250) {
+        lastFpsUpdateTime = now;
+        lastFpsUpdate = fps;
+    }
+    return lastFpsUpdate;
 }
 
 function drawBackground() {
@@ -120,15 +125,10 @@ function animate(time) {
         update(time);
         draw();
 
-        var now = +new Date();
         var fps = calculateFps();
 
-        if (now - lastFpsUpdateTime > 250) {
-            lastFpsUpdateTime = now;
-            lastFpsUpdate = fps;
-        }
         context.fillStyle = 'cornflowerblue';
-        context.fillText(lastFpsUpdate.toFixed() + ' fps', 20, 60);
+        context.fillText(fps.toFixed() + ' fps', 20, 60);
 
         window.requestNextAnimationFrame(animate);
     }
