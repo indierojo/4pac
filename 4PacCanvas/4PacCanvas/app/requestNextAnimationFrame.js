@@ -37,7 +37,7 @@ window.requestNextAnimationFrame = (function () {
         }
     }
 
-    // Shim fo browsers with none of the above:
+    // Shim for browsers with none of the above:
     var missingAnimationFrameShim = function (cb) {
         var start, finish;
         window.setTimeout(function () {
