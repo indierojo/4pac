@@ -124,7 +124,7 @@ function animate(time) {
         context.fillStyle = 'cornflowerblue';
         context.fillText(calculateFps().toFixed() + ' fps', 20, 60);
 
-        window['requestNextAnimationFrame'](animate);
+        window.requestNextAnimationFrame(animate);
     }
 }
 
@@ -134,7 +134,7 @@ animateButton.onclick = function (e) {
     if (paused) {
         animateButton.value = 'Animate';
     } else {
-        window['requestNextAnimationFrame'](animate);
+        window.requestNextAnimationFrame(animate);
         animateButton.value = 'Pause';
     }
 };

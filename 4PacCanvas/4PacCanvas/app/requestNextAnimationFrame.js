@@ -1,5 +1,5 @@
 ﻿var _this = this;
-window['requestNextAnimationFrame'] = (function () {
+window.requestNextAnimationFrame = (function () {
     var originalWebkitMethod;
     var wrapper;
     var geckoVersion;
@@ -8,7 +8,7 @@ window['requestNextAnimationFrame'] = (function () {
     var self = _this;
 
     // Chrome 10 fix:
-    if (window['webkitRequestAnimationFrame']) {
+    if (window.webkitRequestAnimationFrame) {
         wrapper = function (time) {
             if (time === undefined) {
                 time = +new Date();
@@ -16,8 +16,8 @@ window['requestNextAnimationFrame'] = (function () {
             self.callback(time);
         };
 
-        originalWebkitMethod = window['webkitRequestAnimationFrame'];
-        window['webkitRequestAnimationFrame'] = function (cb, element) {
+        originalWebkitMethod = window.webkitRequestAnimationFrame;
+        window.webkitRequestAnimationFrame = function (cb, element) {
             self.callback = cb;
 
             originalWebkitMethod(wrapper, element);
@@ -25,14 +25,14 @@ window['requestNextAnimationFrame'] = (function () {
     }
 
     // Firefox 4 fix:
-    if (window['mozRequestAnimationFrame']) {
+    if (window.mozRequestAnimationFrame) {
         index = userAgent.indexOf('rv:');
 
         if (userAgent.indexOf('Gecko') != -1) {
             geckoVersion = userAgent.substr(index + 3, 3);
 
             if (geckoVersion === '2.0') {
-                window['mozRequestAnimationFrame'] = undefined;
+                window.mozRequestAnimationFrame = undefined;
             }
         }
     }
@@ -49,6 +49,6 @@ window['requestNextAnimationFrame'] = (function () {
         }, self.timeout);
     };
 
-    return window.requestAnimationFrame || window['webkitRequestAnimationFrame'] || window['mozRequestAnimationFrame'] || window.msRequestAnimationFrame || missingAnimationFrameShim;
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || missingAnimationFrameShim;
 })();
 //# sourceMappingURL=requestNextAnimationFrame.js.map

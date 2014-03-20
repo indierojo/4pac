@@ -1,4 +1,10 @@
-﻿window['requestNextAnimationFrame'] = (()=> {
+﻿interface Window {
+    requestNextAnimationFrame(cb: any, element?: any): any;
+    webkitRequestAnimationFrame(cb: any, element?: any): any;
+    mozRequestAnimationFrame(cb: any, element?: any): any;
+}
+
+window.requestNextAnimationFrame = (() => {
     var originalWebkitMethod;
     var wrapper;
     var geckoVersion;
@@ -7,7 +13,7 @@
     var self = this;
 
     // Chrome 10 fix:
-    if (window['webkitRequestAnimationFrame']) {
+    if (window.webkitRequestAnimationFrame) {
         wrapper = time=> {
             if (time === undefined) {
                 time = +new Date();
@@ -15,8 +21,8 @@
             self.callback(time);
         };
 
-        originalWebkitMethod = window['webkitRequestAnimationFrame'];
-        window['webkitRequestAnimationFrame'] = (cb, element)=> {
+        originalWebkitMethod = window.webkitRequestAnimationFrame;
+        window.webkitRequestAnimationFrame = (cb, element)=> {
             self.callback = cb;
 
             originalWebkitMethod(wrapper, element);
@@ -24,14 +30,14 @@
     }
 
     // Firefox 4 fix:
-    if (window['mozRequestAnimationFrame']) {
+    if (window.mozRequestAnimationFrame) {
         index = userAgent.indexOf('rv:');
 
         if (userAgent.indexOf('Gecko') != -1) {
             geckoVersion = userAgent.substr(index + 3, 3);
 
             if (geckoVersion === '2.0') {
-                window['mozRequestAnimationFrame'] = undefined;
+                window.mozRequestAnimationFrame = undefined;
             }
         }
     }
@@ -49,8 +55,8 @@
     };
 
     return window.requestAnimationFrame ||
-        window['webkitRequestAnimationFrame'] ||
-        window['mozRequestAnimationFrame'] ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
         window.msRequestAnimationFrame ||
         missingAnimationFrameShim;
 })();
