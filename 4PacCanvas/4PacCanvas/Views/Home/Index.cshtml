@@ -1,7 +1,9 @@
-﻿@{
+﻿@model string
+
+@{
     Layout = null;
-    Response.Headers["X-UA-Compatible"] = "IE=10";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,30 +18,26 @@
         }
 
         #canvas {
-            margin-left: 10px;
-            margin-top: 10px;
-            background: #fff;
-            border: thin inset #aaa;
-        }
-
-        #glasspane {
             position: absolute;
-            left: 50px;
-            top: 50px;
-            color: blue;
+            left: 0;
+            top: 20px;
+            margin: 20px;
+            background: #000;
+            border: thin inset blue;
+            cursor: pointer;
         }
     </style>
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
-    <body>
-        <div id="readout"></div>
-        <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
+<body>
+    <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/angular")
-        @Scripts.Render("~/bundles/app")
-        @Scripts.Render("~/bundles/bootstrap")
-    </body>
+    @Scripts.Render("~/app/interfaces/Coord.js")
+    @Scripts.Render("~/app/interfaces/Dimension.js")
+    @Scripts.Render("~/app/interfaces/Drawable.js")
+    @Scripts.Render("~/app/interfaces/Glyph.js")
+    @Scripts.Render("~/app/models/Ball.js")
+    @Scripts.Render("~/app/models/Wall.js")
+    @Scripts.Render("~/app/4pac.js")
+</body>
 </html>

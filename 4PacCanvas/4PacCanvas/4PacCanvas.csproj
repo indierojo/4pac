@@ -552,7 +552,6 @@
     <Content Include="Views\Utilities\BouncingBalls.cshtml" />
     <Content Include="Views\Utilities\KeyboardMovement.cshtml" />
     <Content Include="Views\Utilities\AnimationFrame.cshtml" />
-    <Content Include="Views\Utilities\FourPac.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
