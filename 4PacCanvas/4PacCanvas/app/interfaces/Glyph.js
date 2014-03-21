@@ -1,4 +1,4 @@
-﻿var Glyph = (function () {
+var Glyph = (function () {
     function Glyph(center, dimensions, left, right, top, bottom) {
         this.collidesWith = function (other) {
             var xBad;

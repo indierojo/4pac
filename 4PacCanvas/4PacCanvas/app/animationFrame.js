@@ -1,4 +1,5 @@
-﻿/// <reference path="requestNextAnimationFrame.ts"/>
+﻿/// <reference path="lib/requestNextAnimationFrame.ts"/>
+/// <reference path="lib/utilities.ts"/>
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
@@ -63,24 +64,6 @@ function calculateFps() {
     }
     return lastFpsUpdate;
 }
-
-function drawBackground() {
-    var verticalLineSpacing = 12;
-    var i = context.canvas.height;
-
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.strokeStyle = 'lightgray';
-    context.lineWidth = 0.5;
-
-    while (i > verticalLineSpacing * 4) {
-        context.beginPath();
-        context.moveTo(0, i);
-        context.lineTo(context.canvas.width, i);
-        context.stroke();
-        i -= verticalLineSpacing;
-    }
-}
-;
 
 function update(time) {
     for (var i = 0; i < numDiscs; ++i) {

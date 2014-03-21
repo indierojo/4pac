@@ -1,3 +1,5 @@
+/// <reference path="lib/utilities.ts"/>
+
 interface Circle {
     x: number;
     y: number;
@@ -77,22 +79,4 @@ function adjustPosition(circle: Circle) {
 
     circle.x += circle.velocityX;
     circle.y += circle.velocityY;
-}
-
-function drawGrid(context, color:string, stepx:number, stepy:number) {
-    context.strokeStyle = color;
-    context.lineWidth = 0.5;
-
-    for (var i = stepx + 0.5; i < context.canvas.width; i += stepx) {
-        context.beginPath();
-        context.moveTo(i, 0);
-        context.lineTo(i, context.canvas.height);
-        context.stroke();
-    }
-    for (var j = stepy + 0.5; i < context.canvas.width; j += stepy) {
-        context.beginPath();
-        context.moveTo(0, j);
-        context.lineTo(context.canvas.width, j);
-        context.stroke();
-    }
 }
