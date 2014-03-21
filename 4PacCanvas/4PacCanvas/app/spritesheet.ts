@@ -37,7 +37,7 @@ canvas.onmousemove = e => {
     updateReadout(loc.x, loc.y);
 };
 
-spritesheet.src = '../img/greenSheet.png';
+spritesheet.src = '../../img/greenSheet.png';
 spritesheet.onload = () => drawSpritesheet;
 
 drawBackground();
