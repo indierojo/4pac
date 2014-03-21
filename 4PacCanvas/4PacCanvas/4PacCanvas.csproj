@@ -552,6 +552,7 @@
     <Content Include="Views\Utilities\BouncingBalls.cshtml" />
     <Content Include="Views\Utilities\KeyboardMovement.cshtml" />
     <Content Include="Views\Utilities\AnimationFrame.cshtml" />
+    <Content Include="Views\Utilities\FourPac.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -568,6 +569,7 @@
     <TypeScriptCompile Include="app\interfaces\Dimension.ts" />
     <TypeScriptCompile Include="app\interfaces\Drawable.ts" />
     <TypeScriptCompile Include="app\interfaces\Glyph.ts" />
+    <TypeScriptCompile Include="app\4pac.ts" />
     <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />
     <TypeScriptCompile Include="app\models\Ball.ts" />

@@ -26,33 +26,18 @@
             border: thin inset blue;
             cursor: pointer;
         }
-
-        #readout {
-            position: absolute;
-            right: 5px;
-            top: 20px;
-            color: blue;
-        }
-
-        .red {
-            color: red;
-        }
-
-        .green {
-            color: green;
-        }
     </style>
 
 </head>
 <body>
-    <div id="readout">
-        <span id="upLabel" class="red">Up</span>
-        <span id="downLabel" class="red">Down</span>
-        <span id="leftLabel" class="red">Left</span>
-        <span id="rightLabel" class="red">Right</span>
-    </div>
     <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
 
-    @Scripts.Render("~/app/keyboardMovement.js")
+    @Scripts.Render("~/app/interfaces/Coord.js")
+    @Scripts.Render("~/app/interfaces/Dimension.js")
+    @Scripts.Render("~/app/interfaces/Drawable.js")
+    @Scripts.Render("~/app/interfaces/Glyph.js")
+    @Scripts.Render("~/app/models/Ball.js")
+    @Scripts.Render("~/app/models/Wall.js")
+    @Scripts.Render("~/app/4pac.js")
 </body>
 </html>
