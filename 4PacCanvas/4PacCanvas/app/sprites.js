@@ -2,11 +2,15 @@
 /// <reference path="base/Sprite.ts"/>
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-var radius = 75;
 var ballPainter = {
     paint: function (sprite, context) {
+        var radius = sprite.dimension.width / 2;
+        var x = sprite.left + radius;
+        var y = sprite.top + radius;
+        context.save();
+
         context.beginPath();
-        context.arc(sprite.left + sprite.dimension.width / 2, sprite.top + sprite.dimension.height / 2, radius, 0, Math.PI * 2, false);
+        context.arc(x, y, radius, 0, Math.PI * 2, false);
         context.clip();
 
         context.shadowColor = 'rgb(0,0,0)';
@@ -19,14 +23,21 @@ var ballPainter = {
         context.fillStyle = 'rgba(30, 144, 255, .15)';
         context.fill();
         context.stroke();
+
+        context.restore();
     }
 };
 
-var ball = new Sprite('ball', { height: 10, width: 10 }, ballPainter);
+var ball = new Sprite('ball', { height: 75, width: 75 }, ballPainter);
 
 drawGrid(context, 'lightgray', 10, 10);
-ball.left = 320;
-ball.top = 160;
+ball.left = 160;
+ball.top = 320;
+
+ball.paint(context);
+
+ball.left = 100;
+ball.top = 20;
 
 ball.paint(context);
 //# sourceMappingURL=sprites.js.map
