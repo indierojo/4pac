@@ -32,5 +32,10 @@ namespace _4PacCanvas.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult Sprite()
+		{
+			return View();
+		}
 	}
 }

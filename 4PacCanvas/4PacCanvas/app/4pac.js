@@ -29,8 +29,8 @@ walls.push(new Wall({ x: context.canvas.width - 30, y: context.canvas.height - 3
 
 drawTheWalls();
 
-var ball = new Ball({ x: 100, y: 100 }, 15, 'FFFF77');
-ball.draw();
+var playerBall = new Ball({ x: 100, y: 100 }, 15, 'FFFF77');
+playerBall.draw();
 updateBall();
 
 context.lineWidth = 0.5;
@@ -120,7 +120,7 @@ function updateBall() {
         var rotationSum = rotations.reduce(function (x, y) {
             return x + y;
         }, 0);
-        ball.rotation = rotationSum / rotations.length;
+        playerBall.rotation = rotationSum / rotations.length;
     }
 
     if (stepX == 0 && stepY == 0) {
@@ -130,29 +130,29 @@ function updateBall() {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     drawTheWalls();
 
-    var newX = ball.center.x + stepX;
-    var newY = ball.center.y + stepY;
+    var newX = playerBall.center.x + stepX;
+    var newY = playerBall.center.y + stepY;
     if (newX > context.canvas.width) {
-        newX = 0 + ball.radius;
+        newX = 0 + playerBall.radius;
     } else if (newX < 0) {
-        newX = context.canvas.width - ball.radius;
+        newX = context.canvas.width - playerBall.radius;
     }
     if (newY > context.canvas.height) {
-        newY = 0 + ball.radius;
+        newY = 0 + playerBall.radius;
     } else if (newY < 0) {
-        newY = context.canvas.height - ball.radius;
+        newY = context.canvas.height - playerBall.radius;
     }
 
     console.log("ballX: " + newX + ", ballY: " + newY);
-    var potentialLocation = new Glyph({ x: newX, y: newY }, ball.dimension, newX - ball.radius, newX + ball.radius, newY - ball.radius, newY + ball.radius);
+    var potentialLocation = new Glyph({ x: newX, y: newY }, playerBall.dimension, newX - playerBall.radius, newX + playerBall.radius, newY - playerBall.radius, newY + playerBall.radius);
     if (wallAt(potentialLocation)) {
         console.log("Wall!");
     } else {
-        ball.center.x = newX;
-        ball.center.y = newY;
+        playerBall.center.x = newX;
+        playerBall.center.y = newY;
     }
 
-    ball.draw();
+    playerBall.draw();
 }
 
 function drawTheWalls() {

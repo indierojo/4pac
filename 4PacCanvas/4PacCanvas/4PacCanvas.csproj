@@ -515,6 +515,7 @@
     <Content Include="Views\Utilities\KeyboardMovement.cshtml" />
     <Content Include="Views\Utilities\AnimationFrame.cshtml" />
     <Content Include="Views\Utilities\Index.cshtml" />
+    <Content Include="Views\Utilities\Sprite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -526,6 +527,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\sprites.ts" />
     <TypeScriptCompile Include="app\interfaces\IPainter.ts" />
     <TypeScriptCompile Include="app\interfaces\ICoord.ts" />
     <TypeScriptCompile Include="app\interfaces\IDimension.ts" />

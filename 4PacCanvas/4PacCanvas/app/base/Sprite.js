@@ -1,9 +1,11 @@
 ﻿var Sprite = (function () {
-    function Sprite(name, painter, behaviors) {
+    function Sprite(name, dimensions, painter, behaviors) {
+        this.isVisible = true;
+        this.isAnimating = false;
         this.name = name;
+        this.dimension = dimensions;
         this.painter = painter;
         this.behaviors = behaviors || [];
-        this.isAnimating = false;
     }
     Sprite.prototype.paint = function (context) {
         if (this.painter !== undefined && this.isVisible) {

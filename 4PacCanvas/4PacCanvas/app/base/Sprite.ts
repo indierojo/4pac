@@ -7,14 +7,14 @@
     velocityY: number;
     behaviors: Array<IBehavior>;
     painter: IPainter;
-    isVisible: boolean;
-    isAnimating: boolean;
+    isVisible: boolean = true;
+    isAnimating: boolean = false;
 
-    constructor(name: string, painter: IPainter, behaviors: Array<IBehavior>) {
+    constructor(name: string, dimensions: IDimension, painter: IPainter, behaviors?: Array<IBehavior>) {
         this.name = name;
+        this.dimension = dimensions;
         this.painter = painter;
         this.behaviors = behaviors || [];
-        this.isAnimating = false;
     }
 
     paint(context: CanvasRenderingContext2D) {
