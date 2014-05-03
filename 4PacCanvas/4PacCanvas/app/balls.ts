@@ -1,4 +1,4 @@
-/// <reference path="lib/utilities.ts"/>
+/// <reference path="lib/Utilities.ts"/>
 
 interface ICircle {
     x: number;

@@ -1,4 +1,4 @@
-/// <reference path="lib/utilities.ts"/>
+/// <reference path="lib/Utilities.ts"/>
 
 var canvas = document.getElementById('canvas');
 var readout = document.getElementById('readout');

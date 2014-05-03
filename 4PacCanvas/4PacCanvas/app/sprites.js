@@ -1,5 +1,5 @@
-/// <reference path="lib/utilities.ts"/>
-/// <reference path="base/Sprite.ts"/>
+/// <reference path="lib/Utilities.ts"/>
+/// <reference path="lib/Sprite.ts"/>
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var ballPainter = {
