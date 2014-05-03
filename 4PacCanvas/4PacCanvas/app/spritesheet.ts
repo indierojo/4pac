@@ -1,6 +1,6 @@
 /// <reference path="lib/Utilities.ts"/>
 
-interface CoordinatePair {
+interface ICoordinatePair {
     x: number;
     y: number;
 }
@@ -10,7 +10,7 @@ var readout = document.getElementById('readout');
 var context = canvas.getContext('2d');
 var spritesheet = new Image();
 
-function windowToCanvas(canvas: HTMLCanvasElement, mouseX: number, mouseY: number):CoordinatePair {
+function windowToCanvas(canvas: HTMLCanvasElement, mouseX: number, mouseY: number):ICoordinatePair {
     var boundingBox = canvas.getBoundingClientRect();
     return {
         x: mouseX - boundingBox.left * (canvas.width / boundingBox.width),
