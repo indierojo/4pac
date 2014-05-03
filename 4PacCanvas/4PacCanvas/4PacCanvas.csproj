@@ -572,6 +572,7 @@
     <TypeScriptCompile Include="app\base\Glyph.ts" />
     <TypeScriptCompile Include="app\4pac.ts" />
     <TypeScriptCompile Include="app\interfaces\IBehavior.ts" />
+    <TypeScriptCompile Include="app\base\Sprite.ts" />
     <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />
     <TypeScriptCompile Include="app\models\Ball.ts" />
