@@ -4,6 +4,11 @@ namespace _4PacCanvas.Controllers
 {
 	public class UtilitiesController : Controller
 	{
+	    public ActionResult Index()
+	    {
+	        return View();
+	    }
+
 		//
 		// GET: /Utilities/TestSpritesheet
 		public ActionResult TestSpritesheet()
