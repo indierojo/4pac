@@ -1,4 +1,4 @@
-interface Dimension {
+interface IDimension {
     width: number;
     height: number;
 } 

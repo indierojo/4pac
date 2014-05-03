@@ -27,4 +27,4 @@ var Wall = (function (_super) {
     }
     return Wall;
 })(Glyph);
-//# sourceMappingURL=wall.js.map
+//# sourceMappingURL=Wall.js.map

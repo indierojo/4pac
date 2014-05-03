@@ -1,14 +1,14 @@
 class Glyph {
-    center: Coord;
+    center: ICoord;
     velocityX: number;
     velocityY: number;
-    dimension: Dimension;
+    dimension: IDimension;
     left: number;
     right: number;
     top: number;
     bottom: number;
 
-    constructor(center: Coord, dimensions: Dimension, left: number, right: number, top: number, bottom: number) {
+    constructor(center: ICoord, dimensions: IDimension, left: number, right: number, top: number, bottom: number) {
         this.center = center;
         this.dimension = dimensions;
 

@@ -22,4 +22,4 @@ var Ball = (function (_super) {
     }
     return Ball;
 })(Glyph);
-//# sourceMappingURL=ball.js.map
+//# sourceMappingURL=Ball.js.map

@@ -564,11 +564,13 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\interfaces\Coord.ts" />
-    <TypeScriptCompile Include="app\interfaces\Dimension.ts" />
-    <TypeScriptCompile Include="app\interfaces\Drawable.ts" />
-    <TypeScriptCompile Include="app\interfaces\Glyph.ts" />
+    <TypeScriptCompile Include="app\interfaces\IPainter.ts" />
+    <TypeScriptCompile Include="app\interfaces\ICoord.ts" />
+    <TypeScriptCompile Include="app\interfaces\IDimension.ts" />
+    <TypeScriptCompile Include="app\interfaces\IDrawable.ts" />
+    <TypeScriptCompile Include="app\base\Glyph.ts" />
     <TypeScriptCompile Include="app\4pac.ts" />
+    <TypeScriptCompile Include="app\interfaces\IBehavior.ts" />
     <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />
     <TypeScriptCompile Include="app\models\Ball.ts" />

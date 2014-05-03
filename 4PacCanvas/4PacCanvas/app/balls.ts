@@ -1,6 +1,6 @@
 /// <reference path="lib/utilities.ts"/>
 
-interface Circle {
+interface ICircle {
     x: number;
     y: number;
     velocityX: number;
@@ -66,7 +66,7 @@ setInterval(()=> {
     }
 }, 1000 / 60);
 
-function adjustPosition(circle: Circle) {
+function adjustPosition(circle: ICircle) {
     if (circle.x + circle.velocityX + circle.radius > context.canvas.width ||
         circle.x + circle.velocityX - circle.radius < 0) {
         circle.velocityX = -circle.velocityX;

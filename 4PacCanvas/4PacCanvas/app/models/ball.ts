@@ -1,4 +1,4 @@
-class Ball extends Glyph implements Drawable {
+class Ball extends Glyph implements IDrawable {
     radius: number;
     color: string;
     rotation: number;
@@ -12,7 +12,7 @@ class Ball extends Glyph implements Drawable {
         context.fill();
     }
 
-    constructor(center: Coord, radius: number, color: string) {
+    constructor(center: ICoord, radius: number, color: string) {
         super(center, { width: radius * 2, height: radius * 2 }, center.x - radius, center.x + radius, center.y - radius, center.y + radius);
         this.radius = radius;
         this.color = color;
