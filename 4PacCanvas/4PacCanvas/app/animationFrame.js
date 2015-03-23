@@ -1,5 +1,5 @@
 ﻿/// <reference path="lib/requestNextAnimationFrame.ts"/>
-/// <reference path="lib/utilities.ts"/>
+/// <reference path="lib/Utilities.ts"/>
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 

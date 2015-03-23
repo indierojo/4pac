@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>0.9</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -527,6 +527,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\lib\Sprite.ts" />
     <TypeScriptCompile Include="app\sprites.ts" />
     <TypeScriptCompile Include="app\interfaces\IPainter.ts" />
     <TypeScriptCompile Include="app\interfaces\ICoord.ts" />
@@ -535,7 +536,6 @@
     <TypeScriptCompile Include="app\base\Glyph.ts" />
     <TypeScriptCompile Include="app\4pac.ts" />
     <TypeScriptCompile Include="app\interfaces\IBehavior.ts" />
-    <TypeScriptCompile Include="app\base\Sprite.ts" />
     <TypeScriptCompile Include="app\keyboardMovement.ts" />
     <TypeScriptCompile Include="app\balls.ts" />
     <TypeScriptCompile Include="app\models\Ball.ts" />

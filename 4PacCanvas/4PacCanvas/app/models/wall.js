@@ -9,7 +9,7 @@ var Wall = (function (_super) {
     function Wall(topLeft, width, height, color) {
         if (typeof width === "undefined") { width = 30; }
         if (typeof height === "undefined") { height = 30; }
-        if (typeof color === "undefined") { color = 'FFFF77'; }
+        if (typeof color === "undefined") { color = '#FFFF77'; }
         _super.call(this, { x: topLeft.x + (width / 2), y: topLeft.y + (height / 2) }, { width: width, height: height }, topLeft.x, topLeft.x + width, topLeft.y, topLeft.y + height);
         this.draw = function () {
             context.beginPath();

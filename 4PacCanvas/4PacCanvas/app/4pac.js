@@ -29,7 +29,7 @@ walls.push(new Wall({ x: context.canvas.width - 30, y: context.canvas.height - 3
 
 drawTheWalls();
 
-var playerBall = new Ball({ x: 100, y: 100 }, 15, 'FFFF77');
+var playerBall = new Ball({ x: 100, y: 100 }, 15, '#FFFF77');
 playerBall.draw();
 updateBall();
 
