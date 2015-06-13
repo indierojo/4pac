@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="../../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Canvas!</title>
+    <style>
+        body {
+            background: #ddd;
+        }
+
+        #canvas {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            margin: 20px;
+            background: #000;
+            border: thin inset blue;
+            cursor: pointer;
+        }
+
+        #readout {
+            position: absolute;
+            right: 5px;
+            top: 20px;
+            color: blue;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="readout">
+        <span id="upLabel" class="red">Up</span>
+        <span id="downLabel" class="red">Down</span>
+        <span id="leftLabel" class="red">Left</span>
+        <span id="rightLabel" class="red">Right</span>
+    </div>
+    <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
+
+    <script type="text/javascript" src="../../app/keyboardMovement.js"></script>
+</body>
+</html>
