@@ -1,4 +1,8 @@
-﻿class Sprite {
+﻿/// <reference path="../interfaces/IDimension.ts"/>
+/// <reference path="../interfaces/IPainter.ts"/>
+/// <reference path="../interfaces/IBehavior.ts"/>
+
+class Sprite {
     name: string;
     top: number;
     left: number;

@@ -1,1 +1,2 @@
-﻿//# sourceMappingURL=IBehavior.js.map
+/// <reference path="../lib/Sprite.ts"/>
+//# sourceMappingURL=IBehavior.js.map

@@ -1,4 +1,7 @@
-﻿var Sprite = (function () {
+/// <reference path="../interfaces/IDimension.ts"/>
+/// <reference path="../interfaces/IPainter.ts"/>
+/// <reference path="../interfaces/IBehavior.ts"/>
+var Sprite = (function () {
     function Sprite(name, dimensions, painter, behaviors) {
         this.isVisible = true;
         this.isAnimating = false;
@@ -12,12 +15,9 @@
             this.painter.paint(this, context);
         }
     };
-
     Sprite.prototype.update = function (context, time) {
         var _this = this;
-        this.behaviors.forEach(function (b) {
-            return b.execute(_this, context, time);
-        });
+        this.behaviors.forEach(function (b) { return b.execute(_this, context, time); });
     };
     return Sprite;
 })();

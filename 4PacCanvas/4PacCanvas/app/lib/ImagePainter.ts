@@ -1,4 +1,7 @@
-﻿class ImagePainter implements IPainter {
+﻿/// <reference path="../interfaces/IPainter.ts"/>
+/// <reference path="../lib/Sprite.ts"/>
+
+class ImagePainter implements IPainter {
     image: HTMLImageElement;
     imageUrl: string;
 

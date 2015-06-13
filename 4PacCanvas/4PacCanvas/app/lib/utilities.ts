@@ -16,11 +16,11 @@
     }
 }
 
-function drawBackground() {
+function drawBackground(context: CanvasRenderingContext2D) {
     var verticalLineSpacing = 12;
     var i = context.canvas.height;
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.strokeStyle = 'lightgray';
     context.lineWidth = 0.5;
 
@@ -33,21 +33,21 @@ function drawBackground() {
     }
 }
 
-function drawGuidelines(x: number, y: number) {
+function drawGuidelines(context: CanvasRenderingContext2D, x: number, y: number) {
     context.strokeStyle = 'rgba(0,0,230,0.8)';
     context.lineWidth = 0.5;
-    drawVerticalLine(x);
-    drawHorizontalLine(y);
+    drawVerticalLine(context, x);
+    drawHorizontalLine(context, y);
 }
 
-function drawHorizontalLine(y: number) {
+function drawHorizontalLine(context: CanvasRenderingContext2D, y: number) {
     context.beginPath();
     context.moveTo(0, y + 0.5);
     context.lineTo(context.canvas.width, y + 0.5);
     context.stroke();
 }
 
-function drawVerticalLine(x: number) {
+function drawVerticalLine(context: CanvasRenderingContext2D, x: number) {
     context.beginPath();
     context.moveTo(x + 0.5, 0);
     context.lineTo(x + 0.5, context.canvas.height);

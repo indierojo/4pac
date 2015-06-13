@@ -1,4 +1,6 @@
-﻿var ImagePainter = (function () {
+/// <reference path="../interfaces/IPainter.ts"/>
+/// <reference path="../lib/Sprite.ts"/>
+var ImagePainter = (function () {
     function ImagePainter(imageUrl) {
         this.image = new Image();
         this.imageUrl = imageUrl;

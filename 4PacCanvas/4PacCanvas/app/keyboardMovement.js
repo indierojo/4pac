@@ -1,21 +1,17 @@
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
-
 var upLabel = document.getElementById('upLabel');
 var downLabel = document.getElementById('downLabel');
 var leftLabel = document.getElementById('leftLabel');
 var rightLabel = document.getElementById('rightLabel');
-
 var upArrowKeycode = 38;
 var downArrowKeycode = 40;
 var leftArrowKeycode = 37;
 var rightArrowKeycode = 39;
-
 var upPressed = false;
 var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
-
 var circle = {
     x: 100,
     y: 100,
@@ -24,13 +20,10 @@ var circle = {
 };
 drawCircle();
 move();
-
 context.lineWidth = 0.5;
 context.font = '32pt Arial';
-
 window.onkeydown = function (e) {
     var keyCode = e.keyCode;
-
     if (keyCode === upArrowKeycode) {
         upPressed = true;
         downPressed = false;
@@ -47,11 +40,9 @@ window.onkeydown = function (e) {
         leftPressed = false;
         rightPressed = true;
     }
-
     move();
     updateLabels();
 };
-
 window.onkeyup = function (e) {
     var keyCode = e.keyCode;
     if (keyCode === upArrowKeycode) {
@@ -66,11 +57,9 @@ window.onkeyup = function (e) {
     if (keyCode === rightArrowKeycode) {
         rightPressed = false;
     }
-
     updateLabels();
     move();
 };
-
 function updateLabels() {
     var upclassName = upPressed ? 'green' : 'red';
     upLabel.setAttribute("class", upclassName);
@@ -78,18 +67,15 @@ function updateLabels() {
     leftLabel.className = leftPressed ? 'green' : 'red';
     rightLabel.className = rightPressed ? 'green' : 'red';
 }
-
 function drawCircle() {
     context.beginPath();
     context.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
     context.fillStyle = circle.color;
     context.fill();
 }
-
 function move() {
     var stepX = 0;
     var stepY = 0;
-
     if (leftPressed) {
         stepX = -10;
     }
@@ -102,25 +88,19 @@ function move() {
     if (rightPressed) {
         stepX = 10;
     }
-
     if (stepX == 0 && stepY == 0) {
         return;
     }
-
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-
     var newX = circle.x + stepX;
     var newY = circle.y + stepY;
-
     console.log("ballX: " + newX + ", ballY: " + newY);
-
     if (newX < context.canvas.width && newX > 0) {
         circle.x = newX;
     }
     if (newY < context.canvas.height && newY > 0) {
         circle.y = newY;
     }
-
     drawCircle();
 }
 //# sourceMappingURL=keyboardMovement.js.map

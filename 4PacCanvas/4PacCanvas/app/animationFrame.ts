@@ -80,7 +80,7 @@ function update(time) {
         disc.x += disc.velocityX;
         disc.y += disc.velocityY;
     }
-};
+}
 
 function draw() {
     for (var i = 0; i < numDiscs; ++i) {
@@ -106,7 +106,7 @@ function animate(time) {
 
     if (!paused) {
         context.clearRect(0, 0, canvas.width, canvas.height);
-        drawBackground();
+        drawBackground(context);
         update(time);
         draw();
 
@@ -119,8 +119,8 @@ function animate(time) {
     }
 }
 
-animateButton.onclick = e=> {
-    paused = paused ? false : true;
+animateButton.onclick = () => {
+    paused = !paused;
     if (paused) {
         animateButton.value = 'Animate';
     } else {

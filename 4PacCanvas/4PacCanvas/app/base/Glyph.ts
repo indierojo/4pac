@@ -1,3 +1,6 @@
+/// <reference path="../interfaces/ICoord.ts"/>
+/// <reference path="../interfaces/IDimension.ts"/>
+
 class Glyph {
     center: ICoord;
     velocityX: number;

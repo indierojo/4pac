@@ -1,8 +1,11 @@
+/// <reference path="../base/Glyph.ts"/>
+/// <reference path="../interfaces/IDrawable.ts"/>
+
 class Wall extends Glyph implements IDrawable {
     color: string;
     topLeft: ICoord;
 
-    draw = function () {
+    draw = function (context: CanvasRenderingContext2D) {
         context.beginPath();
         context.lineWidth = 1;
         context.strokeStyle = this.color;

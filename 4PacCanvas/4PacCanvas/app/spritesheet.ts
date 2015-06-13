@@ -31,13 +31,13 @@ function updateReadout(x: number, y: number) {
 canvas.onmousemove = e => {
     var loc = windowToCanvas(canvas, e.clientX, e.clientY);
 
-    drawBackground();
+    drawBackground(context);
     drawSpritesheet();
-    drawGuidelines(loc.x, loc.y);
+    drawGuidelines(context, loc.x, loc.y);
     updateReadout(loc.x, loc.y);
 };
 
 spritesheet.src = '../../img/greenSheet.png';
 spritesheet.onload = () => drawSpritesheet;
 
-drawBackground();
+drawBackground(context);

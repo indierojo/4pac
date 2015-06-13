@@ -1,3 +1,5 @@
+/// <reference path="../base/Glyph.ts"/>
+/// <reference path="../interfaces/IDrawable.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -7,11 +9,11 @@ var __extends = this.__extends || function (d, b) {
 var Wall = (function (_super) {
     __extends(Wall, _super);
     function Wall(topLeft, width, height, color) {
-        if (typeof width === "undefined") { width = 30; }
-        if (typeof height === "undefined") { height = 30; }
-        if (typeof color === "undefined") { color = '#FFFF77'; }
+        if (width === void 0) { width = 30; }
+        if (height === void 0) { height = 30; }
+        if (color === void 0) { color = '#FFFF77'; }
         _super.call(this, { x: topLeft.x + (width / 2), y: topLeft.y + (height / 2) }, { width: width, height: height }, topLeft.x, topLeft.x + width, topLeft.y, topLeft.y + height);
-        this.draw = function () {
+        this.draw = function (context) {
             context.beginPath();
             context.lineWidth = 1;
             context.strokeStyle = this.color;
@@ -27,4 +29,4 @@ var Wall = (function (_super) {
     }
     return Wall;
 })(Glyph);
-//# sourceMappingURL=Wall.js.map
+//# sourceMappingURL=wall.js.map

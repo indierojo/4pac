@@ -1,7 +1,6 @@
-﻿function drawGrid(context, color, stepx, stepy) {
+function drawGrid(context, color, stepx, stepy) {
     context.strokeStyle = color;
     context.lineWidth = 0.5;
-
     for (var i = stepx + 0.5; i < context.canvas.width; i += stepx) {
         context.beginPath();
         context.moveTo(i, 0);
@@ -15,15 +14,12 @@
         context.stroke();
     }
 }
-
-function drawBackground() {
+function drawBackground(context) {
     var verticalLineSpacing = 12;
     var i = context.canvas.height;
-
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.strokeStyle = 'lightgray';
     context.lineWidth = 0.5;
-
     while (i > verticalLineSpacing * 4) {
         context.beginPath();
         context.moveTo(0, i);
@@ -32,25 +28,22 @@ function drawBackground() {
         i -= verticalLineSpacing;
     }
 }
-
-function drawGuidelines(x, y) {
+function drawGuidelines(context, x, y) {
     context.strokeStyle = 'rgba(0,0,230,0.8)';
     context.lineWidth = 0.5;
-    drawVerticalLine(x);
-    drawHorizontalLine(y);
+    drawVerticalLine(context, x);
+    drawHorizontalLine(context, y);
 }
-
-function drawHorizontalLine(y) {
+function drawHorizontalLine(context, y) {
     context.beginPath();
     context.moveTo(0, y + 0.5);
     context.lineTo(context.canvas.width, y + 0.5);
     context.stroke();
 }
-
-function drawVerticalLine(x) {
+function drawVerticalLine(context, x) {
     context.beginPath();
     context.moveTo(x + 0.5, 0);
     context.lineTo(x + 0.5, context.canvas.height);
     context.stroke();
 }
-//# sourceMappingURL=utilities.js.map
+//# sourceMappingURL=Utilities.js.map

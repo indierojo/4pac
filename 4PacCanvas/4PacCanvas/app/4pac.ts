@@ -1,3 +1,9 @@
+/// <reference path="base/Glyph.ts"/>
+/// <reference path="interfaces/ICoord.ts"/>
+/// <reference path="interfaces/IDimension.ts"/>
+/// <reference path="models/wall.ts"/>
+/// <reference path="models/ball.ts"/>
+
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
@@ -30,7 +36,7 @@ walls.push(new Wall({x: context.canvas.width - 30, y: context.canvas.height - 30
 drawTheWalls();
 
 var playerBall = new Ball({ x: 100, y: 100 }, 15, '#FFFF77');
-playerBall.draw();
+playerBall.draw(context);
 updateBall();
 
 context.lineWidth = 0.5;
@@ -130,12 +136,12 @@ function updateBall() {
     var newX = playerBall.center.x + stepX;
     var newY = playerBall.center.y + stepY;
     if (newX > context.canvas.width) {
-        newX = 0 + playerBall.radius;
+        newX = playerBall.radius;
     } else if (newX < 0) {
         newX = context.canvas.width - playerBall.radius;
     }
     if (newY > context.canvas.height) {
-        newY = 0 + playerBall.radius;
+        newY = playerBall.radius;
     } else if (newY < 0) {
         newY = context.canvas.height - playerBall.radius;
     }
@@ -149,12 +155,12 @@ function updateBall() {
         playerBall.center.y = newY;
     }
 
-    playerBall.draw();
+    playerBall.draw(context);
 }
 
 function drawTheWalls() {
 
     walls.forEach(wall=> {
-        wall.draw();
+        wall.draw(context);
     });
 }

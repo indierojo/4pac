@@ -1,1 +1,1 @@
-﻿//# sourceMappingURL=IPainter.js.map
+//# sourceMappingURL=IPainter.js.map

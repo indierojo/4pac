@@ -1,10 +1,8 @@
 /// <reference path="lib/Utilities.ts"/>
-
 var canvas = document.getElementById('canvas');
 var readout = document.getElementById('readout');
 var context = canvas.getContext('2d');
 var spritesheet = new Image();
-
 function windowToCanvas(canvas, mouseX, mouseY) {
     var boundingBox = canvas.getBoundingClientRect();
     return {
@@ -12,28 +10,20 @@ function windowToCanvas(canvas, mouseX, mouseY) {
         y: mouseY - boundingBox.top * (canvas.height / boundingBox.height)
     };
 }
-
 function drawSpritesheet() {
     context.drawImage(spritesheet, 0, 0);
 }
-
 function updateReadout(x, y) {
     readout.innerText = '(' + x.toFixed(0) + ', ' + y.toFixed(0) + ')';
 }
-
 canvas.onmousemove = function (e) {
     var loc = windowToCanvas(canvas, e.clientX, e.clientY);
-
-    drawBackground();
+    drawBackground(context);
     drawSpritesheet();
-    drawGuidelines(loc.x, loc.y);
+    drawGuidelines(context, loc.x, loc.y);
     updateReadout(loc.x, loc.y);
 };
-
 spritesheet.src = '../../img/greenSheet.png';
-spritesheet.onload = function () {
-    return drawSpritesheet;
-};
-
-drawBackground();
+spritesheet.onload = function () { return drawSpritesheet; };
+drawBackground(context);
 //# sourceMappingURL=spritesheet.js.map
