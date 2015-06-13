@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Canvas!</title>
+    <style>
+        body {
+            background: #ddd;
+        }
+
+        #canvas {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            margin: 20px;
+            background: #000;
+            border: thin inset blue;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500">This app requires canvas support to run.</canvas>
+
+    <script type="application/javascript" src="../app/engine/Glyph.js"></script>
+    <script type="application/javascript" src="../app/interfaces/ICoord.js"></script>
+    <script type="application/javascript" src="../app/interfaces/IDimension.js"></script>
+    <script type="application/javascript" src="../app/interfaces/IDrawable.js"></script>
+    <script type="application/javascript" src="../app/models/ball.js"></script>
+    <script type="application/javascript" src="../app/models/wall.js"></script>
+    <script type="application/javascript" src="../app/4pac.js"></script>
+</body>
+</html>
