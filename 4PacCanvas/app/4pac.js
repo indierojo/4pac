@@ -58,6 +58,7 @@ window.onkeydown = function (e) {
         leftPressed = false;
         rightPressed = true;
     }
+    updateLabels();
     updateBall();
 };
 window.onkeyup = function (e) {
@@ -74,6 +75,7 @@ window.onkeyup = function (e) {
     if (keyCode === rightArrowKeycode) {
         rightPressed = false;
     }
+    updateLabels();
     updateBall();
 };
 function wallAt(glyph) {
@@ -137,6 +139,12 @@ function updateBall() {
         playerBall.center.y = newY;
     }
     playerBall.draw(context);
+}
+function updateLabels() {
+    upLabel.className = upPressed ? 'green' : 'red';
+    downLabel.className = downPressed ? 'green' : 'red';
+    leftLabel.className = leftPressed ? 'green' : 'red';
+    rightLabel.className = rightPressed ? 'green' : 'red';
 }
 function drawTheWalls() {
     walls.forEach(function (wall) {

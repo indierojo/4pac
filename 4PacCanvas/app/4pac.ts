@@ -70,6 +70,7 @@ window.onkeydown = e=> {
         rightPressed = true;
     }
 
+    updateLabels();
     updateBall();
 };
 
@@ -88,6 +89,7 @@ window.onkeyup = e => {
         rightPressed = false;
     }
 
+    updateLabels();
     updateBall();
 };
 
@@ -156,6 +158,13 @@ function updateBall() {
     }
 
     playerBall.draw(context);
+}
+
+function updateLabels() {
+    upLabel.className = upPressed ? 'green' : 'red';
+    downLabel.className = downPressed ? 'green' : 'red';
+    leftLabel.className = leftPressed ? 'green' : 'red';
+    rightLabel.className = rightPressed ? 'green' : 'red';
 }
 
 function drawTheWalls() {
