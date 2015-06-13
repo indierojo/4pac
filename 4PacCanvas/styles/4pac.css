@@ -1,0 +1,19 @@
+body {
+  background: #ddd; }
+
+#canvas {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  margin: 20px;
+  background: #000;
+  border: thin inset blue;
+  cursor: pointer; }
+
+.red {
+  color: red; }
+
+.green {
+  color: green; }
+
+/*# sourceMappingURL=4pac.css.map */
