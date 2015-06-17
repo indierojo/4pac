@@ -31,24 +31,16 @@ window.onkeydown = function (e) {
     if (keyCode === upArrowKeycode) {
         upPressed = true;
         downPressed = false;
-        leftPressed = false;
-        rightPressed = false;
     }
     if (keyCode === downArrowKeycode) {
         upPressed = false;
         downPressed = true;
-        leftPressed = false;
-        rightPressed = false;
     }
     if (keyCode === leftArrowKeycode) {
-        upPressed = false;
-        downPressed = false;
         leftPressed = true;
         rightPressed = false;
     }
     if (keyCode === rightArrowKeycode) {
-        upPressed = false;
-        downPressed = false;
         leftPressed = false;
         rightPressed = true;
     }
