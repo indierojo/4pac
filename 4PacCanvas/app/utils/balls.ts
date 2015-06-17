@@ -1,4 +1,4 @@
-/// <reference path="engine/Utilities.ts"/>
+/// <reference path="../engine/Utilities.ts"/>
 
 interface ICircle {
     x: number;

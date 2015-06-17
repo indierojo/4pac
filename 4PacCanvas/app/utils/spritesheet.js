@@ -1,9 +1,7 @@
-/// <reference path="engine/Utilities.ts"/>
-
+/// <reference path="../engine/Utilities.ts"/>
 var canvas = document.getElementById('canvas');
 var readout = document.getElementById('readout');
 var context = canvas.getContext('2d');
-
 var spritesheet = new Image();
 function windowToCanvas(canvas, mouseX, mouseY) {
     var boundingBox = canvas.getBoundingClientRect();
@@ -26,7 +24,6 @@ canvas.onmousemove = function (e) {
     updateReadout(loc.x, loc.y);
 };
 spritesheet.src = '../../img/greenSheet.png';
-spritesheet.onload = function () { return drawSpritesheet(); };
+spritesheet.onload = function () { return drawSpritesheet; };
 drawBackground(context);
-
 //# sourceMappingURL=spritesheet.js.map

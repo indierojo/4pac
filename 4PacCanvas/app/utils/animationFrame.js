@@ -1,5 +1,5 @@
-/// <reference path="engine/requestNextAnimationFrame.ts"/>
-/// <reference path="engine/Utilities.ts"/>
+/// <reference path="../engine/requestNextAnimationFrame.ts"/>
+/// <reference path="../engine/Utilities.ts"/>
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var paused = true;
