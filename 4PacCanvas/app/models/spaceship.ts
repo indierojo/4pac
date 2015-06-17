@@ -16,7 +16,7 @@ class Spaceship extends Glyph implements IDrawable {
     };
 
     constructor(center: ICoord, size: number, color: string) {
-        super(center, { width: size, height: size }, center.x - size, center.x + size, center.y - size, center.y + size);
+        super(center, { width: size, height: size }, center.x - ( size / 2 ), center.x + ( size / 2 ), center.y - ( size / 2 ), center.y + ( size / 2 ));
         this.size = size;
         this.color = color;
         this.rotation = 0;

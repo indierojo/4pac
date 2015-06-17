@@ -1,6 +1,7 @@
 /// <reference path="engine/Glyph.ts"/>
 /// <reference path="interfaces/ICoord.ts"/>
 /// <reference path="interfaces/IDimension.ts"/>
+/// <reference path="models/circle.ts"/>
 /// <reference path="models/spaceship.ts"/>
 
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -24,6 +25,7 @@ var leftPressed: boolean = false;
 var rightPressed: boolean = false;
 var spacePressed: boolean = false;
 
+var bullets = [];
 var player = new Spaceship({ x: 250, y: 450 }, 50, '#FFFF77');
 player.draw(context);
 updatePlayerLocation();
@@ -64,6 +66,7 @@ window.onkeydown = e=> {
 
     updateLabels();
     updatePlayerLocation();
+    handleBullets();
 };
 
 window.onkeyup = e => {
@@ -86,11 +89,31 @@ window.onkeyup = e => {
 
     updateLabels();
     updatePlayerLocation();
+    handleBullets();
 };
 //
 //function wallAt(glyph: Glyph): boolean {
 //    return walls.some(w => w.collidesWith(glyph));
 //}
+
+function handleBullets() {
+
+    bullets = bullets.filter(bullet => {
+        return bullet.center.y > 10;
+    });
+
+    bullets.forEach(bullet => {
+        bullet.center.y = bullet.center.y - 10;
+        bullet.draw(context);
+    });
+
+    if(spacePressed) {
+        var bullet = new Circle({ x: player.center.x, y: player.top - 6 }, 4, '#FFFF77');
+        console.log("space pressed: " + bullet.center.x + ", " + bullet.center.y);
+        bullet.draw(context);
+        bullets.push(bullet);
+    }
+}
 
 function updatePlayerLocation() {
 
@@ -149,6 +172,7 @@ function updatePlayerLocation() {
     //} else {
         player.center.x = newX;
         player.center.y = newY;
+        player.top = player.center.y - ( player.size / 2 );
     //}
 
     player.draw(context);

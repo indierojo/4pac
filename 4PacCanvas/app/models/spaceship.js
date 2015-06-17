@@ -9,7 +9,7 @@ var __extends = this.__extends || function (d, b) {
 var Spaceship = (function (_super) {
     __extends(Spaceship, _super);
     function Spaceship(center, size, color) {
-        _super.call(this, center, { width: size, height: size }, center.x - size, center.x + size, center.y - size, center.y + size);
+        _super.call(this, center, { width: size, height: size }, center.x - (size / 2), center.x + (size / 2), center.y - (size / 2), center.y + (size / 2));
         this.draw = function (context) {
             context.beginPath();
             context.lineTo(this.center.x, this.center.y - (this.size / 2));
