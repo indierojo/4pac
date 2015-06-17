@@ -1,4 +1,5 @@
 /// <reference path="engine/Glyph.ts"/>
+/// <reference path="engine/requestNextAnimationFrame.ts"/>
 /// <reference path="interfaces/ICoord.ts"/>
 /// <reference path="interfaces/IDimension.ts"/>
 /// <reference path="models/circle.ts"/>
@@ -28,7 +29,19 @@ var spacePressed: boolean = false;
 var bullets = [];
 var player = new Spaceship({ x: 250, y: 450 }, 50, '#FFFF77');
 player.draw(context);
-updatePlayerLocation();
+
+window.requestNextAnimationFrame(animate);
+
+function animate(time) {
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+
+    updateLabels();
+    updatePlayerLocation();
+    handleBullets();
+
+    player.draw(context);
+    window.requestNextAnimationFrame(animate);
+}
 
 context.lineWidth = 0.5;
 context.font = '32pt Arial';
@@ -56,10 +69,6 @@ window.onkeydown = e=> {
     if (keyCode === spacebarKeycode) {
         spacePressed = true;
     }
-
-    updateLabels();
-    updatePlayerLocation();
-    handleBullets();
 };
 
 window.onkeyup = e => {
@@ -79,10 +88,6 @@ window.onkeyup = e => {
     if (keyCode === spacebarKeycode) {
         spacePressed = false;
     }
-
-    updateLabels();
-    updatePlayerLocation();
-    handleBullets();
 };
 //
 //function wallAt(glyph: Glyph): boolean {
@@ -90,6 +95,10 @@ window.onkeyup = e => {
 //}
 
 function handleBullets() {
+
+    //if(bullets.length == 0) {
+    //    return;
+    //}
 
     bullets = bullets.filter(bullet => {
         return bullet.center.y > 10;
@@ -101,7 +110,16 @@ function handleBullets() {
     });
 
     if(spacePressed) {
-        var bullet = new Circle({ x: player.center.x, y: player.top - 6 }, 4, '#FFFF77');
+        var bulletX = player.center.x;
+        var bulletY = player.top - 6;
+
+        var isInSamePosition = b => { return b.center.y >= bulletY - 60 && b.center.y; };
+        if(bullets.some(isInSamePosition)) {
+            // Don't add a new bullet if one already exists at same x and similar y
+            return;
+        }
+
+        var bullet = new Circle({ x: bulletX, y: bulletY }, 4, '#FFFF77');
         console.log("space pressed: " + bullet.center.x + ", " + bullet.center.y);
         bullet.draw(context);
         bullets.push(bullet);
@@ -143,8 +161,6 @@ function updatePlayerLocation() {
         return;
     }
 
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-
     var newX = player.center.x + stepX;
     var newY = player.center.y + stepY;
     if (newX > context.canvas.width) {
@@ -167,8 +183,6 @@ function updatePlayerLocation() {
         player.center.y = newY;
         player.top = player.center.y - ( player.size / 2 );
     //}
-
-    player.draw(context);
 }
 
 function updateLabels() {
