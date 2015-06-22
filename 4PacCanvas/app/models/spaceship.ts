@@ -4,7 +4,6 @@
 class Spaceship extends Glyph implements IDrawable {
     size: number;
     color: string;
-    rotation: number;
 
     draw = function(context: CanvasRenderingContext2D) {
         context.beginPath();
@@ -19,6 +18,5 @@ class Spaceship extends Glyph implements IDrawable {
         super(center, { width: size, height: size }, center.x - ( size / 2 ), center.x + ( size / 2 ), center.y - ( size / 2 ), center.y + ( size / 2 ));
         this.size = size;
         this.color = color;
-        this.rotation = 0;
     }
 } 

@@ -20,7 +20,6 @@ var Spaceship = (function (_super) {
         };
         this.size = size;
         this.color = color;
-        this.rotation = 0;
     }
     return Spaceship;
 })(Glyph);

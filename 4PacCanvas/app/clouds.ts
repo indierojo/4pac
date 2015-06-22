@@ -130,31 +130,17 @@ function updatePlayerLocation() {
 
     var stepX = 0;
     var stepY = 0;
-    var rotations = [];
     if (leftPressed) {
         stepX = -10;
-        rotations.push(1);
     }
     if (upPressed) {
         stepY = -10;
-        rotations.push(1.5);
     }
     if (downPressed) {
         stepY = 10;
-        rotations.push(0.5);
     }
     if (rightPressed) {
         stepX = 10;
-        if (upPressed) {
-            rotations.push(2);
-        } else {
-            rotations.push(0);
-        }
-    }
-
-    if (rotations.length > 0) {
-        var rotationSum = rotations.reduce((x, y) => x + y, 0);
-        player.rotation = rotationSum / rotations.length;
     }
 
     if (stepX == 0 && stepY == 0) {
@@ -174,8 +160,7 @@ function updatePlayerLocation() {
         newY = context.canvas.height - player.size;
     }
 
-    console.log("ballX: " + newX + ", ballY: " + newY);
-    var potentialLocation = new Glyph({ x: newX, y: newY }, player.dimension, newX - player.size, newX + player.size, newY - player.size, newY + player.size);
+    //var potentialLocation = new Glyph({ x: newX, y: newY }, player.dimension, newX - player.size, newX + player.size, newY - player.size, newY + player.size);
     //if (wallAt(potentialLocation)) {
     //    console.log("Wall!");
     //} else {
