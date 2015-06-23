@@ -112,16 +112,17 @@ function handleBullets() {
     });
 
     if(spacePressed) {
-        var bulletX = player.center.x;
+        var bulletXLeft = player.center.x - 30;
+        var bulletXRight = player.center.x + 30;
         var bulletY = player.top - 6;
 
-        var isInSamePosition = b => { return b.center.y >= bulletY - 60 && b.center.y; };
+        var isInSamePosition = b => { return b.center.y >= bulletY - 60 && (b.center.x >= bulletXLeft && b.center.x <= bulletXRight); };
         if(bullets.some(isInSamePosition)) {
             // Don't add a new bullet if one already exists at same x and similar y
             return;
         }
 
-        var bullet = new Circle({ x: bulletX, y: bulletY }, 4, '#FFFF77');
+        var bullet = new Circle({ x: player.center.x, y: bulletY }, 4, '#FFFF77');
         bullet.draw(context);
         bullets.push(bullet);
     }
