@@ -1,5 +1,6 @@
 /// <reference path="../engine/Glyph.ts"/>
 /// <reference path="../interfaces/IDrawable.ts"/>
+/// <reference path="../interfaces/IEraseable.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -17,6 +18,9 @@ var Spaceship = (function (_super) {
             context.lineTo(this.center.x + (this.size / 2), this.center.y + (this.size / 2));
             context.fillStyle = this.color;
             context.fill();
+        };
+        this.erase = function (context) {
+            context.clearRect(this.center.x - (this.size / 2), this.center.y - (this.size / 2), this.size, this.size);
         };
         this.size = size;
         this.color = color;

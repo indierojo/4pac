@@ -1,7 +1,8 @@
 /// <reference path="../engine/Glyph.ts"/>
 /// <reference path="../interfaces/IDrawable.ts"/>
+/// <reference path="../interfaces/IEraseable.ts"/>
 
-class Spaceship extends Glyph implements IDrawable {
+class Spaceship extends Glyph implements IDrawable, IEraseable {
     size: number;
     color: string;
 
@@ -12,6 +13,10 @@ class Spaceship extends Glyph implements IDrawable {
         context.lineTo(this.center.x + (this.size / 2), this.center.y + (this.size / 2));
         context.fillStyle = this.color;
         context.fill();
+    };
+
+    erase = function(context: CanvasRenderingContext2D) {
+        context.clearRect(this.center.x - (this.size / 2), this.center.y - (this.size / 2), this.size, this.size);
     };
 
     constructor(center: ICoord, size: number, color: string) {

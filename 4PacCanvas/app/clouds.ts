@@ -33,7 +33,7 @@ player.draw(context);
 window.requestNextAnimationFrame(animate);
 
 function animate(time) {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    //context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 
     updateLabels();
     updatePlayerLocation();
@@ -100,13 +100,15 @@ function handleBullets() {
     //    return;
     //}
 
-    bullets = bullets.filter(bullet => {
-        return bullet.center.y > 10;
-    });
-
     bullets.forEach(bullet => {
-        bullet.center.y = bullet.center.y - 10;
-        bullet.draw(context);
+        // erase all bullets
+        bullet.erase(context);
+
+        if(bullet.center.y > 10) {
+            // redraw any that haven't reached the top of the screen
+            bullet.center.y = bullet.center.y - 10;
+            bullet.draw(context);
+        }
     });
 
     if(spacePressed) {
@@ -120,7 +122,6 @@ function handleBullets() {
         }
 
         var bullet = new Circle({ x: bulletX, y: bulletY }, 4, '#FFFF77');
-        console.log("space pressed: " + bullet.center.x + ", " + bullet.center.y);
         bullet.draw(context);
         bullets.push(bullet);
     }
@@ -146,6 +147,8 @@ function updatePlayerLocation() {
     if (stepX == 0 && stepY == 0) {
         return;
     }
+
+    player.erase(context);
 
     var newX = player.center.x + stepX;
     var newY = player.center.y + stepY;

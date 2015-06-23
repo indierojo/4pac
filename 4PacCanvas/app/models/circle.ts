@@ -1,7 +1,8 @@
 /// <reference path="../engine/Glyph.ts"/>
 /// <reference path="../interfaces/IDrawable.ts"/>
+///<reference path="../interfaces/IEraseable.ts"/>
 
-class Circle extends Glyph implements IDrawable {
+class Circle extends Glyph implements IDrawable, IEraseable {
     radius: number;
     color: string;
     rotation: number;
@@ -11,6 +12,10 @@ class Circle extends Glyph implements IDrawable {
         context.arc(this.center.x, this.center.y, this.radius, 0, 360, false);
         context.fillStyle = this.color;
         context.fill();
+    };
+
+    erase = function(context: CanvasRenderingContext2D) {
+        context.clearRect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
     };
 
     constructor(center: ICoord, radius: number, color: string) {

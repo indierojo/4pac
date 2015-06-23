@@ -1,5 +1,6 @@
 /// <reference path="../engine/Glyph.ts"/>
 /// <reference path="../interfaces/IDrawable.ts"/>
+///<reference path="../interfaces/IEraseable.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -15,6 +16,9 @@ var Circle = (function (_super) {
             context.arc(this.center.x, this.center.y, this.radius, 0, 360, false);
             context.fillStyle = this.color;
             context.fill();
+        };
+        this.erase = function (context) {
+            context.clearRect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
         };
         this.radius = radius;
         this.color = color;
