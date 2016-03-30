@@ -1,3 +1,3 @@
 interface IDrawable {
-    draw(context: CanvasRenderingContext2D): void;
+    draw(drawingContext: CanvasRenderingContext2D): void;
 } 

@@ -2,43 +2,43 @@
 /// <reference path="../engine/Sprite.ts"/>
 
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
-var context = canvas.getContext('2d');
+var drawingContext = canvas.getContext('2d');
 var ballPainter: IPainter = {
-    paint: (sprite, context) => {
+    paint: (sprite, drawingContext) => {
 
         var radius = sprite.dimension.width / 2;
         var x = sprite.left + radius;
         var y = sprite.top + radius;
-        context.save();
+        drawingContext.save();
 
-        context.beginPath();
-        context.arc(x, y, radius, 0, Math.PI * 2, false);
-        context.clip();
+        drawingContext.beginPath();
+        drawingContext.arc(x, y, radius, 0, Math.PI * 2, false);
+        drawingContext.clip();
 
-        context.shadowColor = 'rgb(0,0,0)';
-        context.shadowOffsetX = -4;
-        context.shadowOffsetY = -4;
-        context.shadowBlur = 8;
+        drawingContext.shadowColor = 'rgb(0,0,0)';
+        drawingContext.shadowOffsetX = -4;
+        drawingContext.shadowOffsetY = -4;
+        drawingContext.shadowBlur = 8;
 
-        context.lineWidth = 2;
-        context.strokeStyle = 'rgb(100, 100, 195)';
-        context.fillStyle = 'rgba(30, 144, 255, .15)';
-        context.fill();
-        context.stroke();
+        drawingContext.lineWidth = 2;
+        drawingContext.strokeStyle = 'rgb(100, 100, 195)';
+        drawingContext.fillStyle = 'rgba(30, 144, 255, .15)';
+        drawingContext.fill();
+        drawingContext.stroke();
 
-        context.restore();
+        drawingContext.restore();
     }
 };
 
 var ball = new Sprite('ball', {height: 75, width: 75}, ballPainter);
 
-drawGrid(context, 'lightgray', 10, 10);
+drawGrid(drawingContext, 'lightgray', 10, 10);
 ball.left = 160;
 ball.top = 320;
 
-ball.paint(context);
+ball.paint(drawingContext);
 
 ball.left = 100;
 ball.top = 20;
 
-ball.paint(context);
+ball.paint(drawingContext);

@@ -10,16 +10,16 @@ interface ICircle {
 }
 
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
-var context = canvas.getContext('2d');
+var drawingContext = canvas.getContext('2d');
 var startButton = document.getElementById('startButton');
 var glassPane = document.getElementById('glasspane');
 var paused = true;
 var circles = [];
 
-drawGrid(context, 'lightgray', 10, 10);
+drawGrid(drawingContext, 'lightgray', 10, 10);
 
-context.lineWidth = 0.5;
-context.font = '32pt Arial';
+drawingContext.lineWidth = 0.5;
+drawingContext.font = '32pt Arial';
 
 for (var i = 1; i < 100; i++) {
     circles[i] = {
@@ -46,33 +46,33 @@ glassPane.onmousedown = e=> {
     e.stopPropagation();
 };
 
-context.canvas.onmousedown = e=> {
+drawingContext.canvas.onmousedown = e=> {
     e.preventDefault();
     e.stopPropagation();
 };
 
 setInterval(()=> {
     if (!paused) {
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-        drawGrid(context, 'lightgray', 10, 10);
+        drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
+        drawGrid(drawingContext, 'lightgray', 10, 10);
 
         circles.forEach(circle=> {
-            context.beginPath();
-            context.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2, false);
-            context.fillStyle = circle.color;
-            context.fill();
+            drawingContext.beginPath();
+            drawingContext.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2, false);
+            drawingContext.fillStyle = circle.color;
+            drawingContext.fill();
             adjustPosition(circle);
         });
     }
 }, 1000 / 60);
 
 function adjustPosition(circle: ICircle) {
-    if (circle.x + circle.velocityX + circle.radius > context.canvas.width ||
+    if (circle.x + circle.velocityX + circle.radius > drawingContext.canvas.width ||
         circle.x + circle.velocityX - circle.radius < 0) {
         circle.velocityX = -circle.velocityX;
     }
 
-    if (circle.y + circle.velocityY + circle.radius > context.canvas.height ||
+    if (circle.y + circle.velocityY + circle.radius > drawingContext.canvas.height ||
         circle.y + circle.velocityY - circle.radius < 0) {
         circle.velocityY = -circle.velocityY;
     }

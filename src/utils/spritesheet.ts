@@ -7,7 +7,7 @@ interface ICoordinatePair {
 
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
 var readout = document.getElementById('readout');
-var context = canvas.getContext('2d');
+var drawingContext = canvas.getContext('2d');
 var spritesheet = new Image();
 
 function windowToCanvas(canvas: HTMLCanvasElement, mouseX: number, mouseY: number):ICoordinatePair {
@@ -20,7 +20,7 @@ function windowToCanvas(canvas: HTMLCanvasElement, mouseX: number, mouseY: numbe
 
 
 function drawSpritesheet() {
-    context.drawImage(spritesheet, 0, 0);
+    drawingContext.drawImage(spritesheet, 0, 0);
 }
 
 function updateReadout(x: number, y: number) {
@@ -31,13 +31,13 @@ function updateReadout(x: number, y: number) {
 canvas.onmousemove = e => {
     var loc = windowToCanvas(canvas, e.clientX, e.clientY);
 
-    drawBackground(context);
+    drawBackground(drawingContext);
     drawSpritesheet();
-    drawGuidelines(context, loc.x, loc.y);
+    drawGuidelines(drawingContext, loc.x, loc.y);
     updateReadout(loc.x, loc.y);
 };
 
 spritesheet.src = '../../img/greenSheet.png';
 spritesheet.onload = () => drawSpritesheet;
 
-drawBackground(context);
+drawBackground(drawingContext);

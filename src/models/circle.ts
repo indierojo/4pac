@@ -7,15 +7,15 @@ class Circle extends Glyph implements IDrawable, IEraseable {
     color: string;
     rotation: number;
 
-    draw = function(context: CanvasRenderingContext2D) {
-        context.beginPath();
-        context.arc(this.center.x, this.center.y, this.radius, 0, 360, false);
-        context.fillStyle = this.color;
-        context.fill();
+    draw = function(drawingContext: CanvasRenderingContext2D) {
+        drawingContext.beginPath();
+        drawingContext.arc(this.center.x, this.center.y, this.radius, 0, 360, false);
+        drawingContext.fillStyle = this.color;
+        drawingContext.fill();
     };
 
-    erase = function(context: CanvasRenderingContext2D) {
-        context.clearRect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
+    erase = function(drawingContext: CanvasRenderingContext2D) {
+        drawingContext.clearRect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
     };
 
     constructor(center: ICoord, radius: number, color: string) {

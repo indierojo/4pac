@@ -1,5 +1,5 @@
 ﻿/// <reference path="../engine/Sprite.ts"/>
 
 interface IPainter {
-    paint(sprite: Sprite, canvasRenderingContext2D: CanvasRenderingContext2D);
+    paint(sprite: Sprite, drawingContext: CanvasRenderingContext2D);
 }

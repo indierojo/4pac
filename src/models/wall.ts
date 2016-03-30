@@ -5,16 +5,16 @@ class Wall extends Glyph implements IDrawable {
     color: string;
     topLeft: ICoord;
 
-    draw = function (context: CanvasRenderingContext2D) {
-        context.beginPath();
-        context.lineWidth = 1;
-        context.strokeStyle = this.color;
-        context.moveTo(this.topLeft.x, this.topLeft.y);
-        context.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y);
-        context.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y + this.dimension.height);
-        context.lineTo(this.topLeft.x, this.topLeft.y + this.dimension.height);
-        context.lineTo(this.topLeft.x, this.topLeft.y);
-        context.stroke();
+    draw = function (drawingContext: CanvasRenderingContext2D) {
+        drawingContext.beginPath();
+        drawingContext.lineWidth = 1;
+        drawingContext.strokeStyle = this.color;
+        drawingContext.moveTo(this.topLeft.x, this.topLeft.y);
+        drawingContext.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y);
+        drawingContext.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y + this.dimension.height);
+        drawingContext.lineTo(this.topLeft.x, this.topLeft.y + this.dimension.height);
+        drawingContext.lineTo(this.topLeft.x, this.topLeft.y);
+        drawingContext.stroke();
     };
 
     constructor(topLeft: ICoord, width: number = 30, height: number = 30, color: string = '#FFFF77') {

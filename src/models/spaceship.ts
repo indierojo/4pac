@@ -6,17 +6,17 @@ class Spaceship extends Glyph implements IDrawable, IEraseable {
     size: number;
     color: string;
 
-    draw = function(context: CanvasRenderingContext2D) {
-        context.beginPath();
-        context.lineTo(this.center.x, this.center.y - (this.size / 2));
-        context.lineTo(this.center.x - (this.size / 2), this.center.y + (this.size / 2));
-        context.lineTo(this.center.x + (this.size / 2), this.center.y + (this.size / 2));
-        context.fillStyle = this.color;
-        context.fill();
+    draw = function(drawingContext: CanvasRenderingContext2D) {
+        drawingContext.beginPath();
+        drawingContext.lineTo(this.center.x, this.center.y - (this.size / 2));
+        drawingContext.lineTo(this.center.x - (this.size / 2), this.center.y + (this.size / 2));
+        drawingContext.lineTo(this.center.x + (this.size / 2), this.center.y + (this.size / 2));
+        drawingContext.fillStyle = this.color;
+        drawingContext.fill();
     };
 
-    erase = function(context: CanvasRenderingContext2D) {
-        context.clearRect(this.center.x - (this.size / 2), this.center.y - (this.size / 2), this.size, this.size);
+    erase = function(drawingContext: CanvasRenderingContext2D) {
+        drawingContext.clearRect(this.center.x - (this.size / 2), this.center.y - (this.size / 2), this.size, this.size);
     };
 
     constructor(center: ICoord, size: number, color: string) {

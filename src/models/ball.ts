@@ -6,13 +6,13 @@ class Ball extends Glyph implements IDrawable {
     color: string;
     rotation: number;
 
-    draw = function(context: CanvasRenderingContext2D) {
-        context.beginPath();
-        context.arc(this.center.x, this.center.y, this.radius, (.15 + this.rotation) * Math.PI, (1.85 + this.rotation) * Math.PI, false);
-        context.lineTo(this.center.x, this.center.y);
-        context.lineTo(this.center.x + (this.radius * .15), this.center.y + this.radius * .15);
-        context.fillStyle = this.color;
-        context.fill();
+    draw = function(drawingContext: CanvasRenderingContext2D) {
+        drawingContext.beginPath();
+        drawingContext.arc(this.center.x, this.center.y, this.radius, (.15 + this.rotation) * Math.PI, (1.85 + this.rotation) * Math.PI, false);
+        drawingContext.lineTo(this.center.x, this.center.y);
+        drawingContext.lineTo(this.center.x + (this.radius * .15), this.center.y + this.radius * .15);
+        drawingContext.fillStyle = this.color;
+        drawingContext.fill();
     };
 
     constructor(center: ICoord, radius: number, color: string) {

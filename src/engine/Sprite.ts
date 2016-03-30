@@ -21,13 +21,13 @@ class Sprite {
         this.behaviors = behaviors || [];
     }
 
-    paint(context: CanvasRenderingContext2D) {
+    paint(drawingContext: CanvasRenderingContext2D) {
         if (this.painter !== undefined && this.isVisible) {
-            this.painter.paint(this, context);
+            this.painter.paint(this, drawingContext);
         }
     }
 
-    update(context: CanvasRenderingContext2D, time: number) {
-        this.behaviors.forEach(b => b.execute(this, context, time));
+    update(drawingContext: CanvasRenderingContext2D, time: number) {
+        this.behaviors.forEach(b => b.execute(this, drawingContext, time));
     }
 }

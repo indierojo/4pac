@@ -7,7 +7,7 @@
 /// <reference path="models/ufo.ts"/>
 
 var canvas = <HTMLCanvasElement> document.getElementById('canvas');
-var context = canvas.getContext('2d');
+var drawingContext = canvas.getContext('2d');
 
 var upLabel = document.getElementById('upLabel');
 var downLabel = document.getElementById('downLabel');
@@ -29,31 +29,31 @@ var spacePressed: boolean = false;
 
 var bullets = [];
 var player = new Spaceship({ x: 250, y: 450 }, 50, '#FFFF77');
-player.draw(context);
+player.draw(drawingContext);
 
 const ufos = [
     new Ufo({x: 400, y: 150}, 25, '#773355'),
     new Ufo({x: 200, y: 75}, 25, '#335577'),
     new Ufo({x: 125, y: 215}, 25, '#557733')
 ];
-ufos.forEach(u => u.draw(context));
+ufos.forEach(u => u.draw(drawingContext));
 
 window.requestNextAnimationFrame(animate);
 
 function animate(time) {
-    //context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    //drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
 
     updateLabels();
     updatePlayerLocation();
     updateUfoLocations();
     handleBullets();
 
-    player.draw(context);
+    player.draw(drawingContext);
     window.requestNextAnimationFrame(animate);
 }
 
-context.lineWidth = 0.5;
-context.font = '32pt Arial';
+drawingContext.lineWidth = 0.5;
+drawingContext.font = '32pt Arial';
 
 window.onkeydown = e => {
     var keyCode = e.keyCode;
@@ -114,7 +114,7 @@ function addNewBullet() {
     }
 
     var bullet = new Circle({ x: player.center.x, y: bulletY }, 4, '#FFFF77');
-    bullet.draw(context);
+    bullet.draw(drawingContext);
     bullets.push(bullet);
 }
 
@@ -139,19 +139,19 @@ function updatePlayerLocation() {
         return;
     }
 
-    player.erase(context);
+    player.erase(drawingContext);
 
     var newX = player.center.x + stepX;
     var newY = player.center.y + stepY;
-    if (newX > context.canvas.width) {
+    if (newX > drawingContext.canvas.width) {
         newX = player.size;
     } else if (newX < 0) {
-        newX = context.canvas.width - player.size;
+        newX = drawingContext.canvas.width - player.size;
     }
-    if (newY > context.canvas.height) {
+    if (newY > drawingContext.canvas.height) {
         newY = player.size;
     } else if (newY < 0) {
-        newY = context.canvas.height - player.size;
+        newY = drawingContext.canvas.height - player.size;
     }
 
     //var potentialLocation = new Glyph({ x: newX, y: newY }, player.dimension, newX - player.size, newX + player.size, newY - player.size, newY + player.size);
@@ -166,8 +166,8 @@ function updatePlayerLocation() {
 
 function updateUfoLocations() {
     ufos.forEach(u => {
-        u.erase(context);
-        u.draw(context);
+        u.erase(drawingContext);
+        u.draw(drawingContext);
     });
 }
 
@@ -179,12 +179,12 @@ function updateBulletPositions() {
 
     bullets.forEach(bullet => {
         // erase all bullets
-        bullet.erase(context);
+        bullet.erase(drawingContext);
 
         if(bullet.center.y > 10) {
             // redraw any that haven't reached the top of the screen
             bullet.center.y = bullet.center.y - 10;
-            bullet.draw(context);
+            bullet.draw(drawingContext);
         }
     });
 }

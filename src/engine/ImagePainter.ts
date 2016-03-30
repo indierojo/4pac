@@ -10,9 +10,9 @@ class ImagePainter implements IPainter {
         this.imageUrl = imageUrl;
     }
 
-    paint(sprite: Sprite, context: CanvasRenderingContext2D) {
+    paint(sprite: Sprite, drawingContext: CanvasRenderingContext2D) {
         if (this.image.complete) {
-            context.drawImage(this.image, sprite.left, sprite.top, sprite.dimension.width, sprite.dimension.height);
+            drawingContext.drawImage(this.image, sprite.left, sprite.top, sprite.dimension.width, sprite.dimension.height);
         }
     }
 }
