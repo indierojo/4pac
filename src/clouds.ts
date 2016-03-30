@@ -1,206 +1,223 @@
-/// <reference path="engine/Glyph.ts"/>
-/// <reference path="engine/requestNextAnimationFrame.ts"/>
-/// <reference path="interfaces/ICoord.ts"/>
-/// <reference path="interfaces/IDimension.ts"/>
-/// <reference path="models/circle.ts"/>
-/// <reference path="models/spaceship.ts"/>
-/// <reference path="models/ufo.ts"/>
+class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
+    player: Spaceship;
+    bullets: Array<Circle>;
+    ufos: Array<Ufo>;
+    drawingContext: CanvasRenderingContext2D;
 
-var canvas = <HTMLCanvasElement> document.getElementById('canvas');
-var drawingContext = canvas.getContext('2d');
+    upPressed: boolean;
+    downPressed: boolean;
+    leftPressed: boolean;
+    rightPressed: boolean;
+    spacePressed: boolean;
 
-var upLabel = document.getElementById('upLabel');
-var downLabel = document.getElementById('downLabel');
-var leftLabel = document.getElementById('leftLabel');
-var rightLabel = document.getElementById('rightLabel');
-var spaceLabel = document.getElementById('spaceLabel');
+    upLabel: HTMLElement;
+    downLabel: HTMLElement;
+    leftLabel: HTMLElement;
+    rightLabel: HTMLElement;
+    spaceLabel: HTMLElement;
 
-var upArrowKeycode = 38;
-var downArrowKeycode = 40;
-var leftArrowKeycode = 37;
-var rightArrowKeycode = 39;
-var spacebarKeycode = 32;
+    constructor() {
+        var canvas = <HTMLCanvasElement> document.getElementById('canvas');
+        this.drawingContext = canvas.getContext('2d');
 
-var upPressed: boolean = false;
-var downPressed: boolean = false;
-var leftPressed: boolean = false;
-var rightPressed: boolean = false;
-var spacePressed: boolean = false;
+        this.initGameModels();
+        this.initUI();
+        this.registerKeyHandlers();
 
-var bullets = [];
-var player = new Spaceship({ x: 250, y: 450 }, 50, '#FFFF77');
-player.draw(drawingContext);
-
-const ufos = [
-    new Ufo({x: 400, y: 150}, 25, '#773355'),
-    new Ufo({x: 200, y: 75}, 25, '#335577'),
-    new Ufo({x: 125, y: 215}, 25, '#557733')
-];
-ufos.forEach(u => u.draw(drawingContext));
-
-window.requestNextAnimationFrame(animate);
-
-function animate(time) {
-    //drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
-
-    updateLabels();
-    updatePlayerLocation();
-    updateUfoLocations();
-    handleBullets();
-
-    player.draw(drawingContext);
-    window.requestNextAnimationFrame(animate);
-}
-
-drawingContext.lineWidth = 0.5;
-drawingContext.font = '32pt Arial';
-
-window.onkeydown = e => {
-    var keyCode = e.keyCode;
-
-    if (keyCode === upArrowKeycode) {
-        upPressed = true;
-        downPressed = false;
-    }
-    if (keyCode === downArrowKeycode) {
-        upPressed = false;
-        downPressed = true;
-    }
-    if (keyCode === leftArrowKeycode) {
-        leftPressed = true;
-        rightPressed = false;
-    }
-    if (keyCode === rightArrowKeycode) {
-        leftPressed = false;
-        rightPressed = true;
-    }
-    if (keyCode === spacebarKeycode) {
-        spacePressed = true;
-    }
-};
-
-window.onkeyup = e => {
-    var keyCode = e.keyCode;
-    if (keyCode === upArrowKeycode) {
-        upPressed = false;
-    }
-    if (keyCode === downArrowKeycode) {
-        downPressed = false;
-    }
-    if (keyCode === leftArrowKeycode) {
-        leftPressed = false;
-    }
-    if (keyCode === rightArrowKeycode) {
-        rightPressed = false;
-    }
-    if (keyCode === spacebarKeycode) {
-        spacePressed = false;
-    }
-};
-//
-//function wallAt(glyph: Glyph): boolean {
-//    return walls.some(w => w.collidesWith(glyph));
-//}
-
-function addNewBullet() {
-    var bulletXLeft = player.center.x - 30;
-    var bulletXRight = player.center.x + 30;
-    var bulletY = player.top - 6;
-
-    var isInSamePosition = b => { return b.center.y >= bulletY - 60 && (b.center.x >= bulletXLeft && b.center.x <= bulletXRight); };
-    if(bullets.some(isInSamePosition)) {
-        // Don't add a new bullet if one already exists at same x and similar y
-        return;
+        window.requestNextAnimationFrame(this.animate);
     }
 
-    var bullet = new Circle({ x: player.center.x, y: bulletY }, 4, '#FFFF77');
-    bullet.draw(drawingContext);
-    bullets.push(bullet);
-}
+    initUI = () => {
+        this.upLabel = document.getElementById('upLabel');
+        this.downLabel = document.getElementById('downLabel');
+        this.leftLabel = document.getElementById('leftLabel');
+        this.rightLabel = document.getElementById('rightLabel');
+        this.spaceLabel = document.getElementById('spaceLabel');
 
-function updatePlayerLocation() {
+        this.upPressed = false;
+        this.downPressed = false;
+        this.leftPressed = false;
+        this.rightPressed = false;
+        this.spacePressed = false;
+    };
 
-    var stepX = 0;
-    var stepY = 0;
-    if (leftPressed) {
-        stepX = -10;
-    }
-    if (upPressed) {
-        stepY = -10;
-    }
-    if (downPressed) {
-        stepY = 10;
-    }
-    if (rightPressed) {
-        stepX = 10;
-    }
+    initGameModels = () => {
+        this.bullets = [];
+        this.player = new Spaceship({ x: 250, y: 450 }, 50, '#FFFF77');
+        this.player.draw(this.drawingContext);
 
-    if (stepX == 0 && stepY == 0) {
-        return;
-    }
+        this.ufos = [
+            new Ufo({x: 400, y: 150}, 25, '#773355'),
+            new Ufo({x: 200, y: 75}, 25, '#335577'),
+            new Ufo({x: 125, y: 215}, 25, '#557733')
+        ];
+        this.ufos.forEach(u => u.draw(this.drawingContext));
 
-    player.erase(drawingContext);
+        this.drawingContext.lineWidth = 0.5;
+        this.drawingContext.font = '32pt Arial';
+    };
 
-    var newX = player.center.x + stepX;
-    var newY = player.center.y + stepY;
-    if (newX > drawingContext.canvas.width) {
-        newX = player.size;
-    } else if (newX < 0) {
-        newX = drawingContext.canvas.width - player.size;
-    }
-    if (newY > drawingContext.canvas.height) {
-        newY = player.size;
-    } else if (newY < 0) {
-        newY = drawingContext.canvas.height - player.size;
-    }
+    registerKeyHandlers = () => {
+        var upArrowKeycode = 38;
+        var downArrowKeycode = 40;
+        var leftArrowKeycode = 37;
+        var rightArrowKeycode = 39;
+        var spacebarKeycode = 32;
 
-    //var potentialLocation = new Glyph({ x: newX, y: newY }, player.dimension, newX - player.size, newX + player.size, newY - player.size, newY + player.size);
-    //if (wallAt(potentialLocation)) {
-    //    console.log("Wall!");
-    //} else {
-        player.center.x = newX;
-        player.center.y = newY;
-        player.top = player.center.y - ( player.size / 2 );
-    //}
-}
+        window.onkeydown = e => {
+            var keyCode = e.keyCode;
 
-function updateUfoLocations() {
-    ufos.forEach(u => {
-        u.erase(drawingContext);
-        u.draw(drawingContext);
-    });
-}
+            if (keyCode === upArrowKeycode) {
+                this.upPressed = true;
+                this.downPressed = false;
+            }
+            if (keyCode === downArrowKeycode) {
+                this.upPressed = false;
+                this.downPressed = true;
+            }
+            if (keyCode === leftArrowKeycode) {
+                this.leftPressed = true;
+                this.rightPressed = false;
+            }
+            if (keyCode === rightArrowKeycode) {
+                this.leftPressed = false;
+                this.rightPressed = true;
+            }
+            if (keyCode === spacebarKeycode) {
+                this.spacePressed = true;
+            }
+        };
 
-function updateBulletPositions() {
+        window.onkeyup = e => {
+            var keyCode = e.keyCode;
+            if (keyCode === upArrowKeycode) {
+                this.upPressed = false;
+            }
+            if (keyCode === downArrowKeycode) {
+                this.downPressed = false;
+            }
+            if (keyCode === leftArrowKeycode) {
+                this.leftPressed = false;
+            }
+            if (keyCode === rightArrowKeycode) {
+                this.rightPressed = false;
+            }
+            if (keyCode === spacebarKeycode) {
+                this.spacePressed = false;
+            }
+        };
+    };
 
-    if(bullets.length == 0) {
-        return;
-    }
+    animate = (time) => {
+        //drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
 
-    bullets.forEach(bullet => {
-        // erase all bullets
-        bullet.erase(drawingContext);
+        this.updateLabels();
+        this.updatePlayerLocation();
+        this.updateUfoLocations();
+        this.handleBullets();
 
-        if(bullet.center.y > 10) {
-            // redraw any that haven't reached the top of the screen
-            bullet.center.y = bullet.center.y - 10;
-            bullet.draw(drawingContext);
+        this.player.draw(this.drawingContext);
+        window.requestNextAnimationFrame(this.animate);
+    };
+
+    addNewBullet = () => {
+        var bulletXLeft = this.player.center.x - 30;
+        var bulletXRight = this.player.center.x + 30;
+        var bulletY = this.player.top - 6;
+
+        var isInSamePosition = b => { return b.center.y >= bulletY - 60 && (b.center.x >= bulletXLeft && b.center.x <= bulletXRight); };
+        if(this.bullets.some(isInSamePosition)) {
+            // Don't add a new bullet if one already exists at same x and similar y
+            return;
         }
-    });
-}
 
-function handleBullets() {
-    updateBulletPositions();
+        var bullet = new Circle({ x: this.player.center.x, y: bulletY }, 4, '#FFFF77');
+        bullet.draw(this.drawingContext);
+        this.bullets.push(bullet);
+    };
 
-    if(spacePressed) {
-        addNewBullet();
-    }
-}
+    updatePlayerLocation = () => {
+        var stepX = 0;
+        var stepY = 0;
+        if (this.leftPressed) {
+            stepX = -10;
+        }
+        if (this.upPressed) {
+            stepY = -10;
+        }
+        if (this.downPressed) {
+            stepY = 10;
+        }
+        if (this.rightPressed) {
+            stepX = 10;
+        }
 
-function updateLabels() {
-    upLabel.className = upPressed ? 'green' : 'red';
-    downLabel.className = downPressed ? 'green' : 'red';
-    leftLabel.className = leftPressed ? 'green' : 'red';
-    rightLabel.className = rightPressed ? 'green' : 'red';
-    spaceLabel.className = spacePressed? 'green' : 'red';
+        if (stepX == 0 && stepY == 0) {
+            return;
+        }
+
+        this.player.erase(this.drawingContext);
+
+        var newX = this.player.center.x + stepX;
+        var newY = this.player.center.y + stepY;
+        if (newX > this.drawingContext.canvas.width) {
+            newX = this.player.size;
+        } else if (newX < 0) {
+            newX = this.drawingContext.canvas.width - this.player.size;
+        }
+        if (newY > this.drawingContext.canvas.height) {
+            newY = this.player.size;
+        } else if (newY < 0) {
+            newY = this.drawingContext.canvas.height - this.player.size;
+        }
+
+        //var potentialLocation = new Glyph({ x: newX, y: newY }, player.dimension, newX - player.size, newX + player.size, newY - player.size, newY + player.size);
+        //if (wallAt(potentialLocation)) {
+        //    console.log("Wall!");
+        //} else {
+        this.player.center.x = newX;
+        this.player.center.y = newY;
+        this.player.top = this.player.center.y - ( this.player.size / 2 );
+        //}
+    };
+
+    updateUfoLocations = () => {
+        this.ufos.forEach(u => {
+            u.erase(this.drawingContext);
+            u.draw(this.drawingContext);
+        });
+    };
+
+    updateBulletPositions = () => {
+        if(this.bullets.length == 0) {
+            return;
+        }
+
+        this.bullets.forEach(bullet => {
+            // erase all bullets
+            bullet.erase(this.drawingContext);
+
+            if(bullet.center.y > 10) {
+                // redraw any that haven't reached the top of the screen
+                bullet.center.y = bullet.center.y - 10;
+                bullet.draw(this.drawingContext);
+            }
+        });
+    };
+
+    handleBullets = () => {
+        this.updateBulletPositions();
+
+        if(this.spacePressed) {
+            this.addNewBullet();
+        }
+    };
+
+    updateLabels = () => {
+        this.upLabel.className = this.upPressed ? 'green' : 'red';
+        this.downLabel.className = this.downPressed ? 'green' : 'red';
+        this.leftLabel.className = this.leftPressed ? 'green' : 'red';
+        this.rightLabel.className = this.rightPressed ? 'green' : 'red';
+        this.spaceLabel.className = this.spacePressed? 'green' : 'red';
+    };
 }
