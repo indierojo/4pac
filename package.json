@@ -1,0 +1,27 @@
+{
+  "name": "4pac",
+  "version": "1.0.0",
+  "description": "4pac ====",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indierojo/4pac.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/indierojo/4pac/issues"
+  },
+  "homepage": "https://github.com/indierojo/4pac#readme",
+  "devDependencies": {
+    "babel-core": "^6.7.4",
+    "babel-preset-es2015": "^6.6.0",
+    "chai": "^3.5.0",
+    "expect": "^1.16.0",
+    "mocha": "^2.4.5",
+    "typescript": "^1.8.9"
+  }
+}
