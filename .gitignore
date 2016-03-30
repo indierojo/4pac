@@ -1,3 +1,15 @@
+# IntelliJ project files
 .idea/
-node_modules
 *.iml
+
+# Package Manager
+node_modules
+typings
+
+# Generated Files
+src/**/*.js
+src/**/*.js.map
+test/**/*.js
+test/**/*.js.map
+styles/**/*.css
+styles/**/*.css.map
