@@ -8,7 +8,7 @@
         drawingContext.lineTo(i, drawingContext.canvas.height);
         drawingContext.stroke();
     }
-    for (let j = stepy + 0.5; i < drawingContext.canvas.width; j += stepy) {
+    for (let j = stepy + 0.5; j < drawingContext.canvas.width; j += stepy) {
         drawingContext.beginPath();
         drawingContext.moveTo(0, j);
         drawingContext.lineTo(drawingContext.canvas.width, j);
