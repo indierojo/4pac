@@ -6,12 +6,12 @@
 }
 
 window.requestNextAnimationFrame = (() => {
-    var originalWebkitMethod;
-    var wrapper;
-    var geckoVersion;
-    var userAgent = navigator.userAgent;
-    var index;
-    var self = this;
+    let originalWebkitMethod;
+    let wrapper;
+    let geckoVersion;
+    const userAgent = navigator.userAgent;
+    let index;
+    const self = this;
 
     // Chrome 10 fix:
     if (window.webkitRequestAnimationFrame) {
@@ -32,21 +32,21 @@ window.requestNextAnimationFrame = (() => {
 
     // Firefox 4 fix:
     if (window.mozRequestAnimationFrame) {
-        index = userAgent.indexOf('rv:');
+        index = userAgent.indexOf("rv:");
 
-        if (userAgent.indexOf('Gecko') != -1) {
+        if (userAgent.indexOf("Gecko") !== -1) {
             geckoVersion = userAgent.substr(index + 3, 3);
 
-            if (geckoVersion === '2.0') {
+            if (geckoVersion === "2.0") {
                 window.mozRequestAnimationFrame = undefined;
             }
         }
     }
 
     // Shim for browsers with none of the above:
-    var missingAnimationFrameShim = (cb)=> {
-        var start, finish;
-        window.setTimeout(()=> {
+    const missingAnimationFrameShim = (cb) => {
+        let start, finish;
+        window.setTimeout(() => {
             start = +new Date();
             cb(start);
             finish = +new Date();

@@ -2,13 +2,13 @@
     drawingContext.strokeStyle = color;
     drawingContext.lineWidth = 0.5;
 
-    for (var i = stepx + 0.5; i < drawingContext.canvas.width; i += stepx) {
+    for (let i = stepx + 0.5; i < drawingContext.canvas.width; i += stepx) {
         drawingContext.beginPath();
         drawingContext.moveTo(i, 0);
         drawingContext.lineTo(i, drawingContext.canvas.height);
         drawingContext.stroke();
     }
-    for (var j = stepy + 0.5; i < drawingContext.canvas.width; j += stepy) {
+    for (let j = stepy + 0.5; i < drawingContext.canvas.width; j += stepy) {
         drawingContext.beginPath();
         drawingContext.moveTo(0, j);
         drawingContext.lineTo(drawingContext.canvas.width, j);
@@ -17,11 +17,11 @@
 }
 
 function drawBackground(drawingContext: CanvasRenderingContext2D) {
-    var verticalLineSpacing = 12;
-    var i = drawingContext.canvas.height;
+    const verticalLineSpacing = 12;
+    let i = drawingContext.canvas.height;
 
     drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
-    drawingContext.strokeStyle = 'lightgray';
+    drawingContext.strokeStyle = "lightgray";
     drawingContext.lineWidth = 0.5;
 
     while (i > verticalLineSpacing * 4) {
@@ -34,7 +34,7 @@ function drawBackground(drawingContext: CanvasRenderingContext2D) {
 }
 
 function drawGuidelines(drawingContext: CanvasRenderingContext2D, x: number, y: number) {
-    drawingContext.strokeStyle = 'rgba(0,0,230,0.8)';
+    drawingContext.strokeStyle = "rgba(0,0,230,0.8)";
     drawingContext.lineWidth = 0.5;
     drawVerticalLine(drawingContext, x);
     drawHorizontalLine(drawingContext, y);

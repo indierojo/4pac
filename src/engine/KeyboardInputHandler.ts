@@ -8,19 +8,15 @@ class KeyboardInputHandler {
     }
 
     updateKeyDownHandlers() {
-        window.onkeydown = ev => {
-        
-        }
+        window.onkeydown = ev => {};
     }
 
     setKeyUpHandlers() {
-        window.onkeydown = ev => {
-        
-        }
+        window.onkeydown = ev => {};
     }
 
-    registerKeyDown(keyCode:number, handleFunction:Function) {
-        if(this.downBehaviors[keyCode]) {
+    registerKeyDown(keyCode: number, handleFunction: Function) {
+        if (this.downBehaviors[keyCode]) {
             this.downBehaviors[keyCode].push(handleFunction);
         } else {
             this.downBehaviors[keyCode] = [handleFunction];

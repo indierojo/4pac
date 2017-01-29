@@ -22,10 +22,10 @@ class Glyph {
     }
 
     collidesWith = function (other: Glyph): boolean {
-        var xBad;
-        var yBad;
+        let xBad;
+        let yBad;
 
-        if (this.left == other.left) {
+        if (this.left === other.left) {
             xBad = true;
         } else if (this.left < other.left) {
             if (this.right < other.left) {
@@ -41,7 +41,7 @@ class Glyph {
             }
         }
 
-        if (this.top == other.top) {
+        if (this.top === other.top) {
             yBad = true;
         } else if (this.top < other.top) {
             if (this.bottom < other.top) {
@@ -62,5 +62,5 @@ class Glyph {
 //        }
 
         return xBad && yBad;
-    }
+    };
 }
