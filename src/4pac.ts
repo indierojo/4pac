@@ -1,17 +1,17 @@
 class FourPac {
-    player: Ball;
-    walls: Wall[];
-    drawingContext: CanvasRenderingContext2D;
+    private player: Ball;
+    private walls: Wall[];
+    private drawingContext: CanvasRenderingContext2D;
 
-    upPressed: boolean;
-    downPressed: boolean;
-    leftPressed: boolean;
-    rightPressed: boolean;
+    private upPressed: boolean;
+    private downPressed: boolean;
+    private leftPressed: boolean;
+    private rightPressed: boolean;
 
-    upLabel: HTMLElement;
-    downLabel: HTMLElement;
-    leftLabel: HTMLElement;
-    rightLabel: HTMLElement;
+    private upLabel: HTMLElement;
+    private downLabel: HTMLElement;
+    private leftLabel: HTMLElement;
+    private rightLabel: HTMLElement;
 
     constructor() {
         const canvas = <HTMLCanvasElement> document.getElementById("canvas");
@@ -25,7 +25,7 @@ class FourPac {
         // window.requestNextAnimationFrame(this.animate);
     }
 
-    initUI = () => {
+    private initUI = () => {
         this.upLabel = document.getElementById("upLabel");
         this.downLabel = document.getElementById("downLabel");
         this.leftLabel = document.getElementById("leftLabel");
@@ -37,7 +37,7 @@ class FourPac {
         this.rightPressed = false;
     }
 
-    initGameModels = () => {
+    private initGameModels = () => {
         this.walls = [
             new Wall({ x: 0, y: 0 }),
             new Wall({ x: 200, y: 200 }),
@@ -57,7 +57,7 @@ class FourPac {
         this.drawingContext.font = "32pt Arial";
     }
 
-    registerKeyHandlers = () => {
+    private registerKeyHandlers = () => {
         const upArrowKeycode = 38;
         const downArrowKeycode = 40;
         const leftArrowKeycode = 37;
@@ -115,11 +115,11 @@ class FourPac {
         };
     }
 
-    wallAt = (glyph: Glyph) => {
+    private wallAt = (glyph: Glyph) => {
         return this.walls.some(w => w.collidesWith(glyph));
     }
 
-    updateBall = () => {
+    private updateBall = () => {
         let stepX = 0;
         let stepY = 0;
         const rotations = [];
@@ -188,14 +188,14 @@ class FourPac {
         this.player.draw(this.drawingContext);
     }
 
-    updateLabels = () => {
+    private updateLabels = () => {
         this.upLabel.className = this.upPressed ? "green" : "red";
         this.downLabel.className = this.downPressed ? "green" : "red";
         this.leftLabel.className = this.leftPressed ? "green" : "red";
         this.rightLabel.className = this.rightPressed ? "green" : "red";
     }
 
-    drawTheWalls = () => {
+    private drawTheWalls = () => {
         this.walls.forEach(wall => {
             wall.draw(this.drawingContext);
         });
