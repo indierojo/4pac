@@ -1,20 +1,20 @@
 class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
-    player: Spaceship;
-    bullets: Array<Circle>;
-    ufos: Array<Ufo>;
-    drawingContext: CanvasRenderingContext2D;
+    private player: Spaceship;
+    private bullets: Array<Circle>;
+    private ufos: Array<Ufo>;
+    private drawingContext: CanvasRenderingContext2D;
 
-    upPressed: boolean;
-    downPressed: boolean;
-    leftPressed: boolean;
-    rightPressed: boolean;
-    spacePressed: boolean;
+    private upPressed: boolean;
+    private downPressed: boolean;
+    private leftPressed: boolean;
+    private rightPressed: boolean;
+    private spacePressed: boolean;
 
-    upLabel: HTMLElement;
-    downLabel: HTMLElement;
-    leftLabel: HTMLElement;
-    rightLabel: HTMLElement;
-    spaceLabel: HTMLElement;
+    private upLabel: HTMLElement;
+    private downLabel: HTMLElement;
+    private leftLabel: HTMLElement;
+    private rightLabel: HTMLElement;
+    private spaceLabel: HTMLElement;
 
     constructor() {
         const canvas = <HTMLCanvasElement> document.getElementById("canvas");
@@ -27,7 +27,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         window.requestNextAnimationFrame(this.animate);
     }
 
-    initUI = () => {
+    private initUI = () => {
         this.upLabel = document.getElementById("upLabel");
         this.downLabel = document.getElementById("downLabel");
         this.leftLabel = document.getElementById("leftLabel");
@@ -41,7 +41,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         this.spacePressed = false;
     }
 
-    initGameModels = () => {
+    private initGameModels = () => {
         this.bullets = [];
         this.player = new Spaceship({ x: 250, y: 450 }, 50, "#FFFF77");
         this.player.draw(this.drawingContext);
@@ -57,7 +57,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         this.drawingContext.font = "32pt Arial";
     }
 
-    registerKeyHandlers = () => {
+    private registerKeyHandlers = () => {
         const upArrowKeycode = 38;
         const downArrowKeycode = 40;
         const leftArrowKeycode = 37;
@@ -108,7 +108,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         };
     }
 
-    animate = (time) => {
+    private animate = (time) => {
         // drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
 
         this.updateLabels();
@@ -120,7 +120,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         window.requestNextAnimationFrame(this.animate);
     }
 
-    addNewBullet = () => {
+    private addNewBullet = () => {
         const bulletXLeft = this.player.center.x - 30;
         const bulletXRight = this.player.center.x + 30;
         const bulletY = this.player.top - 6;
@@ -136,7 +136,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         this.bullets.push(bullet);
     }
 
-    updatePlayerLocation = () => {
+    private updatePlayerLocation = () => {
         let stepX = 0;
         let stepY = 0;
         if (this.leftPressed) {
@@ -181,14 +181,14 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         // }
     }
 
-    updateUfoLocations = () => {
+    private updateUfoLocations = () => {
         this.ufos.forEach(u => {
             u.erase(this.drawingContext);
             u.draw(this.drawingContext);
         });
     }
 
-    updateBulletPositions = () => {
+    private updateBulletPositions = () => {
         if (this.bullets.length === 0) {
             return;
         }
@@ -205,7 +205,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         });
     }
 
-    handleBullets = () => {
+    private handleBullets = () => {
         this.updateBulletPositions();
 
         if (this.spacePressed) {
@@ -213,7 +213,7 @@ class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
         }
     }
 
-    updateLabels = () => {
+    private updateLabels = () => {
         this.upLabel.className = this.upPressed ? "green" : "red";
         this.downLabel.className = this.downPressed ? "green" : "red";
         this.leftLabel.className = this.leftPressed ? "green" : "red";
