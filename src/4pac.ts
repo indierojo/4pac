@@ -1,4 +1,4 @@
-class fourPac {
+class FourPac {
     player: Ball;
     walls: Wall[];
     drawingContext: CanvasRenderingContext2D;
@@ -14,8 +14,8 @@ class fourPac {
     rightLabel: HTMLElement;
 
     constructor() {
-        var canvas = <HTMLCanvasElement> document.getElementById('canvas');
-        this.drawingContext = canvas.getContext('2d');
+        const canvas = <HTMLCanvasElement> document.getElementById("canvas");
+        this.drawingContext = canvas.getContext("2d");
 
         this.initGameModels();
         this.initUI();
@@ -26,16 +26,16 @@ class fourPac {
     }
 
     initUI = () => {
-        this.upLabel = document.getElementById('upLabel');
-        this.downLabel = document.getElementById('downLabel');
-        this.leftLabel = document.getElementById('leftLabel');
-        this.rightLabel = document.getElementById('rightLabel');
+        this.upLabel = document.getElementById("upLabel");
+        this.downLabel = document.getElementById("downLabel");
+        this.leftLabel = document.getElementById("leftLabel");
+        this.rightLabel = document.getElementById("rightLabel");
 
         this.upPressed = false;
         this.downPressed = false;
         this.leftPressed = false;
         this.rightPressed = false;
-    };
+    }
 
     initGameModels = () => {
         this.walls = [
@@ -49,22 +49,22 @@ class fourPac {
             new Wall({x: this.drawingContext.canvas.width - 30, y: this.drawingContext.canvas.height - 30})
         ];
 
-        this.player = new Ball({ x: 100, y: 100 }, 15, '#FFFF77');
+        this.player = new Ball({ x: 100, y: 100 }, 15, "#FFFF77");
         this.player.draw(this.drawingContext);
         this.updateBall();
 
         this.drawingContext.lineWidth = 0.5;
-        this.drawingContext.font = '32pt Arial';
-    };
+        this.drawingContext.font = "32pt Arial";
+    }
 
     registerKeyHandlers = () => {
-        var upArrowKeycode = 38;
-        var downArrowKeycode = 40;
-        var leftArrowKeycode = 37;
-        var rightArrowKeycode = 39;
+        const upArrowKeycode = 38;
+        const downArrowKeycode = 40;
+        const leftArrowKeycode = 37;
+        const rightArrowKeycode = 39;
 
-        window.onkeydown = e=> {
-            var keyCode = e.keyCode;
+        window.onkeydown = e => {
+            const keyCode = e.keyCode;
 
             if (keyCode === upArrowKeycode) {
                 this.upPressed = true;
@@ -96,7 +96,7 @@ class fourPac {
         };
 
         window.onkeyup = e => {
-            var keyCode = e.keyCode;
+            const keyCode = e.keyCode;
             if (keyCode === upArrowKeycode) {
                 this.upPressed = false;
             }
@@ -113,16 +113,16 @@ class fourPac {
             this.updateLabels();
             this.updateBall();
         };
-    };
+    }
 
     wallAt = (glyph: Glyph) => {
         return this.walls.some(w => w.collidesWith(glyph));
-    };
+    }
 
     updateBall = () => {
-        var stepX = 0;
-        var stepY = 0;
-        var rotations = [];
+        let stepX = 0;
+        let stepY = 0;
+        const rotations = [];
         if (this.leftPressed) {
             stepX = -10;
             rotations.push(1);
@@ -145,19 +145,19 @@ class fourPac {
         }
 
         if (rotations.length > 0) {
-            var rotationSum = rotations.reduce((x, y) => x + y, 0);
+            const rotationSum = rotations.reduce((x, y) => x + y, 0);
             this.player.rotation = rotationSum / rotations.length;
         }
 
-        if (stepX == 0 && stepY == 0) {
+        if (stepX === 0 && stepY === 0) {
             return;
         }
 
         this.drawingContext.clearRect(0, 0, this.drawingContext.canvas.width, this.drawingContext.canvas.height);
         this.drawTheWalls();
 
-        var newX = this.player.center.x + stepX;
-        var newY = this.player.center.y + stepY;
+        let newX = this.player.center.x + stepX;
+        let newY = this.player.center.y + stepY;
         if (newX > this.drawingContext.canvas.width) {
             newX = this.player.radius;
         } else if (newX < 0) {
@@ -170,7 +170,7 @@ class fourPac {
         }
 
         console.log("ballX: " + newX + ", ballY: " + newY);
-        var potentialLocation = new Glyph(
+        const potentialLocation = new Glyph(
             { x: newX, y: newY },
             this.player.dimension,
             newX - this.player.radius,
@@ -186,18 +186,18 @@ class fourPac {
         }
 
         this.player.draw(this.drawingContext);
-    };
+    }
 
     updateLabels = () => {
-        this.upLabel.className = this.upPressed ? 'green' : 'red';
-        this.downLabel.className = this.downPressed ? 'green' : 'red';
-        this.leftLabel.className = this.leftPressed ? 'green' : 'red';
-        this.rightLabel.className = this.rightPressed ? 'green' : 'red';
-    };
+        this.upLabel.className = this.upPressed ? "green" : "red";
+        this.downLabel.className = this.downPressed ? "green" : "red";
+        this.leftLabel.className = this.leftPressed ? "green" : "red";
+        this.rightLabel.className = this.rightPressed ? "green" : "red";
+    }
 
     drawTheWalls = () => {
         this.walls.forEach(wall => {
             wall.draw(this.drawingContext);
         });
-    };
+    }
 }
