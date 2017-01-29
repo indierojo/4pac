@@ -2,6 +2,7 @@
     requestNextAnimationFrame(cb: any, element?: any): any;
     webkitRequestAnimationFrame(cb: any, element?: any): any;
     mozRequestAnimationFrame(cb: any, element?: any): any;
+    msRequestAnimationFrame(cb: any, element?: any): any;
 }
 
 window.requestNextAnimationFrame = (() => {
@@ -14,7 +15,7 @@ window.requestNextAnimationFrame = (() => {
 
     // Chrome 10 fix:
     if (window.webkitRequestAnimationFrame) {
-        wrapper = time=> {
+        wrapper = time => {
             if (time === undefined) {
                 time = +new Date();
             }
@@ -22,10 +23,10 @@ window.requestNextAnimationFrame = (() => {
         };
 
         originalWebkitMethod = window.webkitRequestAnimationFrame;
-        window.webkitRequestAnimationFrame = (cb, element)=> {
-            self.callback = cb;
+        window.webkitRequestAnimationFrame = (callback, element?) => {
+            self.callback = callback;
 
-            originalWebkitMethod(wrapper, element);
+            return originalWebkitMethod(wrapper, element);
         };
     }
 
