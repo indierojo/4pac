@@ -24,4 +24,4 @@ class Spaceship extends Glyph implements IDrawable, IEraseable {
         this.size = size;
         this.color = color;
     }
-} 
+}

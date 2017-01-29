@@ -24,4 +24,4 @@ class Circle extends Glyph implements IDrawable, IEraseable {
         this.color = color;
         this.rotation = 0;
     }
-} 
+}

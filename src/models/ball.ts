@@ -21,4 +21,4 @@ class Ball extends Glyph implements IDrawable {
         this.color = color;
         this.rotation = 0;
     }
-} 
+}
