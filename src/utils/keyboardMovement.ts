@@ -1,36 +1,36 @@
-var canvas = <HTMLCanvasElement> document.getElementById('canvas');
-var drawingContext = canvas.getContext('2d');
+const keyboardMovementCanvas = <HTMLCanvasElement> document.getElementById("canvas");
+const keyboardMovementDrawingContext = keyboardMovementCanvas.getContext("2d");
 
-var upLabel = document.getElementById('upLabel');
-var downLabel = document.getElementById('downLabel');
-var leftLabel = document.getElementById('leftLabel');
-var rightLabel = document.getElementById('rightLabel');
+const upLabel = document.getElementById("upLabel");
+const downLabel = document.getElementById("downLabel");
+const leftLabel = document.getElementById("leftLabel");
+const rightLabel = document.getElementById("rightLabel");
 
-var upArrowKeycode = 38;
-var downArrowKeycode = 40;
-var leftArrowKeycode = 37;
-var rightArrowKeycode = 39;
+const upArrowKeycode = 38;
+const downArrowKeycode = 40;
+const leftArrowKeycode = 37;
+const rightArrowKeycode = 39;
 
-var upPressed: boolean = false;
-var downPressed: boolean = false;
-var leftPressed: boolean = false;
-var rightPressed: boolean = false;
+let upPressed: boolean = false;
+let downPressed: boolean = false;
+let leftPressed: boolean = false;
+let rightPressed: boolean = false;
 
-var circle = {
+const circle = {
     x: 100,
     y: 100,
     radius: 15,
-    color: '#FFFF77'
+    color: "#FFFF77"
 };
 
 drawCircle();
 move();
 
-drawingContext.lineWidth = 0.5;
-drawingContext.font = '32pt Arial';
+keyboardMovementDrawingContext.lineWidth = 0.5;
+keyboardMovementDrawingContext.font = "32pt Arial";
 
-window.onkeydown = e=> {
-    var keyCode = e.keyCode;
+window.onkeydown = e => {
+    const keyCode = e.keyCode;
 
     if (keyCode === upArrowKeycode) {
         upPressed = true;
@@ -54,7 +54,7 @@ window.onkeydown = e=> {
 };
 
 window.onkeyup = e => {
-    var keyCode = e.keyCode;
+    const keyCode = e.keyCode;
     if (keyCode === upArrowKeycode) {
         upPressed = false;
     }
@@ -73,24 +73,24 @@ window.onkeyup = e => {
 };
 
 function updateLabels() {
-    var upclassName = upPressed ? 'green' : 'red';
+    const upclassName = upPressed ? "green" : "red";
     upLabel.setAttribute("class", upclassName);
-    downLabel.className = downPressed ? 'green' : 'red';
-    leftLabel.className = leftPressed ? 'green' : 'red';
-    rightLabel.className = rightPressed ? 'green' : 'red';
+    downLabel.className = downPressed ? "green" : "red";
+    leftLabel.className = leftPressed ? "green" : "red";
+    rightLabel.className = rightPressed ? "green" : "red";
 }
 
 function drawCircle() {
-    drawingContext.beginPath();
-    drawingContext.fillStyle = circle.color;
-    drawingContext.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
-    drawingContext.fill();
+    keyboardMovementDrawingContext.beginPath();
+    keyboardMovementDrawingContext.fillStyle = circle.color;
+    keyboardMovementDrawingContext.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+    keyboardMovementDrawingContext.fill();
 }
 
 function move() {
 
-    var stepX = 0;
-    var stepY = 0;
+    let stepX = 0;
+    let stepY = 0;
 
     if (leftPressed) {
         stepX = -10;
@@ -105,21 +105,21 @@ function move() {
         stepX = 10;
     }
 
-    if (stepX == 0 && stepY == 0) {
+    if (stepX === 0 && stepY === 0) {
         return;
     }
 
-    drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
+    keyboardMovementDrawingContext.clearRect(0, 0, keyboardMovementDrawingContext.canvas.width, keyboardMovementDrawingContext.canvas.height);
 
-    var newX = circle.x + stepX;
-    var newY = circle.y + stepY;
+    const newX = circle.x + stepX;
+    const newY = circle.y + stepY;
 
     console.log("ballX: " + newX + ", ballY: " + newY);
 
-    if (newX < drawingContext.canvas.width && newX > 0) {
+    if (newX < keyboardMovementDrawingContext.canvas.width && newX > 0) {
         circle.x = newX;
     }
-    if (newY < drawingContext.canvas.height && newY > 0) {
+    if (newY < keyboardMovementDrawingContext.canvas.height && newY > 0) {
         circle.y = newY;
     }
 
