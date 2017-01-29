@@ -5,7 +5,7 @@ export default class Greeter {
         this.greeting = message;
     }
 
-    private greet = () => {
+    public greet = () => {
         return "Hello there, " + this.greeting;
     }
 }
