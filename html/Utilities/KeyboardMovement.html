@@ -47,6 +47,13 @@
     </div>
     <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
 
-    <script type="text/javascript" src="../../src/utils/keyboardMovement.js"></script>
+    <script type="text/javascript" src="../../lib/system.js"></script>
+    <script type="text/javascript" src="../../dist/built.js"></script>
+    <script type="application/javascript">
+        SystemJS.import('src/utils/keyboardMovement')
+        .then((keyboardMovement) => {
+            new keyboardMovement.default();
+        });
+    </script>
 </body>
 </html>
