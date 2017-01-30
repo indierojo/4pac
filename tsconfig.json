@@ -1,8 +1,9 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
+    "module": "system",
+    "target": "es6",
+    "outFile": "./dist/built.js",
     "sourceMap": true
   },
   "types": [ "mocha" ],

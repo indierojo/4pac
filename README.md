@@ -1,6 +1,10 @@
 4pac
 ====
 
+Building
+--------
+Ensure that typescript is installed globally and then run `tsc` at the root directory. You should now be able to `open ./html/index.html` and go from there.
+
 Most of the examples are from:
 ------------------------------
 * http://corehtml5canvas.com/

@@ -31,11 +31,13 @@
         <canvas id="canvas" width="750" height="500">
             Canvas not supported.
         </canvas>
-        <script type="text/javascript" src="../../src/engine/requestNextAnimationFrame.js"></script>
-        <script type="text/javascript" src="../../src/engine/utilities.js"></script>
-        <script type="text/javascript" src="../../src/utils/animationFrame.js"></script>
+        <script type="text/javascript" src="../../lib/system.js"></script>
+        <script type="text/javascript" src="../../dist/built.js"></script>
         <script type="application/javascript">
-            new AnimationFrame()
+            SystemJS.import('src/utils/animationFrame')
+            .then((animationFrame) => {
+                new animationFrame.default();
+            });
         </script>
     </body>
 </html>

@@ -7,6 +7,7 @@ node_modules
 typings
 
 # Generated Files
+dist/
 src/**/*.js
 src/**/*.js.map
 test/**/*.js
