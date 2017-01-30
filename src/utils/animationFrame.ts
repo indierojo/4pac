@@ -1,5 +1,6 @@
 ﻿/// <reference path="../engine/requestNextAnimationFrame.ts"/>
-/// <reference path="../engine/Utilities.ts"/>
+
+import { drawBackground } from "../engine/utilities";
 
 export default class AnimationFrame {
     private canvas: HTMLCanvasElement;

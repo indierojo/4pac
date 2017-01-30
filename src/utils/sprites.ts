@@ -1,5 +1,6 @@
-/// <reference path="../engine/Utilities.ts"/>
 /// <reference path="../engine/Sprite.ts"/>
+
+import { drawGrid } from "../engine/utilities";
 
 const spritesCanvas = <HTMLCanvasElement> document.getElementById("canvas");
 const spritesDrawingContext = spritesCanvas.getContext("2d");

@@ -1,4 +1,4 @@
-/// <reference path="../engine/Utilities.ts"/>
+import { drawBackground, drawGuidelines } from "../engine/utilities";
 
 interface ICoordinatePair {
     x: number;

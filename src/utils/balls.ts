@@ -1,4 +1,4 @@
-/// <reference path="../engine/Utilities.ts"/>
+import { drawGrid } from "../engine/utilities";
 
 interface ICircle {
     x: number;

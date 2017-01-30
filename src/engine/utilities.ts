@@ -1,4 +1,4 @@
-﻿function drawGrid(drawingContext: CanvasRenderingContext2D, color: string, stepx: number, stepy: number) {
+﻿export function drawGrid(drawingContext: CanvasRenderingContext2D, color: string, stepx: number, stepy: number) {
     drawingContext.strokeStyle = color;
     drawingContext.lineWidth = 0.5;
 
@@ -16,7 +16,7 @@
     }
 }
 
-function drawBackground(drawingContext: CanvasRenderingContext2D) {
+export function drawBackground(drawingContext: CanvasRenderingContext2D) {
     const verticalLineSpacing = 12;
     let i = drawingContext.canvas.height;
 
@@ -33,21 +33,21 @@ function drawBackground(drawingContext: CanvasRenderingContext2D) {
     }
 }
 
-function drawGuidelines(drawingContext: CanvasRenderingContext2D, x: number, y: number) {
+export function drawGuidelines(drawingContext: CanvasRenderingContext2D, x: number, y: number) {
     drawingContext.strokeStyle = "rgba(0,0,230,0.8)";
     drawingContext.lineWidth = 0.5;
     drawVerticalLine(drawingContext, x);
     drawHorizontalLine(drawingContext, y);
 }
 
-function drawHorizontalLine(drawingContext: CanvasRenderingContext2D, y: number) {
+export function drawHorizontalLine(drawingContext: CanvasRenderingContext2D, y: number) {
     drawingContext.beginPath();
     drawingContext.moveTo(0, y + 0.5);
     drawingContext.lineTo(drawingContext.canvas.width, y + 0.5);
     drawingContext.stroke();
 }
 
-function drawVerticalLine(drawingContext: CanvasRenderingContext2D, x: number) {
+export function drawVerticalLine(drawingContext: CanvasRenderingContext2D, x: number) {
     drawingContext.beginPath();
     drawingContext.moveTo(x + 0.5, 0);
     drawingContext.lineTo(x + 0.5, drawingContext.canvas.height);
