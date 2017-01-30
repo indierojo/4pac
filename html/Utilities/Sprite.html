@@ -27,8 +27,13 @@
     <div id="readout"></div>
     <canvas id="canvas" width="500" height="500">You don't support canvas, and you should feel bad.</canvas>
 
-    <script type="text/javascript" src="../../src/engine/utilities.js"></script>
-    <script type="text/javascript" src="../../src/engine/Sprite.js"></script>
-    <script type="text/javascript" src="../../src/utils/sprites.js"></script>
+    <script type="text/javascript" src="../../lib/system.js"></script>
+    <script type="text/javascript" src="../../dist/built.js"></script>
+    <script type="application/javascript">
+        SystemJS.import('src/utils/sprites')
+        .then((sprites) => {
+            new sprites.default();
+        });
+    </script>
 </body>
 </html>
