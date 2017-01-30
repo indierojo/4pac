@@ -1,26 +1,32 @@
-const outputSection = document.getElementById("readout");
+export default class KeycodeOutput {
+    private outputSection: HTMLElement;
 
-window.onkeydown = e => {
-    const keyCode = e.keyCode.toString();
-    clearElementsWithCode(keyCode);
-    addElementWithCode(keyCode);
-};
+    constructor() {
+        this.outputSection = document.getElementById("readout");
 
-window.onkeyup = e => {
-    const keyCode = e.keyCode.toString();
-    clearElementsWithCode(keyCode);
-};
+        window.onkeydown = e => {
+            const keyCode = e.keyCode.toString();
+            this.clearElementsWithCode(keyCode);
+            this.addElementWithCode(keyCode);
+        };
 
-function clearElementsWithCode(keyCode) {
-    const elementsToRemove = document.getElementsByClassName(keyCode);
+        window.onkeyup = e => {
+            const keyCode = e.keyCode.toString();
+            this.clearElementsWithCode(keyCode);
+        };
+    }
 
-    Array.prototype.forEach.call(elementsToRemove, el => el.remove());
-}
+    private clearElementsWithCode = (keyCode) => {
+        const elementsToRemove = document.getElementsByClassName(keyCode);
 
-function addElementWithCode(keyCode) {
-    const keyNode = document.createElement("div");
-    keyNode.className = keyCode;
-    const textNode = document.createTextNode(keyCode);
-    keyNode.appendChild(textNode);
-    outputSection.appendChild(keyNode);
+        Array.prototype.forEach.call(elementsToRemove, el => el.remove());
+    }
+
+    private addElementWithCode = (keyCode) => {
+        const keyNode = document.createElement("div");
+        keyNode.className = keyCode;
+        const textNode = document.createTextNode(keyCode);
+        keyNode.appendChild(textNode);
+        this.outputSection.appendChild(keyNode);
+    }
 }
