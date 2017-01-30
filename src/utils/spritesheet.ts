@@ -5,39 +5,47 @@ interface ICoordinatePair {
     y: number;
 }
 
-const spritesheetCanvas = <HTMLCanvasElement> document.getElementById("canvas");
-const spritesheetDrawingContext = spritesheetCanvas.getContext("2d");
-const readout = document.getElementById("readout");
-const spritesheet = new Image();
+export default class SpriteSheet {
+    private canvas: HTMLCanvasElement;
+    private drawingContext: CanvasRenderingContext2D;
+    private readout: HTMLElement;
+    private spritesheet: HTMLImageElement;
 
-function windowToCanvas(canvas: HTMLCanvasElement, mouseX: number, mouseY: number): ICoordinatePair {
-    const boundingBox = canvas.getBoundingClientRect();
-    return {
-        x: mouseX - boundingBox.left * (canvas.width / boundingBox.width),
-        y: mouseY - boundingBox.top * (canvas.height / boundingBox.height)
-    };
+    constructor() {
+        this.canvas = <HTMLCanvasElement> document.getElementById("canvas");
+        this.drawingContext = this.canvas.getContext("2d");
+        this.readout = document.getElementById("readout");
+        this.spritesheet = new Image();
+
+        this.canvas.onmousemove = e => {
+            const loc = this.windowToCanvas(this.canvas, e.clientX, e.clientY);
+
+            drawBackground(this.drawingContext);
+            this.drawSpritesheet();
+            drawGuidelines(this.drawingContext, loc.x, loc.y);
+            this.updateReadout(loc.x, loc.y);
+        };
+
+        this.spritesheet.src = "../../img/greenSheet.png";
+        this.spritesheet.onload = () => this.drawSpritesheet();
+
+        drawBackground(this.drawingContext);
+    }
+
+    private windowToCanvas = (canvas: HTMLCanvasElement, mouseX: number, mouseY: number): ICoordinatePair => {
+        const boundingBox = canvas.getBoundingClientRect();
+        return {
+            x: mouseX - boundingBox.left * (canvas.width / boundingBox.width),
+            y: mouseY - boundingBox.top * (canvas.height / boundingBox.height)
+        };
+    }
+
+    private drawSpritesheet = () => {
+        this.drawingContext.drawImage(this.spritesheet, 0, 0);
+    }
+
+    private updateReadout = (x: number, y: number) => {
+        this.readout.innerText = "(" + x.toFixed(0) + ", " + y.toFixed(0) + ")";
+    }
 }
 
-
-function drawSpritesheet() {
-    spritesheetDrawingContext.drawImage(spritesheet, 0, 0);
-}
-
-function updateReadout(x: number, y: number) {
-    readout.innerText = "(" + x.toFixed(0) + ", " + y.toFixed(0) + ")";
-}
-
-
-spritesheetCanvas.onmousemove = e => {
-    const loc = windowToCanvas(spritesheetCanvas, e.clientX, e.clientY);
-
-    drawBackground(spritesheetDrawingContext);
-    drawSpritesheet();
-    drawGuidelines(spritesheetDrawingContext, loc.x, loc.y);
-    updateReadout(loc.x, loc.y);
-};
-
-spritesheet.src = "../../img/greenSheet.png";
-spritesheet.onload = () => drawSpritesheet;
-
-drawBackground(spritesheetDrawingContext);
