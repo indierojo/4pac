@@ -1,8 +1,6 @@
 Build
 -----
- - add package.json + npm run build
- - TS Should compile to /dist
- - .html files point to /dist instead
+ - .html files point to /dist instead (4pac / clouds only)
  - Group together build artifacts (webpack or similar)
 
 Files
