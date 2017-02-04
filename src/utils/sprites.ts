@@ -1,6 +1,6 @@
-/// <reference path="../engine/Sprite.ts"/>
-
+import { IPainter } from "../interfaces/IPainter";
 import { drawGrid } from "../engine/utilities";
+import { Sprite } from "../engine/Sprite";
 
 export default class Sprites {
     private canvas: HTMLCanvasElement;

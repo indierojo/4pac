@@ -1,7 +1,7 @@
-﻿/// <reference path="../interfaces/IPainter.ts"/>
-/// <reference path="../engine/Sprite.ts"/>
+﻿import { IPainter } from "../interfaces/IPainter";
+import { Sprite } from "../engine/Sprite";
 
-class ImagePainter implements IPainter {
+export class ImagePainter implements IPainter {
     image: HTMLImageElement;
     imageUrl: string;
 

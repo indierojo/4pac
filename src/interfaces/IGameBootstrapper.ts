@@ -1,2 +1,2 @@
-interface IGameBootstrapper {
+export interface IGameBootstrapper {
 }

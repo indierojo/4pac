@@ -1,4 +1,4 @@
-class KeyboardInputHandler {
+export class KeyboardInputHandler {
     downBehaviors: { [keyCode: string]: Array<Function> };
     upBehaviors: { [keyCode: string]: Array<Function> };
 

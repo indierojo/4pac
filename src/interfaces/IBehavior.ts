@@ -1,5 +1,5 @@
-﻿/// <reference path="../engine/Sprite.ts"/>
+﻿import { Sprite } from "../engine/Sprite";
 
-interface IBehavior {
+export interface IBehavior {
     execute(sprite: Sprite, drawingContext: CanvasRenderingContext2D, time: number);
 }

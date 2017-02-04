@@ -1,7 +1,8 @@
-/// <reference path="../engine/Glyph.ts"/>
-/// <reference path="../interfaces/IDrawable.ts"/>
+import { Glyph} from "../engine/Glyph";
+import { ICoord } from "../interfaces/ICoord";
+import { IDrawable } from "../interfaces/IDrawable";
 
-class Wall extends Glyph implements IDrawable {
+export class Wall extends Glyph implements IDrawable {
     color: string;
     topLeft: ICoord;
 

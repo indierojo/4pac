@@ -16,16 +16,14 @@
         <span id="rightLabel" class="red">Right</span>
     </div>
     <canvas id="canvas" width="500" height="500">This app requires canvas support to run.</canvas>
-
-    <script type="application/javascript" src="../src/engine/Glyph.js"></script>
-    <script type="application/javascript" src="../src/interfaces/ICoord.js"></script>
-    <script type="application/javascript" src="../src/interfaces/IDimension.js"></script>
-    <script type="application/javascript" src="../src/interfaces/IDrawable.js"></script>
-    <script type="application/javascript" src="../src/models/ball.js"></script>
-    <script type="application/javascript" src="../src/models/wall.js"></script>
-    <script type="application/javascript" src="../src/4pac.js"></script>
+    
+    <script type="text/javascript" src="../lib/system.js"></script>
+    <script type="text/javascript" src="../dist/built.js"></script>
     <script type="application/javascript">
-        new FourPac();
+        SystemJS.import('src/4pac')
+        .then((fourpac) => {
+            new fourpac.default();
+        });
     </script>
 </body>
 </html>

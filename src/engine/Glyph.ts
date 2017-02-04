@@ -1,7 +1,7 @@
-/// <reference path="../interfaces/ICoord.ts"/>
-/// <reference path="../interfaces/IDimension.ts"/>
+import { ICoord } from "../interfaces/ICoord";
+import { IDimension } from "../interfaces/IDimension";
 
-class Glyph {
+export class Glyph {
     center: ICoord;
     velocityX: number;
     velocityY: number;

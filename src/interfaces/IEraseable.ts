@@ -1,5 +1,5 @@
-﻿/// <reference path="../engine/Sprite.ts"/>
+﻿import { Sprite } from "../engine/Sprite"
 
-interface IEraseable {
+export interface IEraseable {
     erase(drawingContext: CanvasRenderingContext2D);
 }

@@ -1,4 +1,8 @@
-class FourPac {
+import { Ball } from "./models/ball";
+import { Wall } from "./models/wall";
+import { Glyph } from "./engine/Glyph";
+
+export default class FourPac {
     private player: Ball;
     private walls: Wall[];
     private drawingContext: CanvasRenderingContext2D;

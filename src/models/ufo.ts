@@ -1,8 +1,9 @@
-/// <reference path="./Circle.ts"/>
-/// <reference path="../interfaces/IDrawable.ts"/>
-/// <reference path="../interfaces/IEraseable.ts"/>
+import { Circle } from "./circle";
+import { ICoord } from "../interfaces/ICoord";
+import { IDrawable } from "../interfaces/IDrawable";
+import { IEraseable } from "../interfaces/IEraseable";
 
-class Ufo extends Circle implements IDrawable, IEraseable {
+export class Ufo extends Circle implements IDrawable, IEraseable {
     constructor(center: ICoord, radius: number, color: string) {
         super(center, radius, color);
     }

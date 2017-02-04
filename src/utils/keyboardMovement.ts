@@ -22,7 +22,7 @@ export default class KeyboardMovement {
         y: 100,
         radius: 15,
         color: "#FFFF77"
-    }
+    };
 
     constructor() {
         this.canvas = <HTMLCanvasElement> document.getElementById("canvas");

@@ -1,8 +1,10 @@
-/// <reference path="../engine/Glyph.ts"/>
-/// <reference path="../interfaces/IDrawable.ts"/>
-/// <reference path="../interfaces/IEraseable.ts"/>
+import { Glyph } from "../engine/Glyph";
 
-class Spaceship extends Glyph implements IDrawable, IEraseable {
+import { ICoord } from "../interfaces/ICoord";
+import { IDrawable } from "../interfaces/IDrawable";
+import { IEraseable } from "../interfaces/IEraseable";
+
+export class Spaceship extends Glyph implements IDrawable, IEraseable {
     size: number;
     color: string;
 

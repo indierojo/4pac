@@ -1,5 +1,5 @@
-﻿/// <reference path="../engine/Sprite.ts"/>
+﻿import { Sprite } from "../engine/Sprite";
 
-interface IPainter {
+export interface IPainter {
     paint(sprite: Sprite, drawingContext: CanvasRenderingContext2D);
 }

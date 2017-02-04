@@ -1,4 +1,8 @@
-class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
+import { Spaceship } from "./models/spaceship";
+import { Ufo } from "./models/ufo";
+import { Circle } from "./models/circle";
+
+export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
     private player: Spaceship;
     private bullets: Array<Circle>;
     private ufos: Array<Ufo>;

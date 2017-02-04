@@ -18,17 +18,13 @@
     </div>
     <canvas id="canvas" width="500" height="500">This app requires canvas support to run.</canvas>
 
-    <script type="application/javascript" src="../src/engine/Glyph.js"></script>
-    <script type="application/javascript" src="../src/engine/requestNextAnimationFrame.js"></script>
-    <script type="application/javascript" src="../src/interfaces/ICoord.js"></script>
-    <script type="application/javascript" src="../src/interfaces/IDimension.js"></script>
-    <script type="application/javascript" src="../src/interfaces/IDrawable.js"></script>
-    <script type="application/javascript" src="../src/models/circle.js"></script>
-    <script type="application/javascript" src="../src/models/spaceship.js"></script>
-    <script type="application/javascript" src="../src/models/ufo.js"></script>
-    <script type="application/javascript" src="../src/clouds.js"></script>
+    <script type="text/javascript" src="../lib/system.js"></script>
+    <script type="text/javascript" src="../dist/built.js"></script>
     <script type="application/javascript">
-        new Clouds();
+        SystemJS.import('src/clouds')
+        .then((clouds) => {
+            new clouds.default();
+        });
     </script>
 
 </body>
