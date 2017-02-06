@@ -1,11 +1,28 @@
 import { Glyph } from "../engine/Glyph";
+import { IBoundary } from "../interfaces/IBoundary";
 import { ICoord } from "../interfaces/ICoord";
 import { IDrawable } from "../interfaces/IDrawable";
 
 export class Ball extends Glyph implements IDrawable {
+    static getBoundsFor(center: ICoord, radius: number): IBoundary {
+        return {
+            left: center.x - radius,
+            right: center.x + radius,
+            top: center.y - radius,
+            bottom: center.y + radius,
+        };
+    }
+
     radius: number;
     color: string;
     rotation: number;
+
+    constructor(center: ICoord, radius: number, color: string) {
+        super(center, { width: radius * 2, height: radius * 2}, Ball.getBoundsFor(center, radius));
+        this.radius = radius;
+        this.color = color;
+        this.rotation = 0;
+    }
 
     draw = function(drawingContext: CanvasRenderingContext2D) {
         drawingContext.beginPath();
@@ -16,10 +33,7 @@ export class Ball extends Glyph implements IDrawable {
         drawingContext.fill();
     };
 
-    constructor(center: ICoord, radius: number, color: string) {
-        super(center, { width: radius * 2, height: radius * 2 }, center.x - radius, center.x + radius, center.y - radius, center.y + radius);
-        this.radius = radius;
-        this.color = color;
-        this.rotation = 0;
+    updateBounds() {
+        return Ball.getBoundsFor(this.center, this.radius);
     }
 }

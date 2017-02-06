@@ -1,56 +1,57 @@
+import { IBoundary } from "../interfaces/IBoundary";
 import { ICoord } from "../interfaces/ICoord";
 import { IDimension } from "../interfaces/IDimension";
 
-export class Glyph {
-    center: ICoord;
+export abstract class Glyph {
+    readonly bounds: IBoundary;
+    readonly center: ICoord;
     velocityX: number;
     velocityY: number;
     dimension: IDimension;
-    left: number;
-    right: number;
-    top: number;
-    bottom: number;
 
-    constructor(center: ICoord, dimensions: IDimension, left: number, right: number, top: number, bottom: number) {
+    constructor(center: ICoord, dimensions: IDimension, initialBounds: IBoundary) {
         this.center = center;
         this.dimension = dimensions;
-
-        this.top = top;
-        this.bottom = bottom;
-        this.left = left;
-        this.right = right;
+        this.bounds = initialBounds;
     }
+
+    setCenter = function (newCenter: ICoord): void {
+        this.center = newCenter;
+        this.bounds = this.updateBounds();
+    };
+
+    abstract updateBounds(): IBoundary
 
     collidesWith = function (other: Glyph): boolean {
         let xBad;
         let yBad;
 
-        if (this.left === other.left) {
+        if (this.bounds.left === other.bounds.left) {
             xBad = true;
-        } else if (this.left < other.left) {
-            if (this.right < other.left) {
+        } else if (this.bounds.left < other.bounds.left) {
+            if (this.bounds.right < other.bounds.left) {
                 xBad = false;
             } else {
                 xBad = true;
             }
         } else {
-            if (other.right < this.left) {
+            if (other.bounds.right < this.bounds.left) {
                 xBad = false;
             } else {
                 xBad = true;
             }
         }
 
-        if (this.top === other.top) {
+        if (this.bounds.top === other.bounds.top) {
             yBad = true;
-        } else if (this.top < other.top) {
-            if (this.bottom < other.top) {
+        } else if (this.bounds.top < other.bounds.top) {
+            if (this.bounds.bottom < other.bounds.top) {
                 yBad = false;
             } else {
                 yBad = true;
             }
         } else {
-            if (other.bottom < this.top) {
+            if (other.bounds.bottom < this.bounds.top) {
                 yBad = false;
             } else {
                 yBad = true;

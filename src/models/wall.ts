@@ -1,10 +1,30 @@
 import { Glyph} from "../engine/Glyph";
+import { IBoundary } from "../interfaces/IBoundary";
 import { ICoord } from "../interfaces/ICoord";
 import { IDrawable } from "../interfaces/IDrawable";
 
 export class Wall extends Glyph implements IDrawable {
+    static getBoundsFor(topLeft: ICoord, width: number, height: number): IBoundary {
+        return {
+            left: topLeft.x,
+            right: topLeft.x + width,
+            top: topLeft.y,
+            bottom: topLeft.y + height
+        };
+    }
+
     color: string;
     topLeft: ICoord;
+    width: number;
+    height: number;
+
+    constructor(topLeft: ICoord, width: number = 30, height: number = 30, color: string = "#FFFF77") {
+        super({ x: topLeft.x + (width / 2), y: topLeft.y + (height / 2) }, { width: width, height: height }, Wall.getBoundsFor(topLeft, width, height));
+        this.topLeft = topLeft;
+        this.color = color;
+        this.width = width;
+        this.height = height;
+    }
 
     draw = function (drawingContext: CanvasRenderingContext2D) {
         drawingContext.beginPath();
@@ -18,9 +38,7 @@ export class Wall extends Glyph implements IDrawable {
         drawingContext.stroke();
     };
 
-    constructor(topLeft: ICoord, width: number = 30, height: number = 30, color: string = "#FFFF77") {
-        super({ x: topLeft.x + (width / 2), y: topLeft.y + (height / 2) }, { width: width, height: height }, topLeft.x, topLeft.x + width, topLeft.y, topLeft.y + height);
-        this.topLeft = topLeft;
-        this.color = color;
+    updateBounds() {
+        return Wall.getBoundsFor(this.topLeft, this.width, this.height);
     }
 }
