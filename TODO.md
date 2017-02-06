@@ -1,8 +1,30 @@
-Build
------
- - .html files point to /dist instead (4pac / clouds only)
- - Group together build artifacts (webpack or similar)
+Engine
+------
+ - Better collision detection
+   - change spaceship to inherit triangle, get better bounds for triangle
+   - circle should not collide on square corners
+   - Both of the above should be covered with tests.
+ - Extract out common behaviors to interfaces
+   - Initialization strategy (draw all glyphs)
+   - Keyboard Handling should be an Interface with a few strategies / bindings to glyphs
+     - IE: Attach the WASD movement handler to the player
+   - Score display
+   - Win / Lose / Restart
+   - AI via strategy (IE: UFO has a movement strategy passed in, attach strategy passed in)
+ - Title Screen Support?
 
-Files
------
- - Switch to ES6 Modules instead of ref import
+4pac
+----
+ - Try to get better blending for adjacent walls
+ - More consistent 'mouth' when pac is facing up or down
+
+Clouds
+------
+ - Handle end-game
+   - Text that shows up for 'you win' if all ufos get blown up
+   - Text that shows 'you lose' if player collides with ufos
+   - Restart button in either of the above cases
+ - Enemies fire bullets at player
+   - Player hit == game over
+ - Collision detection is too naive (see Engine/Collision above)
+ - Push UFO update logic into the UFO (see Engine/AI above)
