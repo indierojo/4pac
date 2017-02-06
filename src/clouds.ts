@@ -195,10 +195,22 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     }
 
     private updateUfoLocations = () => {
-        this.ufos.forEach(u => {
-            u.erase(this.drawingContext);
-            u.draw(this.drawingContext);
-        });
+        const step = 3;
+        const maxDistance = 70;
+        this.ufos
+            .filter(u => !u.isDestroyed)
+            .forEach(u => {
+                u.erase(this.drawingContext);
+                const axis = u.isLeftRight ? "x" : "y";
+                const currentDistance = u.center[axis] - u.origin[axis];
+                const isAtMax = Math.abs(currentDistance) >= maxDistance / 2;
+                if (isAtMax) {
+                    u.isFlipped = !u.isFlipped;
+                }
+                const directionalStep = u.isFlipped ? -step : step;
+                u.center[axis] += directionalStep;
+                u.draw(this.drawingContext);
+            });
     }
 
     private updateBulletPositions = () => {
