@@ -74,6 +74,7 @@ export default class FourPac {
         this.player.draw(this.drawingContext);
         this.updateBall();
 
+        this.drawingContext.globalCompositeOperation = "xor";
         this.drawingContext.lineWidth = 0.5;
         this.drawingContext.font = "32pt Arial";
     }
