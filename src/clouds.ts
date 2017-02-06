@@ -3,6 +3,8 @@ import { Ufo } from "./models/ufo";
 import { Circle } from "./models/circle";
 
 export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
+    private isGameOver: boolean;
+
     private player: Spaceship;
     private bullets: Array<Circle>;
     private ufos: Array<Ufo>;
@@ -27,6 +29,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         this.initGameModels();
         this.initUI();
         this.registerKeyHandlers();
+        this.isGameOver = false;
 
         window.requestNextAnimationFrame(this.animate);
     }
@@ -113,12 +116,18 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     }
 
     private animate = (time) => {
+        if (this.isGameOver) {
+            console.log(`GAME OVER!`);
+            return;
+        }
         // drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
 
         this.updateLabels();
         this.updatePlayerLocation();
         this.updateUfoLocations();
         this.handleBullets();
+        this.checkForBulletCollisions();
+        this.checkForPlayerCollisions();
 
         this.player.draw(this.drawingContext);
         window.requestNextAnimationFrame(this.animate);
@@ -215,6 +224,38 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         if (this.spacePressed) {
             this.addNewBullet();
         }
+    }
+
+    private checkForPlayerCollisions = () => {
+        // can probably move this into ufo update
+        this.ufos
+            .filter(u => !u.isDestroyed)
+            .forEach(u => {
+                if (u.collidesWith(this.player)) {
+                    console.log(`ufo hit player! p(${this.player.center.x},${this.player.center.y}), u(${u.center.x}, ${u.center.y})`);
+                    this.isGameOver = true;
+                    this.player.erase(this.drawingContext);
+                    this.player.color = "red";
+                    this.player.draw(this.drawingContext);
+                    u.erase(this.drawingContext);
+                    u.color = "red";
+                    u.draw(this.drawingContext);
+                }
+            });
+    }
+
+    private checkForBulletCollisions = () => {
+        this.bullets.forEach(b => {
+            this.ufos
+                .filter(u => !u.isDestroyed)
+                .forEach(u => {
+                    if (b.collidesWith(u)) {
+                        console.log(`bullet hit ufo!`);
+                        u.isDestroyed = true;
+                        u.erase(this.drawingContext);
+                    }
+                });
+        });
     }
 
     private updateLabels = () => {
