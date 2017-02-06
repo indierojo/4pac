@@ -34,7 +34,7 @@ export class Glyph {
                 xBad = true;
             }
         } else {
-            if (other.right <= this.left) {
+            if (other.right < this.left) {
                 xBad = false;
             } else {
                 xBad = true;
@@ -50,7 +50,7 @@ export class Glyph {
                 yBad = true;
             }
         } else {
-            if (other.bottom <= this.top) {
+            if (other.bottom < this.top) {
                 yBad = false;
             } else {
                 yBad = true;
