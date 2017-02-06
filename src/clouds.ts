@@ -136,9 +136,15 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     private addNewBullet = () => {
         const bulletXLeft = this.player.center.x - 30;
         const bulletXRight = this.player.center.x + 30;
-        const bulletY = this.player.top - 6;
+        const bulletY = this.player.bounds.top - 6;
 
-        const isInSamePosition = b => { return b.center.y >= bulletY - 60 && (b.center.x >= bulletXLeft && b.center.x <= bulletXRight); };
+        const isInSamePosition = b => {
+            return b.center.y >= bulletY - 60
+                && (
+                    b.center.x >= bulletXLeft
+                    && b.center.x <= bulletXRight
+                );
+        };
         if (this.bullets.some(isInSamePosition)) {
             // Don't add a new bullet if one already exists at same x and similar y
             return;
@@ -188,9 +194,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         // if (wallAt(potentialLocation)) {
         //    console.log("Wall!");
         // } else {
-        this.player.center.x = newX;
-        this.player.center.y = newY;
-        this.player.top = this.player.center.y - ( this.player.size / 2 );
+        this.player.setCenter({x: newX, y: newY});
         // }
     }
 
@@ -202,13 +206,17 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
             .forEach(u => {
                 u.erase(this.drawingContext);
                 const axis = u.isLeftRight ? "x" : "y";
+                const otherAxis = !u.isLeftRight ? "x" : "y";
                 const currentDistance = u.center[axis] - u.origin[axis];
                 const isAtMax = Math.abs(currentDistance) >= maxDistance / 2;
                 if (isAtMax) {
                     u.isFlipped = !u.isFlipped;
                 }
                 const directionalStep = u.isFlipped ? -step : step;
-                u.center[axis] += directionalStep;
+                const newCenter = {x: 0, y: 0}; // Have to do this for the type system, probably a better way?
+                newCenter[axis] = u.center[axis] + directionalStep;
+                newCenter[otherAxis] = u.center[otherAxis];
+                u.setCenter(newCenter);
                 u.draw(this.drawingContext);
             });
     }
@@ -224,7 +232,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
 
             if (bullet.center.y > 10) {
                 // redraw any that haven't reached the top of the screen
-                bullet.center.y = bullet.center.y - 10;
+                bullet.setCenter({x: bullet.center.x, y: bullet.center.y - 10});
                 bullet.draw(this.drawingContext);
             }
         });

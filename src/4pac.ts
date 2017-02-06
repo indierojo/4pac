@@ -174,19 +174,15 @@ export default class FourPac {
         }
 
         console.log("ballX: " + newX + ", ballY: " + newY);
-        const potentialLocation = new Glyph(
+        const potentialLocation = new Ball(
             { x: newX, y: newY },
-            this.player.dimension,
-            newX - this.player.radius,
-            newX + this.player.radius,
-            newY - this.player.radius,
-            newY + this.player.radius
+            this.player.radius,
+            "blue"
         );
         if (this.wallAt(potentialLocation)) {
             console.log("Wall!");
         } else {
-            this.player.center.x = newX;
-            this.player.center.y = newY;
+            this.player.setCenter( {x: newX, y: newY});
         }
 
         this.player.draw(this.drawingContext);
