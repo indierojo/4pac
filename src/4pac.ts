@@ -41,19 +41,30 @@ export default class FourPac {
         this.rightPressed = false;
     }
 
+    private outerWalls = () => {
+        const walls: Wall[] = [];
+        for (let i = 0; i < this.drawingContext.canvas.width; i += 30) {
+            walls.push(new Wall({x: i, y: 0}));
+            walls.push(new Wall({x: i, y: this.drawingContext.canvas.height - 30}));
+        }
+        for (let j = 30; j < this.drawingContext.canvas.height - 30; j += 30) {
+            walls.push(new Wall({x: 0, y: j}));
+            walls.push(new Wall({x: this.drawingContext.canvas.width - 30, y: j}));
+        }
+        return walls;
+    }
+    private innerWalls = [
+        new Wall({ x: 200, y: 200 }),
+        new Wall({ x: 300, y: 300 }),
+        new Wall({ x: 300, y: 330 }),
+        new Wall({ x: 300, y: 360 }),
+        new Wall({ x: 300, y: 390 }),
+        new Wall({ x: 300, y: 420 }),
+    ]
     private initGameModels = () => {
-        this.walls = [
-            new Wall({ x: 0, y: 0 }),
-            new Wall({ x: 200, y: 200 }),
-            new Wall({ x: 300, y: 300 }),
-            new Wall({ x: 300, y: 330 }),
-            new Wall({ x: 300, y: 360 }),
-            new Wall({ x: 300, y: 390 }),
-            new Wall({ x: 300, y: 420 }),
-            new Wall({x: this.drawingContext.canvas.width - 30, y: this.drawingContext.canvas.height - 30})
-        ];
+        this.walls = this.outerWalls().concat(this.innerWalls);
 
-        this.player = new Ball({ x: 100, y: 100 }, 15, "#FFFF77");
+        this.player = new Ball({ x: 45, y: 45 }, 15, "#FFFF77");
         this.player.draw(this.drawingContext);
         this.updateBall();
 
@@ -176,7 +187,7 @@ export default class FourPac {
         console.log("ballX: " + newX + ", ballY: " + newY);
         const potentialLocation = new Ball(
             { x: newX, y: newY },
-            this.player.radius,
+            this.player.radius - .1,
             "blue"
         );
         if (this.wallAt(potentialLocation)) {
