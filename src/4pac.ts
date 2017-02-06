@@ -44,10 +44,16 @@ export default class FourPac {
     private outerWalls = () => {
         const walls: Wall[] = [];
         for (let i = 0; i < this.drawingContext.canvas.width; i += 30) {
+            if (i === 240) {
+                continue;
+            }
             walls.push(new Wall({x: i, y: 0}));
             walls.push(new Wall({x: i, y: this.drawingContext.canvas.height - 30}));
         }
         for (let j = 30; j < this.drawingContext.canvas.height - 30; j += 30) {
+            if (j === 240) {
+                continue;
+            }
             walls.push(new Wall({x: 0, y: j}));
             walls.push(new Wall({x: this.drawingContext.canvas.width - 30, y: j}));
         }
@@ -60,7 +66,7 @@ export default class FourPac {
         new Wall({ x: 300, y: 360 }),
         new Wall({ x: 300, y: 390 }),
         new Wall({ x: 300, y: 420 }),
-    ]
+    ];
     private initGameModels = () => {
         this.walls = this.outerWalls().concat(this.innerWalls);
 
