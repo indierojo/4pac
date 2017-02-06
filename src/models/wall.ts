@@ -18,7 +18,7 @@ export class Wall extends Glyph implements IDrawable {
     width: number;
     height: number;
 
-    constructor(topLeft: ICoord, width: number = 30, height: number = 30, color: string = "#FFFF77") {
+    constructor(topLeft: ICoord, width: number = 30, height: number = 30, color: string = "#7777FF") {
         super({ x: topLeft.x + (width / 2), y: topLeft.y + (height / 2) }, { width: width, height: height }, Wall.getBoundsFor(topLeft, width, height));
         this.topLeft = topLeft;
         this.color = color;
@@ -28,7 +28,7 @@ export class Wall extends Glyph implements IDrawable {
 
     draw = function (drawingContext: CanvasRenderingContext2D) {
         drawingContext.beginPath();
-        drawingContext.lineWidth = 1;
+        drawingContext.lineWidth = 2;
         drawingContext.strokeStyle = this.color;
         drawingContext.moveTo(this.topLeft.x, this.topLeft.y);
         drawingContext.lineTo(this.topLeft.x + this.dimension.width, this.topLeft.y);
