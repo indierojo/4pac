@@ -1,4 +1,4 @@
-import { drawBackground, drawGuidelines } from "../engine/utilities";
+import { drawGrid, drawGuidelines } from "../engine/utilities";
 
 interface ICoordinatePair {
     x: number;
@@ -18,9 +18,10 @@ export default class SpriteSheet {
         this.spritesheet = new Image();
 
         this.canvas.onmousemove = e => {
+            this.drawingContext.clearRect(0, 0, this.drawingContext.canvas.width, this.drawingContext.canvas.height);
             const loc = this.windowToCanvas(this.canvas, e.clientX, e.clientY);
 
-            drawBackground(this.drawingContext);
+            drawGrid(this.drawingContext, "lightgray", 10, 10);
             this.drawSpritesheet();
             drawGuidelines(this.drawingContext, loc.x, loc.y);
             this.updateReadout(loc.x, loc.y);
@@ -29,7 +30,7 @@ export default class SpriteSheet {
         this.spritesheet.src = "../../img/greenSheet.png";
         this.spritesheet.onload = () => this.drawSpritesheet();
 
-        drawBackground(this.drawingContext);
+        drawGrid(this.drawingContext, "lightgray", 10, 10);
     }
 
     private windowToCanvas = (canvas: HTMLCanvasElement, mouseX: number, mouseY: number): ICoordinatePair => {
