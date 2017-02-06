@@ -25,12 +25,14 @@ export class Ball extends Glyph implements IDrawable {
     }
 
     draw = function(drawingContext: CanvasRenderingContext2D) {
+        drawingContext.globalCompositeOperation = "source-over";
         drawingContext.beginPath();
         drawingContext.arc(this.center.x, this.center.y, this.radius, (.20 + this.rotation) * Math.PI, (1.75 + this.rotation) * Math.PI, false);
         drawingContext.lineTo(this.center.x, this.center.y);
         drawingContext.lineTo(this.center.x + (this.radius * .15), this.center.y + this.radius * .15);
         drawingContext.fillStyle = this.color;
         drawingContext.fill();
+        drawingContext.globalCompositeOperation = "xor";
     };
 
     updateBounds() {

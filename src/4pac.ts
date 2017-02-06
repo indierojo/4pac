@@ -17,29 +17,6 @@ export default class FourPac {
     private leftLabel: HTMLElement;
     private rightLabel: HTMLElement;
 
-    constructor() {
-        const canvas = <HTMLCanvasElement> document.getElementById("canvas");
-        this.drawingContext = canvas.getContext("2d");
-
-        this.initGameModels();
-        this.initUI();
-        this.registerKeyHandlers();
-
-        this.drawTheWalls();
-        // window.requestNextAnimationFrame(this.animate);
-    }
-
-    private initUI = () => {
-        this.upLabel = document.getElementById("upLabel");
-        this.downLabel = document.getElementById("downLabel");
-        this.leftLabel = document.getElementById("leftLabel");
-        this.rightLabel = document.getElementById("rightLabel");
-
-        this.upPressed = false;
-        this.downPressed = false;
-        this.leftPressed = false;
-        this.rightPressed = false;
-    }
 
     private outerWalls = () => {
         const walls: Wall[] = [];
@@ -67,16 +44,38 @@ export default class FourPac {
         new Wall({ x: 300, y: 390 }),
         new Wall({ x: 300, y: 420 }),
     ];
-    private initGameModels = () => {
-        this.walls = this.outerWalls().concat(this.innerWalls);
 
-        this.player = new Ball({ x: 45, y: 45 }, 15, "#FFFF77");
-        this.player.draw(this.drawingContext);
-        this.updateBall();
-
+    constructor() {
+        const canvas = <HTMLCanvasElement> document.getElementById("canvas");
+        this.drawingContext = canvas.getContext("2d");
         this.drawingContext.globalCompositeOperation = "xor";
         this.drawingContext.lineWidth = 0.5;
         this.drawingContext.font = "32pt Arial";
+
+        this.walls = this.outerWalls().concat(this.innerWalls);
+        this.player = new Ball({ x: 45, y: 45 }, 15, "#FFFF77");
+
+        this.drawTheWalls();
+        this.player.draw(this.drawingContext);
+
+        this.updateBall();
+
+        this.initUI();
+        this.registerKeyHandlers();
+
+        // window.requestNextAnimationFrame(this.animate);
+    }
+
+    private initUI = () => {
+        this.upLabel = document.getElementById("upLabel");
+        this.downLabel = document.getElementById("downLabel");
+        this.leftLabel = document.getElementById("leftLabel");
+        this.rightLabel = document.getElementById("rightLabel");
+
+        this.upPressed = false;
+        this.downPressed = false;
+        this.leftPressed = false;
+        this.rightPressed = false;
     }
 
     private registerKeyHandlers = () => {
