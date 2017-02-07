@@ -165,18 +165,10 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     private updatePlayerLocation = () => {
         let stepX = 0;
         let stepY = 0;
-        if (this.leftPressed) {
-            stepX = -10;
-        }
-        if (this.upPressed) {
-            stepY = -10;
-        }
-        if (this.downPressed) {
-            stepY = 10;
-        }
-        if (this.rightPressed) {
-            stepX = 10;
-        }
+        if (this.leftPressed)  { stepX = -10; }
+        if (this.upPressed)    { stepY = -10; }
+        if (this.downPressed)  { stepY = 10; }
+        if (this.rightPressed) { stepX = 10;}
 
         if (stepX === 0 && stepY === 0) {
             return;
