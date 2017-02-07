@@ -47,7 +47,6 @@ export class Button implements IDrawable, IEraseable {
         drawingContext.strokeStyle = "#000000";
         drawingContext.stroke();
         drawingContext.closePath();
-        drawingContext.font = "40pt Kremlin Pro Web";
         drawingContext.fillStyle = "#000000";
         drawingContext.fillText(this.text, this.topLeft.x + this.width / 3, this.topLeft.y + this.height / 2, this.width);
         this.setActive(true);
