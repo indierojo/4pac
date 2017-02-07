@@ -137,7 +137,6 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         this.checkForBulletCollisions();
         this.checkForPlayerCollisions();
 
-        this.player.draw(this.drawingContext);
         window.requestNextAnimationFrame(this.animate);
     }
 
@@ -198,12 +197,8 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
             newY = this.drawingContext.canvas.height - this.player.size;
         }
 
-        // var potentialLocation = new Glyph({ x: newX, y: newY }, player.dimension, newX - player.size, newX + player.size, newY - player.size, newY + player.size);
-        // if (wallAt(potentialLocation)) {
-        //    console.log("Wall!");
-        // } else {
         this.player.setCenter({x: newX, y: newY});
-        // }
+        this.player.draw(this.drawingContext);
     }
 
     private updateUfoLocations = () => {
