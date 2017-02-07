@@ -42,7 +42,6 @@ export class Button implements IDrawable, IEraseable {
         drawingContext.rect(this.topLeft.x, this.topLeft.y, this.width, this.height);
         drawingContext.fillStyle = "#FFFFFF";
         drawingContext.fillStyle = "rgba(225,225,225,0.5)";
-        drawingContext.fillRect(25, 72, 32, 32);
         drawingContext.fill();
         drawingContext.lineWidth = 2;
         drawingContext.strokeStyle = "#000000";

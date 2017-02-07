@@ -1,14 +1,17 @@
+import { Button } from "./models/button";
+import { Circle } from "./models/circle";
 import { Spaceship } from "./models/spaceship";
 import { Ufo } from "./models/ufo";
-import { Circle } from "./models/circle";
 
 export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
-    private isGameOver: boolean;
+    private canvas: HTMLCanvasElement;
+    private drawingContext: CanvasRenderingContext2D;
 
+    private isGameOver: boolean;
     private player: Spaceship;
     private bullets: Array<Circle>;
     private ufos: Array<Ufo>;
-    private drawingContext: CanvasRenderingContext2D;
+    private restartButton: Button;
 
     private upPressed: boolean;
     private downPressed: boolean;
@@ -23,14 +26,23 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     private spaceLabel: HTMLElement;
 
     constructor() {
-        const canvas = <HTMLCanvasElement> document.getElementById("canvas");
-        this.drawingContext = canvas.getContext("2d");
+        this.canvas = <HTMLCanvasElement> document.getElementById("canvas");
+        this.drawingContext = this.canvas.getContext("2d");
+
+        this.restartButton = new Button(this.canvas, {x: 250, y: 250}, 300, 100, "Restart?", this.resetGame.bind(this));
+        this.drawingContext.lineWidth = 0.5;
+        this.drawingContext.font = "32pt Arial";
+        this.registerKeyHandlers();
+        this.resetGame();
+    }
+
+    private resetGame() {
+        this.drawingContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.initGameModels();
+        this.restartButton.setActive(false);
         this.initUI();
-        this.registerKeyHandlers();
         this.isGameOver = false;
-
         window.requestNextAnimationFrame(this.animate);
     }
 
@@ -46,6 +58,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         this.leftPressed = false;
         this.rightPressed = false;
         this.spacePressed = false;
+        this.updateLabels();
     }
 
     private initGameModels = () => {
@@ -59,9 +72,6 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
             new Ufo({x: 125, y: 215}, 25, "#557733")
         ];
         this.ufos.forEach(u => u.draw(this.drawingContext));
-
-        this.drawingContext.lineWidth = 0.5;
-        this.drawingContext.font = "32pt Arial";
     }
 
     private registerKeyHandlers = () => {
@@ -117,10 +127,8 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
 
     private animate = (time) => {
         if (this.isGameOver) {
-            console.log(`GAME OVER!`);
             return;
         }
-        // drawingContext.clearRect(0, 0, drawingContext.canvas.width, drawingContext.canvas.height);
 
         this.updateLabels();
         this.updatePlayerLocation();
@@ -252,25 +260,25 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
             .filter(u => !u.isDestroyed)
             .forEach(u => {
                 if (u.collidesWith(this.player)) {
-                    console.log(`ufo hit player! p(${this.player.center.x},${this.player.center.y}), u(${u.center.x}, ${u.center.y})`);
-                    this.isGameOver = true;
-                    this.player.erase(this.drawingContext);
-                    this.player.color = "red";
-                    this.player.draw(this.drawingContext);
                     u.erase(this.drawingContext);
                     u.color = "red";
                     u.draw(this.drawingContext);
+                    this.handleGameOver(false);
                 }
             });
     }
 
     private checkForBulletCollisions = () => {
+        if (this.ufos.every(u => u.isDestroyed)) {
+            this.handleGameOver(true);
+            return;
+        }
+
         this.bullets.forEach(b => {
             this.ufos
                 .filter(u => !u.isDestroyed)
                 .forEach(u => {
                     if (b.collidesWith(u)) {
-                        console.log(`bullet hit ufo!`);
                         u.isDestroyed = true;
                         u.erase(this.drawingContext);
                     }
@@ -284,5 +292,19 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         this.leftLabel.className = this.leftPressed ? "green" : "red";
         this.rightLabel.className = this.rightPressed ? "green" : "red";
         this.spaceLabel.className = this.spacePressed ? "green" : "red";
+    }
+
+    private handleGameOver = (wasVictory: boolean) => {
+        this.isGameOver = true;
+        this.player.erase(this.drawingContext);
+        this.player.color = "red";
+        this.player.draw(this.drawingContext);
+        this.initUI();
+
+        this.drawingContext.fillStyle = "cornflowerblue";
+        const text = wasVictory ? "You Win!" : "Game Over!";
+        this.drawingContext.fillText(text, 125, 150);
+
+        this.restartButton.draw(this.drawingContext);
     }
 }

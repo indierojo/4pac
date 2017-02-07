@@ -20,10 +20,7 @@ Engine
 
 Clouds
 ------
- - Handle end-game
-   - Text that shows up for 'you win' if all ufos get blown up
-   - Text that shows 'you lose' if player collides with ufos
-   - Restart button in either of the above cases
+ - Better styling of Game over button
  - Enemies fire bullets at player
    - Player hit == game over
  - Collision detection is too naive (see Engine/Collision above)
