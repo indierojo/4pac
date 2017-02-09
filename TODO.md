@@ -12,6 +12,7 @@ Engine
    - Win / Lose / Restart
    - AI via strategy (IE: UFO has a movement strategy passed in, attach strategy passed in)
  - Title Screen Support?
+ - Create 'rectangle' base similar to circle. Wall should extend 'rectangle' instead of defining it.
 
 4pac
 ----
