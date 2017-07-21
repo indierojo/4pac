@@ -11,6 +11,7 @@ Engine
    - Score display
    - Win / Lose / Restart
    - AI via strategy (IE: UFO has a movement strategy passed in, attach strategy passed in)
+   - 'Wall' setup - can be shared across 4pac and snake
  - Title Screen Support?
  - Create 'rectangle' base similar to circle. Wall should extend 'rectangle' instead of defining it.
 
@@ -27,3 +28,8 @@ Clouds
    - Player hit == game over
  - Collision detection is too naive (see Engine/Collision above)
  - Push UFO update logic into the UFO (see Engine/AI above)
+
+Snake
+-----
+ - Need to change the model of the snake, I think ignoring the body other than the head would be wise, think of the body segments as static walls, keeping track of them in an queue and popping off the tail to remove it.
+ - Figure out how to manage snake 'speed'

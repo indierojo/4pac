@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Canvas!</title>
+    <link rel="stylesheet" type="text/css" href="../styles/4pac.css">
+</head>
+<body>
+    <div id="readout">
+        <span id="upLabel" class="red">Up</span>
+        <span id="downLabel" class="red">Down</span>
+        <span id="leftLabel" class="red">Left</span>
+        <span id="rightLabel" class="red">Right</span>
+    </div>
+    <canvas id="canvas" width="510" height="510">This app requires canvas support to run.</canvas>
+    
+    <script type="text/javascript" src="../lib/system.js"></script>
+    <script type="text/javascript" src="../dist/built.js"></script>
+    <script type="application/javascript">
+        SystemJS.import('src/snakeGame')
+        .then((snakeGame) => {
+            new snakeGame.default();
+        });
+    </script>
+</body>
+</html>
