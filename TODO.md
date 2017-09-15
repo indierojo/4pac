@@ -5,6 +5,9 @@ Engine
    - circle should not collide on square corners
    - Both of the above should be covered with tests.
  - Extract out common behaviors to interfaces
+   - Glyph should inherit drawable and erasable
+   - Glyph should have color
+   - Glyph should _not_ have velocity
    - Initialization strategy (draw all glyphs)
    - Keyboard Handling should be an Interface with a few strategies / bindings to glyphs
      - IE: Attach the WASD movement handler to the player
