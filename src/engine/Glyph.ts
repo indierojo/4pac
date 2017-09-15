@@ -20,7 +20,7 @@ export abstract class Glyph {
         this.bounds = this.updateBounds();
     };
 
-    abstract updateBounds(): IBoundary
+    abstract updateBounds(): IBoundary;
 
     collidesWith = function (other: Glyph): boolean {
         let xBad;
