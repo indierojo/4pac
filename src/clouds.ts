@@ -330,7 +330,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     private handleGameOver = (wasVictory: boolean) => {
         this.isGameOver = true;
         this.player.erase(this.drawingContext);
-        this.player.color = "red";
+        this.player.color = wasVictory ? "green" : "red";
         this.player.draw(this.drawingContext);
         this.initUI();
 
