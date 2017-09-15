@@ -30,7 +30,10 @@ Clouds
  - Collision detection is too naive (see Engine/Collision above)
  - Push UFO update logic into the UFO (see Engine/AI above)
  - Push bullet logic into a behavior.
- - Extract out 'draw glyph as red' logic to a function.
+ - Extract out 'draw glyph as red' logic to a function. (see Engine/CommonBehavior above)
+ - Clean up add new bullet method
+   - should handle ufo vs. player bullets more cleanly
+   - should be able to calculate up vs. down based on a vector instead of ternary
 
 Snake
 -----
