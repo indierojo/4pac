@@ -146,28 +146,43 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     }
 
     private addNewBullet = (actor: Glyph, direction: Direction) => {
-        const vector = direction === "up" ? 1 : -1;
         const bulletXLeft = actor.center.x - actor.dimension.width / 2;
         const bulletXRight = actor.center.x + actor.dimension.width / 2;
-        const bulletY = actor.center.y + (actor.dimension.height / 2) + 6 * vector;
+        const halfActorHeight = actor.dimension.height / 2;
+        const bulletBuffer = 6;
+        const bulletYOffset = direction === "up" ?
+            actor.center.y - halfActorHeight - bulletBuffer :
+            actor.center.y + halfActorHeight + bulletBuffer;
 
+        const spaceBetweenBullets = 240;
         const isInSamePosition = b => {
-            return b.center.y >= bulletY + 60 * vector
+            const isYTheSame = direction === "up" ?
+                b.center.y >= bulletYOffset - spaceBetweenBullets :
+                b.center.y <= bulletYOffset + spaceBetweenBullets;
+            return isYTheSame
                 && (
                     b.center.x >= bulletXLeft
                     && b.center.x <= bulletXRight
                 );
         };
-        if (this.playerBullets.some(isInSamePosition)) {
-            // Don't add a new bullet if one already exists at same x and similar y
-            return;
+
+        // todo: Better domain term for this.
+        // the next two if blocks prevent ufo bullets from prevent player bullets
+        // from spawning.
+        if (direction === "down") {
+            if (this.ufoBullets.some(isInSamePosition)) {
+                // Don't add a new bullet if one already exists at same x and similar y
+                return;
+            }
         }
-        if (this.ufoBullets.some(isInSamePosition)) {
-            // Don't add a new bullet if one already exists at same x and similar y
-            return;
+        if (direction === "up") {
+            if (this.playerBullets.some(isInSamePosition)) {
+                // Don't add a new bullet if one already exists at same x and similar y
+                return;
+            }
         }
 
-        const bullet = new Circle({ x: actor.center.x, y: bulletY }, 4, "#FFFF77");
+        const bullet = new Circle({ x: actor.center.x, y: bulletYOffset }, 4, "#FFFF77");
         bullet.draw(this.drawingContext);
         return bullet;
     }
