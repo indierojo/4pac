@@ -1,5 +1,6 @@
 import { Button } from "./models/button";
 import { Circle } from "./models/circle";
+import { Glyph } from "./engine/Glyph";
 import { Spaceship } from "./models/spaceship";
 import { Ufo } from "./models/ufo";
 
@@ -9,7 +10,8 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
 
     private isGameOver: boolean;
     private player: Spaceship;
-    private bullets: Array<Circle>;
+    private playerBullets: Array<Circle>;
+    private ufoBullets: Array<Circle>;
     private ufos: Array<Ufo>;
     private restartButton: Button;
 
@@ -62,7 +64,8 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     }
 
     private initGameModels = () => {
-        this.bullets = [];
+        this.playerBullets = [];
+        this.ufoBullets = [];
         this.player = new Spaceship({ x: 250, y: 450 }, 50, "#FFFF77");
         this.player.draw(this.drawingContext);
 
@@ -140,10 +143,10 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         window.requestNextAnimationFrame(this.animate);
     }
 
-    private addNewBullet = () => {
-        const bulletXLeft = this.player.center.x - 30;
-        const bulletXRight = this.player.center.x + 30;
-        const bulletY = this.player.bounds.top - 6;
+    private addNewBullet = (actor: Glyph, direction = -1) => {
+        const bulletXLeft = actor.center.x - actor.dimension.width / 2;
+        const bulletXRight = actor.center.x + actor.dimension.width / 2;
+        const bulletY = actor.center.y + (actor.dimension.height / 2) + 6 * direction;
 
         const isInSamePosition = b => {
             return b.center.y >= bulletY - 60
@@ -152,14 +155,18 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
                     && b.center.x <= bulletXRight
                 );
         };
-        if (this.bullets.some(isInSamePosition)) {
+        if (this.playerBullets.some(isInSamePosition)) {
+            // Don't add a new bullet if one already exists at same x and similar y
+            return;
+        }
+        if (this.ufoBullets.some(isInSamePosition)) {
             // Don't add a new bullet if one already exists at same x and similar y
             return;
         }
 
-        const bullet = new Circle({ x: this.player.center.x, y: bulletY }, 4, "#FFFF77");
+        const bullet = new Circle({ x: actor.center.x, y: bulletY }, 4, "#FFFF77");
         bullet.draw(this.drawingContext);
-        this.bullets.push(bullet);
+        return bullet;
     }
 
     private updatePlayerLocation = () => {
@@ -168,7 +175,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         if (this.leftPressed)  { stepX = -10; }
         if (this.upPressed)    { stepY = -10; }
         if (this.downPressed)  { stepY = 10; }
-        if (this.rightPressed) { stepX = 10;}
+        if (this.rightPressed) { stepX = 10; }
 
         if (stepX === 0 && stepY === 0) {
             return;
@@ -217,11 +224,16 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     }
 
     private updateBulletPositions = () => {
-        if (this.bullets.length === 0) {
-            return;
+        if (this.playerBullets.length > 0) {
+            this.updatePlayerBullets();
         }
+        if (this.ufoBullets.length > 0) {
+            this.updateUfoBullets();
+        }
+    }
 
-        this.bullets.forEach(bullet => {
+    private updatePlayerBullets = () => {
+        this.playerBullets.forEach(bullet => {
             // erase all bullets
             bullet.erase(this.drawingContext);
 
@@ -233,11 +245,28 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         });
     }
 
+    private updateUfoBullets = () => {
+        this.ufoBullets.forEach(bullet => {
+            // erase all bullets
+            bullet.erase(this.drawingContext);
+
+            if (bullet.center.y > this.canvas.height - 10) {
+                // redraw any that haven't reached the bottom of the screen
+                bullet.setCenter({x: bullet.center.x, y: bullet.center.y + 10});
+                bullet.draw(this.drawingContext);
+            }
+        });
+    }
+
     private handleBullets = () => {
         this.updateBulletPositions();
 
         if (this.spacePressed) {
-            this.addNewBullet();
+            const bullet = this.addNewBullet(this.player);
+            if (bullet) {
+                // Can return no bullet if we can't shoot
+                this.playerBullets.push(bullet);
+            }
         }
     }
 
@@ -260,8 +289,14 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
             this.handleGameOver(true);
             return;
         }
+        this.ufoBullets.forEach(b => {
+            if (b.collidesWith(this.player)) {
+                this.handleGameOver(false);
+                return;
+            }
+        });
 
-        this.bullets.forEach(b => {
+        this.playerBullets.forEach(b => {
             this.ufos
                 .filter(u => !u.isDestroyed)
                 .forEach(u => {
