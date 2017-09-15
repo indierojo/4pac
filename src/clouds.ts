@@ -149,7 +149,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         const bulletY = actor.center.y + (actor.dimension.height / 2) + 6 * direction;
 
         const isInSamePosition = b => {
-            return b.center.y >= bulletY - 60
+            return b.center.y >= bulletY + 60 * direction
                 && (
                     b.center.x >= bulletXLeft
                     && b.center.x <= bulletXRight
@@ -224,37 +224,35 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     }
 
     private updateBulletPositions = () => {
-        if (this.playerBullets.length > 0) {
-            this.updatePlayerBullets();
-        }
-        if (this.ufoBullets.length > 0) {
-            this.updateUfoBullets();
-        }
+        this.updatePlayerBullets();
+        this.updateUfoBullets();
     }
 
     private updatePlayerBullets = () => {
-        this.playerBullets.forEach(bullet => {
+        this.playerBullets.forEach((b) => {
             // erase all bullets
-            bullet.erase(this.drawingContext);
-
-            if (bullet.center.y > 10) {
-                // redraw any that haven't reached the top of the screen
-                bullet.setCenter({x: bullet.center.x, y: bullet.center.y - 10});
-                bullet.draw(this.drawingContext);
-            }
+            b.erase(this.drawingContext);
+        });
+        const isInPlay = b => { return b.center.y > 10; };
+        this.playerBullets = this.playerBullets.filter(isInPlay);
+        // ^ remove all the bullets that are off screen
+        this.playerBullets.forEach(bullet => {
+            bullet.setCenter({x: bullet.center.x, y: bullet.center.y - 10});
+            bullet.draw(this.drawingContext);
         });
     }
 
     private updateUfoBullets = () => {
-        this.ufoBullets.forEach(bullet => {
+        this.ufoBullets.forEach((b) => {
             // erase all bullets
-            bullet.erase(this.drawingContext);
-
-            if (bullet.center.y > this.canvas.height - 10) {
-                // redraw any that haven't reached the bottom of the screen
-                bullet.setCenter({x: bullet.center.x, y: bullet.center.y + 10});
-                bullet.draw(this.drawingContext);
-            }
+            b.erase(this.drawingContext);
+        });
+        const isInPlay = b => { return b.center.y < this.canvas.height - 10; };
+        this.ufoBullets = this.ufoBullets.filter(isInPlay);
+        // ^ remove all the bullets that are off screen
+        this.ufoBullets.forEach(bullet => {
+            bullet.setCenter({x: bullet.center.x, y: bullet.center.y + 10});
+            bullet.draw(this.drawingContext);
         });
     }
 
@@ -268,6 +266,14 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
                 this.playerBullets.push(bullet);
             }
         }
+        this.ufos
+            .filter(u => !u.isDestroyed)
+            .forEach(u => {
+                const bullet = this.addNewBullet(u, 1);
+                if (bullet) {
+                    this.ufoBullets.push(bullet);
+                }
+            });
     }
 
     private checkForPlayerCollisions = () => {
@@ -285,17 +291,6 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
     }
 
     private checkForBulletCollisions = () => {
-        if (this.ufos.every(u => u.isDestroyed)) {
-            this.handleGameOver(true);
-            return;
-        }
-        this.ufoBullets.forEach(b => {
-            if (b.collidesWith(this.player)) {
-                this.handleGameOver(false);
-                return;
-            }
-        });
-
         this.playerBullets.forEach(b => {
             this.ufos
                 .filter(u => !u.isDestroyed)
@@ -305,6 +300,16 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
                         u.erase(this.drawingContext);
                     }
                 });
+        });
+        if (this.ufos.every(u => u.isDestroyed)) {
+            this.handleGameOver(true);
+            return;
+        }
+        this.ufoBullets.forEach(b => {
+            if (b.collidesWith(this.player)) {
+                this.handleGameOver(false);
+                return;
+            }
         });
     }
 
