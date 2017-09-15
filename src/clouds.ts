@@ -4,6 +4,8 @@ import { Glyph } from "./engine/Glyph";
 import { Spaceship } from "./models/spaceship";
 import { Ufo } from "./models/ufo";
 
+type Direction = "up" | "down";
+
 export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled */ {
     private canvas: HTMLCanvasElement;
     private drawingContext: CanvasRenderingContext2D;
@@ -143,13 +145,14 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         window.requestNextAnimationFrame(this.animate);
     }
 
-    private addNewBullet = (actor: Glyph, direction = -1) => {
+    private addNewBullet = (actor: Glyph, direction: Direction) => {
+        const vector = direction === "up" ? 1 : -1;
         const bulletXLeft = actor.center.x - actor.dimension.width / 2;
         const bulletXRight = actor.center.x + actor.dimension.width / 2;
-        const bulletY = actor.center.y + (actor.dimension.height / 2) + 6 * direction;
+        const bulletY = actor.center.y + (actor.dimension.height / 2) + 6 * vector;
 
         const isInSamePosition = b => {
-            return b.center.y >= bulletY + 60 * direction
+            return b.center.y >= bulletY + 60 * vector
                 && (
                     b.center.x >= bulletXLeft
                     && b.center.x <= bulletXRight
@@ -260,7 +263,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         this.updateBulletPositions();
 
         if (this.spacePressed) {
-            const bullet = this.addNewBullet(this.player);
+            const bullet = this.addNewBullet(this.player, "up");
             if (bullet) {
                 // Can return no bullet if we can't shoot
                 this.playerBullets.push(bullet);
@@ -269,7 +272,7 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         this.ufos
             .filter(u => !u.isDestroyed)
             .forEach(u => {
-                const bullet = this.addNewBullet(u, 1);
+                const bullet = this.addNewBullet(u, "down");
                 if (bullet) {
                     this.ufoBullets.push(bullet);
                 }
