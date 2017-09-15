@@ -311,6 +311,9 @@ export default class Clouds /* implements IGameBootstrapper, IKeyboardControlled
         this.ufoBullets.forEach(b => {
             if (b.collidesWith(this.player)) {
                 this.handleGameOver(false);
+                b.erase(this.drawingContext);
+                b.color = "red";
+                b.draw(this.drawingContext);
                 return;
             }
         });

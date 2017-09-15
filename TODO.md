@@ -27,6 +27,7 @@ Clouds
  - Collision detection is too naive (see Engine/Collision above)
  - Push UFO update logic into the UFO (see Engine/AI above)
  - Push bullet logic into a behavior.
+ - Extract out 'draw glyph as red' logic to a function.
 
 Snake
 -----
