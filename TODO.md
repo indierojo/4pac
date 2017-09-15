@@ -24,10 +24,9 @@ Clouds
 ------
  - Better styling of Game over button
    - Determine font height: http://stackoverflow.com/questions/1134586/how-can-you-find-the-height-of-text-on-an-html-canvas/7462767#7462767
- - Enemies fire bullets at player
-   - Player hit == game over
  - Collision detection is too naive (see Engine/Collision above)
  - Push UFO update logic into the UFO (see Engine/AI above)
+ - Push bullet logic into a behavior.
 
 Snake
 -----
